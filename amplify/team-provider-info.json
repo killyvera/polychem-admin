@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-polychemadmin-dev-123945-authRole",
+      "UnauthRoleArn": "arn:aws:iam::500490101011:role/amplify-polychemadmin-dev-123945-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::500490101011:role/amplify-polychemadmin-dev-123945-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-polychemadmin-dev-123945-deployment",
+      "UnauthRoleName": "amplify-polychemadmin-dev-123945-unauthRole",
+      "StackName": "amplify-polychemadmin-dev-123945",
+      "StackId": "arn:aws:cloudformation:us-east-1:500490101011:stack/amplify-polychemadmin-dev-123945/64367e50-351d-11ed-9ec4-123bd7e35503",
+      "AmplifyAppId": "d1w6r2ncpz522b"
+    }
+  }
+}

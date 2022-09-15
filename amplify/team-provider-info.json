@@ -10,6 +10,16 @@
       "StackName": "amplify-polychemadmin-dev-123945",
       "StackId": "arn:aws:cloudformation:us-east-1:500490101011:stack/amplify-polychemadmin-dev-123945/64367e50-351d-11ed-9ec4-123bd7e35503",
       "AmplifyAppId": "d1w6r2ncpz522b"
+    },
+    "categories": {
+      "auth": {
+        "polychemadminb8d3460c": {
+          "userPoolId": "us-east-1_U9vwu5wnL",
+          "userPoolName": "polychem-dashboard",
+          "webClientId": "4786aloid6vauik75sj22ni0bk",
+          "nativeClientId": "4786aloid6vauik75sj22ni0bk"
+        }
+      }
     }
   }
 }

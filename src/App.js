@@ -7,14 +7,16 @@ import { DashboardMenu } from './components/DashboardMenu';
 import {Users} from './pages/Users'
 
 import awsExports from './aws-exports';
+import { NavBar } from './components/NavBar';
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   console.log(user)
   return (
     <>
+    <NavBar user={user} signOut={signOut} />
     <DashboardMenu />
-    <Users user={user} signOut={signOut} />
+    <Users/>
     </>
   );
 }

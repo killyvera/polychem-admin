@@ -1,4 +1,4 @@
-
+import {Route, Routes} from 'react-router-dom'
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -15,8 +15,12 @@ function App({ signOut, user }) {
   return (
     <>
     <NavBar user={user} signOut={signOut} />
+    <div style={{display:'flex', height: '100vh'}}>
     <DashboardMenu />
-    <Users/>
+    <Routes>
+    <Route path='/' element={<Users/>} />
+    </Routes>
+    </div>
     </>
   );
 }

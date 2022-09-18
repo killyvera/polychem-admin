@@ -57,7 +57,7 @@ export function userList() {
 
     const input = {
         UserPoolId: userPoolID,
-        AttributesToGet: ['sub']
+        AttributesToGet: ['email']
     }
     const client = new CognitoIdentityProviderClient(adminCredentials);
     const command = new ListUsersCommand(input)

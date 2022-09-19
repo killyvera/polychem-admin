@@ -26,5 +26,6 @@ const style = {
   paddingTop: '100px',
   width: '12%',
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  height: '100vh'
 }

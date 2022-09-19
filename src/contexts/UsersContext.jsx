@@ -12,20 +12,23 @@ export const UsersContextProvider = (props) => {
         usersList().then(data => setUsers(data))
     }, [toggle]);
 
-    const addUser = (phone_number) => {
-        createUser(phone_number)
-            .then(data => setUsers([...users, data.User]))
+    const addUser = (phone_number, name) => {
+        createUser(phone_number, name).then(async ()=>(setToggle(!toggle)))
+            //.then(data => setUsers([...users, data.User]))
     }
 
-    const popUser = (phone_number)=>{
-        deleteUser(phone_number).then(() => setUsers(users.filter((user)=> user.phone_number !== phone_number)) )
+    const popUser = (user)=>{
+        deleteUser(user)
+        //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
     return(
         <UsersContext.Provider value={{
             addUser,
             popUser,
             users,
-            setToggle
+            toggle,
+            setToggle,
+            setUsers
         }} >
             {props.children}
         </UsersContext.Provider>

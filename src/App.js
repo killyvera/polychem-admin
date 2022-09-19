@@ -14,13 +14,12 @@ import {UsersContextProvider} from './contexts/UsersContext'
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
-  console.log(user)
-  
+
   return (
     <>
     <UsersContextProvider>
     <NavBar user={user} signOut={signOut} />
-    <div style={{display:'flex', height: '100vh'}}>
+    <div style={{display:'flex'}}>
     <DashboardMenu />
     <Routes>
     <Route path='/' element={<Home/>} />

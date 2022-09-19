@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { UsersContext } from '../contexts/UsersContext'
 import { Button } from '@aws-amplify/ui-react'
+import {deleteUser} from "../services/UserServices";
 
-export const ProductList = () => {
-    const { users } = useContext(UsersContext)
-    console.log(users)
-
+export const UsersList = () => {
+    const {users, popUser,} = useContext(UsersContext)
+        //users.filter((user)=>user.Username !== user.Username)
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -24,11 +24,11 @@ export const ProductList = () => {
                     //height: '50px'
                 }} >
                     <div style={{ display: 'flex',width: '50%', justifyContent:'space-between', alignItems:'center' }} >
-                        <h4>David Vera Garcia</h4>
-                        <h4>{user.Attributes[0].Value}</h4>
+                        <h4>{user.Attributes[0].Name === 'name'? user.Attributes[0].Value : '' }</h4>
+                        <h4>{user.Attributes[1].Name === 'email'? user.Attributes[1].Value : '' }</h4>
                     </div>
                     <div style={{padding:'18px'}} >
-                    <Button>Delete</Button>
+                    <Button onClick={()=>(popUser(user.Username))} >Borrar Usuario</Button>
                     </div>
                 </div>
             ))}

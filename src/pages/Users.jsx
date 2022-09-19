@@ -1,10 +1,12 @@
 import React from 'react'
-import { createUser, deleteUser, userList } from '../services/UserServices'
-userList()
+import { ProductList } from '../components/ProductList'
+
 export function Users() {
 
   return (
-    <div style={{paddingTop: '100px'}}>user</div>
-
+    <div style={{width: '72vh'}} >
+    <h1 style={{paddingTop: '100px'}}>Lista de Usuarios</h1>
+    <ProductList />
+    </div>
   )
 }

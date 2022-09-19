@@ -9,6 +9,8 @@ import {Home} from './pages/Home'
 
 import awsExports from './aws-exports';
 import { NavBar } from './components/NavBar';
+import {UsersContextProvider} from './contexts/UsersContext'
+
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
@@ -16,6 +18,7 @@ function App({ signOut, user }) {
   
   return (
     <>
+    <UsersContextProvider>
     <NavBar user={user} signOut={signOut} />
     <div style={{display:'flex', height: '100vh'}}>
     <DashboardMenu />
@@ -24,6 +27,7 @@ function App({ signOut, user }) {
     <Route path='/users' element={<Users/>} />
     </Routes>
     </div>
+    </UsersContextProvider>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Authenticator, Button } from '@aws-amplify/ui-react'
+import { Button } from '@aws-amplify/ui-react'
 import { Link } from 'react-router-dom'
 
 

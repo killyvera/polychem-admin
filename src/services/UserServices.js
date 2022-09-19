@@ -13,24 +13,15 @@ export function createUser(phone_number) { //CREATE USER COGNITO
         UserPoolId: userPoolID,
         Username: phone_number,
         DesiredDeliveryMediums: [
-            'SMS'
+            'EMAIL'
         ],
         TemporaryPassword: 'Password@123',
-        UserAttributes: [
-            {
-                Name: 'phone_number_verified',
-                Value: 'true'
-            },
-            {
-                Name: 'phone_number',
-                Value: phone_number
-            },
-        ]
+
     }
     const command = new AdminCreateUserCommand(newUserData);
     return (
         client.send(command)
-            .then(res => console.log(res.data))
+            .then(res =>res.User)
             .catch(function (err) {
                 console.log(err.message);
             })
@@ -46,14 +37,14 @@ export function deleteUser(username) { // DELETE USER COGNITO
     const command = new AdminDeleteUserCommand(input);
     return (
         client.send(command)
-            .then(res => res.data)
+            .then(res => res.User)
             .catch(function (err) {
                 console.log(err.message);
             })
     )
 }
 
-export function userList() {
+export function usersList() {
 
     const input = {
         UserPoolId: userPoolID,
@@ -63,7 +54,7 @@ export function userList() {
     const command = new ListUsersCommand(input)
     return (
         client.send(command)
-            .then(res => res.data)
+            .then(res => res.Users)
             .catch(function (err) {
                 console.log(err.message)
             }

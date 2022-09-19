@@ -6,10 +6,11 @@ export const UsersContext = createContext();
 export const UsersContextProvider = (props) => {
 
     const [users, setUsers] = useState([]);
+    const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
         usersList().then(data => setUsers(data))
-    }, [setUsers]);
+    }, [toggle]);
 
     const addUser = (phone_number) => {
         createUser(phone_number)
@@ -23,7 +24,8 @@ export const UsersContextProvider = (props) => {
         <UsersContext.Provider value={{
             addUser,
             popUser,
-            users
+            users,
+            setToggle
         }} >
             {props.children}
         </UsersContext.Provider>

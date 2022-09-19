@@ -3,25 +3,28 @@ import { useFormik } from 'formik';
 import { UsersContext } from '../contexts/UsersContext'
 
 export const UserForm = () => {
-    const {addUser} = useContext(UsersContext)
+    const { addUser } = useContext(UsersContext)
     // Pass the useFormik() hook initial form values and a submit function that will
     // be called when the form is submitted
     const formik = useFormik({
         initialValues: {
-            phone_number: '',
             name: '',
             email: '',
+            puesto: '',
+            departamento: ''
         },
         onSubmit: values => {
-            const phone_number = values.phone_number
             const email = values.email
             const name = values.name
-            addUser(phone_number, name)
-            console.log(phone_number, email, name)
+            const puesto = values.puesto
+            const departamento = values.departamento
+            addUser(email, name, puesto, departamento)
+            console.log(email, name, puesto, departamento)
+            formik.resetForm()
         },
     });
     return (
-        <>
+        <div style={{backGroundColor:'red'}} >
             <h1 style={{ paddingTop: '100px' }} >Agregar Usuario</h1>
             <form onSubmit={formik.handleSubmit}>
 
@@ -33,19 +36,37 @@ export const UserForm = () => {
                     onChange={formik.handleChange}
                     value={formik.values.name}
                 />
-                <label htmlFor="email">Celular</label>
 
+                <label htmlFor="email">Em@il</label>
                 <input
-                    id="phone_number"
-                    name="phone_number"
-                    type="phone_number"
+                    id="email"
+                    name="email"
+                    type="email"
                     onChange={formik.handleChange}
-                    value={formik.values.phone_number}
+                    value={formik.values.email}
+                />
+
+                <label htmlFor="puesto">Puesto</label>
+                <input
+                    id="puesto"
+                    name="puesto"
+                    type="puesto"
+                    onChange={formik.handleChange}
+                    value={formik.values.puesto}
+                />
+
+                <label htmlFor="departamento">Departamento</label>
+                <input
+                    id="departamento"
+                    name="departamento"
+                    type="departamento"
+                    onChange={formik.handleChange}
+                    value={formik.values.departamento}
                 />
 
 
                 <button type="submit">Submit</button>
             </form>
-        </>
+        </div>
     );
 };

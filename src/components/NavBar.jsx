@@ -8,7 +8,7 @@ export const NavBar = ({ signOut, user }) => {
             <div style={style}>
                 <div style={{marginLeft:'14px'}} >
                     <img style={{ height:'30px' }} src={Images.logo} alt="profile_bg" />
-                    <p style={{marginTop:'-4px'}} ><b>Bienvenido, </b>{user.attributes.email}</p>
+                    <p style={{marginTop:'-4px'}} ><b>Bienvenido, </b>{user.attributes.name}</p>
                 </div>
                 <Button
                     style={{marginRight: '14px', backgroundColor:'hsl(354deg 73% 43%)' }}

@@ -8,10 +8,10 @@ import { adminCredentials, userPoolID } from "../constants/AdminConfig";
 
 const client = new CognitoIdentityProviderClient(adminCredentials);
 
-export function createUser(phone_number,name) { //CREATE USER COGNITO
+export function createUser(email,name, puesto, departamento) { //CREATE USER COGNITO
     const newUserData = {
         UserPoolId: userPoolID,
-        Username: phone_number,
+        Username: email,
         DesiredDeliveryMediums: [
             'EMAIL'
         ],
@@ -19,11 +19,19 @@ export function createUser(phone_number,name) { //CREATE USER COGNITO
         UserAttributes:[
             {
                 Name: 'email',
-                Value: phone_number
+                Value: email
             },
             {
                 Name: 'name',
                 Value: name
+            },
+            {
+                Name:'custom:puesto',
+                Value: puesto
+            },
+            {
+                Name: 'custom:departamento',
+                Value: departamento
             }
         ]
 

@@ -20,13 +20,15 @@ Amplify.configure(awsExports);
 function App({ signOut, user }) {
 
     return (
-        <Box>
-            <NavBar user={user} signOut={signOut} />
-            <Stack direction={'row'} >
-                <SideBar />
-                <UserPage/>
-            </Stack>
-        </Box>
+        <UsersContextProvider>
+            <Box>
+                <NavBar user={user} signOut={signOut} />
+                <Stack direction={'row'} >
+                    <SideBar />
+                    <UserPage />
+                </Stack>
+            </Box>
+        </UsersContextProvider>
     );
 }
 export default withAuthenticator(App);

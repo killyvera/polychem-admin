@@ -1,34 +1,42 @@
+import { AppBar, Typography, Toolbar, Stack, Button, Box } from "@mui/material";
+import Image from 'mui-image'
 import React from 'react'
-import { Authenticator, Button } from '@aws-amplify/ui-react'
 import Images from '../constants/Images'
 
-export const NavBar = ({ signOut, user }) => {
+import { Authenticator } from '@aws-amplify/ui-react'
+
+export function NavBar({ signOut, user }) {
+    console.log(user)
     return (
         <Authenticator>
-            <div style={style}>
-                <div style={{marginLeft:'14px'}} >
-                    <img style={{ height:'30px' }} src={Images.logo} alt="profile_bg" />
-                    <p style={{marginTop:'-4px'}} ><b>Bienvenido, </b>{user.attributes.name}</p>
-                </div>
-                <Button
-                    style={{marginRight: '14px', backgroundColor:'hsl(354deg 73% 43%)' }}
-                    onClick={signOut}
-                    size='small'
-                    variation="primary"
-                >SignOut</Button>
-            </div>
+            <AppBar position="sticky">
+                <Box>
+                    <Toolbar sx={{ justifyContent: 'space-between' }} >
+                        <Stack
+                            spacing={2}
+                            direction={'row'} >
+
+                            <Image
+                                src={Images.logo}
+                                width={'110px'}
+                                duration={800} />
+
+                            <Typography
+                                pl={7}
+                                alignSelf={'center'}
+                                sx={{ display: { xs: 'none', sm: 'block' } }} >
+                                <b>Bienvenido, </b>
+                                {user.attributes.name}
+                            </Typography>
+                        </Stack>
+                        <Button
+                        onClick={signOut}
+                            variant="contained">
+                            Salir
+                        </Button>
+                    </Toolbar>
+                </Box>
+            </AppBar>
         </Authenticator>
     )
 }
-
-const style = {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '8px',
-    backgroundColor: '#f7941d',
-    position:'fixed'
-
-}
-

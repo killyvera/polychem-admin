@@ -7,7 +7,7 @@ export default function Sidebar() {
     width={200}
     height={'100%'}
     position={'fixed'}
-    sx={{ boxShadow: 25 }} >
+    sx={{ zIndex: 1 }} >
     <Typography>SideBar</Typography>
 </Box>
   )

@@ -26,11 +26,14 @@ export function NavBar({ signOut, user }) {
                                 alignSelf={'center'}
                                 sx={{ display: { xs: 'none', sm: 'block' } }} >
                                 <b>Bienvenido, </b>
-                                {user.attributes.name}
+                                {user.attributes.name ?
+                                    user.attributes.name :
+                                    user.attributes.email ?
+                                        user.attributes.email : user.attributes.phone_number}
                             </Typography>
                         </Stack>
                         <Button
-                        onClick={signOut}
+                            onClick={signOut}
                             variant="contained">
                             Salir
                         </Button>

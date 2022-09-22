@@ -3,8 +3,10 @@ import {
     AdminCreateUserCommand,
     AdminUpdateUserAttributesCommand,
     AdminDeleteUserCommand,
-    ListUsersCommand
+    ListUsersCommand,
+    AdminGetUserCommand
 } from "@aws-sdk/client-cognito-identity-provider";
+
 import { adminCredentials, userPoolID } from "../constants/AdminConfig";
 
 const client = new CognitoIdentityProviderClient(adminCredentials);
@@ -63,14 +65,10 @@ export function deleteUser(username) { // DELETE USER COGNITO
     )
 }
 
-export function editUser(email,name, puesto, departamento) { //CREATE USER COGNITO
-    const newUserData = {
+export function editUser(userId,email,name, puesto, departamento) { //CREATE USER COGNITO
+    const UserData = {
         UserPoolId: userPoolID,
-        Username: email,
-        DesiredDeliveryMediums: [
-            'EMAIL'
-        ],
-        TemporaryPassword: 'Password@123',
+        Username: userId,
         UserAttributes:[
             {
                 Name: 'email',
@@ -89,9 +87,8 @@ export function editUser(email,name, puesto, departamento) { //CREATE USER COGNI
                 Value: departamento
             }
         ]
-
     }
-    const command = new AdminCreateUserCommand(newUserData);
+    const command = new AdminUpdateUserAttributesCommand(UserData);
     return (
         client.send(command)
             .then(res =>res)
@@ -101,6 +98,20 @@ export function editUser(email,name, puesto, departamento) { //CREATE USER COGNI
     )
 }
 
+export function getUser(userId){
+    const UserData = {
+        UserPoolId: userPoolID,
+        Username: userId
+    }
+    const command = new AdminGetUserCommand(UserData);
+    return (
+        client.send(command)
+            .then(res =>res)
+            .catch(function (err) {
+                console.log(err.message);
+            })
+    )
+}
 
 export function usersList() {
 

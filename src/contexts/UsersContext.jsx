@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { createUser, deleteUser, usersList } from "../services/UserServices";
+import { createUser, deleteUser, usersList, editUser, getUser } from "../services/UserServices";
 
 export const UsersContext = createContext();
 
@@ -17,22 +17,29 @@ export const UsersContextProvider = (props) => {
             //.then(data => setUsers([...users, data.User]))
     }
 
-    const editUser =(phone_user, name, puesto, departamento)=>{
-        
+    const updateUser =(userId,email,name, puesto, departamento)=>{
+        editUser(userId,email,name, puesto, departamento).then(async ()=>(setToggle(!toggle)))
     }
 
     const popUser = (user)=>{
         deleteUser(user).then(async ()=>(setToggle(!toggle)))
         //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
+    const giveMeUser = (userId)=>{
+        getUser(userId).then(async ()=>(setToggle(!toggle)))
+        //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
+    }
+
     return(
         <UsersContext.Provider value={{
             addUser,
+            updateUser,
             popUser,
             users,
             toggle,
             setToggle,
-            setUsers
+            setUsers,
+            giveMeUser
         }} >
             {props.children}
         </UsersContext.Provider>

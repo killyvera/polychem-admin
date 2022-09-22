@@ -12,8 +12,8 @@ import DialogForm from '../components/DialogForm';
 import DeleteConfirmation from '../components/DeleteConfirmation';
 
 export default function UserPage() {
-  const { users, popUser, } = useContext(UsersContext)
-
+  const { users, giveMeUser, } = useContext(UsersContext)
+  //giveMeUser('4cf7cc9e-6cea-4b06-bf8e-7c78729092ff')
   const columns = [
     { field: 'id', headerName: 'ID', width: 300 },
     { field: 'name', headerName: 'Nombre', width: 230 },

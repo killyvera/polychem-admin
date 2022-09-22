@@ -1,6 +1,7 @@
 import {
     CognitoIdentityProviderClient,
     AdminCreateUserCommand,
+    AdminUpdateUserAttributesCommand,
     AdminDeleteUserCommand,
     ListUsersCommand
 } from "@aws-sdk/client-cognito-identity-provider";
@@ -62,11 +63,50 @@ export function deleteUser(username) { // DELETE USER COGNITO
     )
 }
 
+export function editUser(email,name, puesto, departamento) { //CREATE USER COGNITO
+    const newUserData = {
+        UserPoolId: userPoolID,
+        Username: email,
+        DesiredDeliveryMediums: [
+            'EMAIL'
+        ],
+        TemporaryPassword: 'Password@123',
+        UserAttributes:[
+            {
+                Name: 'email',
+                Value: email
+            },
+            {
+                Name: 'name',
+                Value: name
+            },
+            {
+                Name:'custom:puesto',
+                Value: puesto
+            },
+            {
+                Name: 'custom:departamento',
+                Value: departamento
+            }
+        ]
+
+    }
+    const command = new AdminCreateUserCommand(newUserData);
+    return (
+        client.send(command)
+            .then(res =>res)
+            .catch(function (err) {
+                console.log(err.message);
+            })
+    )
+}
+
+
 export function usersList() {
 
     const input = {
         UserPoolId: userPoolID,
-        AttributesToGet: ['email']
+        AttributesToGet: ['email', 'name']
     }
     const client = new CognitoIdentityProviderClient(adminCredentials);
     const command = new ListUsersCommand(input)

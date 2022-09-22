@@ -9,6 +9,7 @@ import Stack from '@mui/material/Stack';
 import { Container } from '@mui/system';
 
 import DialogForm from '../components/DialogForm';
+import DeleteConfirmation from '../components/DeleteConfirmation';
 
 export default function UserPage() {
   const { users, popUser, } = useContext(UsersContext)
@@ -24,7 +25,7 @@ export default function UserPage() {
       width: 250,
       renderCell: (params) => {
         const onDelete = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
+          //e.stopPropagation(); // don't select this row after clicking
   
           const api = params.api;
           const thisRow = {};
@@ -35,12 +36,11 @@ export default function UserPage() {
             .forEach(
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
-              console.log(thisRow)
-          return popUser(thisRow.id)
+          return [thisRow.id, thisRow.name]//popUser(thisRow.id)
         };
 
         const onEdit = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
+          //e.stopPropagation(); // don't select this row after clicking
   
           const api = params.api;
           const thisRow = {};
@@ -52,16 +52,14 @@ export default function UserPage() {
               (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
             );
               console.log(thisRow)
-          return popUser(thisRow.id)
+          return thisRow.id
         };
   
         return <Stack direction="row" spacing={2}>
           <Button variant="contained"endIcon={<EditIcon />}>
             Editar
           </Button>
-          <Button variant="outlined" onClick={onDelete} startIcon={<DeleteIcon />}>
-            Borrar
-          </Button>
+          <DeleteConfirmation user={onDelete()} />
         </Stack>;
       }
     },
@@ -77,7 +75,7 @@ export default function UserPage() {
 
   console.log(rows)
   return (
-    <Container style={{height:'71vh', width:'100%',}}>
+    <Container style={{height:'70vh', width:'100%',}}>
       <Toolbar style={{justifyContent: 'space-between'}} >
       <Typography variant='h5' >Usuarios</Typography>
       <DialogForm />

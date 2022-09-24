@@ -20,27 +20,22 @@ const style = {
     p: 4,
 };
 
-export default function DeleteConfirmation(userData) {
-    const [userId, setUserId] = useState('ID Data')
-    const { popUser} = useContext(UsersContext)
+export default function DeleteConfirmation(user) {
     const [open, setOpen] =useState(false);
+    const [userName, setuserName] = useState('Name Data')
+  
+
     const handleOpen = () => {
-
-        setOpen(true)};
-
+        setOpen(true)
+        setuserName(user.name)
+        };
     const handleClose = () => {
         setOpen(false)
     };
-    const handleDelete = () => {
-        //popUser(Data.userData[0])
-        setOpen(false)
-        
-    }
-console.log(userData)
     return (
         <div>
-            <Button variant="outlined" onClick={handleOpen} startIcon={<DeleteIcon />}>
-                Borrar
+            <Button variant="outlined" onClick={handleOpen}>
+                Detalles
             </Button>
             <Modal
                 open={open}
@@ -50,14 +45,13 @@ console.log(userData)
             >
                 <Box sx={style}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Borrar Usuario
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                        {userData[1]}
+                        {userName}
                     </Typography>
                     <Stack>
-                        <Button style={{ marginTop: '10px' }} onClick={handleDelete} variant='contained' type="submit">Confirmar</Button>
-                        <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='outlined'>Cancelar</Button>
+                        <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='contained' type="submit">Cerrar</Button>
+
                     </Stack>
                 </Box>
             </Modal>

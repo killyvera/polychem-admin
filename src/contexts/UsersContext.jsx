@@ -6,6 +6,7 @@ export const UsersContext = createContext();
 export const UsersContextProvider = (props) => {
 
     const [users, setUsers] = useState([]);
+    const [user, setUser] = useState([]);
     const [toggle, setToggle] = useState(false)
 
     useEffect(() => {
@@ -25,8 +26,9 @@ export const UsersContextProvider = (props) => {
         deleteUser(user).then(async ()=>(setToggle(!toggle)))
         //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
-    const giveMeUser = (userId)=>{
-        getUser(userId).then(async ()=>(setToggle(!toggle)))
+    const giveMeUser = async (userId)=>{
+       const data = await getUser(userId);
+        return (()=>(setUser(data.UserAttributes)));
         //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
 
@@ -35,7 +37,9 @@ export const UsersContextProvider = (props) => {
             addUser,
             updateUser,
             popUser,
+            setUser,
             users,
+            user,
             toggle,
             setToggle,
             setUsers,

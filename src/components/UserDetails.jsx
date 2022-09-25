@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 
 import { UsersContext } from '../contexts/UsersContext'
+import { getUser } from '../services/UserServices'
 
 const style = {
     position: 'absolute',
@@ -20,22 +21,33 @@ const style = {
     p: 4,
 };
 
-export default function DeleteConfirmation(user) {
-    const [open, setOpen] =useState(false);
-    const [userName, setuserName] = useState('Name Data')
-  
+export default function DeleteConfirmation(data) {
+    const [open, setOpen] = useState(false);
+    const [name, setName] = useState('')
+    const [id, setId] = useState('')
+    const [user, setUser] = useState({})
+
+    useEffect(()=>{
+        async function fectchData(){
+        getUser(data.data.id).then(data=>setUser(data.UserAttributes))
+    }
+    if (open){
+        fectchData()
+    }
+    },[open])
 
     const handleOpen = () => {
         setOpen(true)
-        setuserName(user.name)
-        };
+        setName(data.data.name)
+        setId(data.data.id)
+    };
     const handleClose = () => {
         setOpen(false)
     };
     return (
         <div>
             <Button variant="outlined" onClick={handleOpen}>
-                Detalles
+                Editar
             </Button>
             <Modal
                 open={open}
@@ -44,15 +56,19 @@ export default function DeleteConfirmation(user) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                        {userName}
-                    </Typography>
-                    <Stack>
-                        <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='contained' type="submit">Cerrar</Button>
 
-                    </Stack>
+                    <div>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            {user[0]?.Value?  user[0]?.Value :'Loading...'}
+                        </Typography>
+                        <Typography id="modal-modal-description" sx={{ mt: 1 }}>
+                        </Typography>
+                        <Stack>
+                            <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='contained' type="submit">Cerrar</Button>
+
+                        </Stack>
+                    </div>
+
                 </Box>
             </Modal>
         </div>

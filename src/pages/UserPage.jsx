@@ -16,14 +16,7 @@ import { getUser } from '../services/UserServices'
 export default function UserPage() {
   const { users, user, setUser } = useContext(UsersContext)
   //giveMeUser('4cf7cc9e-6cea-4b06-bf8e-7c78729092ff')
-  async function getData(Id) {
-    const res = await getUser(Id);
-    const data = await res;
-    setUser(await data.UserAttributes)
-    console.log(res);
-    console.log(data.UserAttributes);
-    console.log(user);
-  }
+
   //usersList().then(data => setUsers(data))
   const rows = users.map(function (user) {
     var userdata = {};
@@ -40,13 +33,17 @@ console.log(users)
         <Typography variant='h5' >Usuarios</Typography>
         <DialogForm />
       </Toolbar>
+      <Stack direction="row" spacing={10} >
       {users.map((user,index) =>
-      <div key={index} >
+      <Box key={index} >
         <p>{user.Attributes[0].Value}</p>
-      <DeleteConfirmation userData={[user.Username,user.Attributes[0].Value]} />
-      <UserDetails name={user.Attributes[0].Value} />
-      </div>
+        <Stack>
+        <UserDetails data={{name:user.Attributes[0].Value, id:user.Username}} />
+      <DeleteConfirmation data ={{id:user.Attributes[0].Value, name:user.Username}} />
+      </Stack>
+      </Box>
       )}
+      </Stack>
     </Container>
   );
 };

@@ -21,7 +21,7 @@ const style = {
     p: 4,
 };
 
-export default function DeleteConfirmation(data) {
+export default function UserDetails(data) {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('')
     const [id, setId] = useState('')
@@ -46,8 +46,8 @@ export default function DeleteConfirmation(data) {
     };
     return (
         <div>
-            <Button variant="outlined" onClick={handleOpen}>
-                Editar
+            <Button variant="contained" size="small" onClick={handleOpen}>
+                Detalles
             </Button>
             <Modal
                 open={open}
@@ -56,13 +56,13 @@ export default function DeleteConfirmation(data) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-
                     <div>
-                        <Typography id="modal-modal-title" variant="h6" component="h2">
-                            {user[0]?.Value?  user[0]?.Value :'Loading...'}
-                        </Typography>
-                        <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                        </Typography>
+                    {user[0]?.Value? user.map((attr, index)=>
+                    <div key={index}>
+                    <Typography>{attr.Name}</Typography>
+                    <Typography>{attr.Value}</Typography>
+                    </div>
+                    ) :'Loading...'}
                         <Stack>
                             <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='contained' type="submit">Cerrar</Button>
 
@@ -74,3 +74,6 @@ export default function DeleteConfirmation(data) {
         </div>
     );
 }
+//{user[0]?.Value?  user[0]?.Value :'Loading...'}
+//<Typography id="modal-modal-title" variant="h6" component="h2">
+//<Typography id="modal-modal-description" sx={{ mt: 1 }}>

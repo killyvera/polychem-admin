@@ -6,20 +6,25 @@ import {
     ListUsersCommand,
     AdminGetUserCommand
 } from "@aws-sdk/client-cognito-identity-provider";
+import { Profiler } from "react";
 
 import { adminCredentials, userPoolID } from "../constants/AdminConfig";
 
 const client = new CognitoIdentityProviderClient(adminCredentials);
 
-export function createUser(email,name, puesto, departamento) { //CREATE USER COGNITO
+export function createUser(phone, email, name, perfil, puesto, departamento) { //CREATE USER COGNITO
     const newUserData = {
         UserPoolId: userPoolID,
         Username: email,
         DesiredDeliveryMediums: [
-            'EMAIL'
+            'SMS', 'EMAIL'
         ],
-        TemporaryPassword: 'Password@123',
-        UserAttributes:[
+        TemporaryPassword: 'Pass@123',
+        UserAttributes: [
+            {
+                Name: 'phone_number',
+                Value: phone
+            },
             {
                 Name: 'email',
                 Value: email
@@ -29,7 +34,11 @@ export function createUser(email,name, puesto, departamento) { //CREATE USER COG
                 Value: name
             },
             {
-                Name:'custom:puesto',
+                Name: 'profile',
+                Value: perfil
+            },
+            {
+                Name: 'custom:puesto',
                 Value: puesto
             },
             {
@@ -42,7 +51,7 @@ export function createUser(email,name, puesto, departamento) { //CREATE USER COG
     const command = new AdminCreateUserCommand(newUserData);
     return (
         client.send(command)
-            .then(res =>res)
+            .then(res => res)
             .catch(function (err) {
                 console.log(err.message);
             })
@@ -65,11 +74,15 @@ export function deleteUser(username) { // DELETE USER COGNITO
     )
 }
 
-export function editUser(userId,email,name, puesto, departamento) { //CREATE USER COGNITO
+export function editUser(userId, phone, email, name, perfil, puesto, departamento) { //CREATE USER COGNITO
     const UserData = {
         UserPoolId: userPoolID,
         Username: userId,
-        UserAttributes:[
+        UserAttributes: [
+            {
+                Name: 'phone_number',
+                Value: phone
+            },
             {
                 Name: 'email',
                 Value: email
@@ -79,7 +92,11 @@ export function editUser(userId,email,name, puesto, departamento) { //CREATE USE
                 Value: name
             },
             {
-                Name:'custom:puesto',
+                Name: 'profile',
+                Value: perfil
+            },
+            {
+                Name: 'custom:puesto',
                 Value: puesto
             },
             {
@@ -91,14 +108,14 @@ export function editUser(userId,email,name, puesto, departamento) { //CREATE USE
     const command = new AdminUpdateUserAttributesCommand(UserData);
     return (
         client.send(command)
-            .then(res =>res)
+            .then(res => res)
             .catch(function (err) {
                 console.log(err.message);
             })
     )
 }
 
-export function getUser(userId){
+export function getUser(userId) {
     const UserData = {
         UserPoolId: userPoolID,
         Username: userId
@@ -106,7 +123,7 @@ export function getUser(userId){
     const command = new AdminGetUserCommand(UserData);
     return (
         client.send(command)
-            .then(res =>res)
+            .then(res => res)
             .catch(function (err) {
                 console.log(err.message);
             })
@@ -117,7 +134,7 @@ export function usersList() {
 
     const input = {
         UserPoolId: userPoolID,
-        AttributesToGet: ['email', 'name']
+        AttributesToGet: ['email', 'name', 'phone_number',]
     }
     const client = new CognitoIdentityProviderClient(adminCredentials);
     const command = new ListUsersCommand(input)

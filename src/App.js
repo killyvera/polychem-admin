@@ -24,7 +24,7 @@ function App({ signOut, user }) {
             <Box style={{backgroundColor: '#f5f5f5', height:'100vh'}} >
                 <NavBar user={user} signOut={signOut} />
                 <Stack direction={'row'} >
-                    <SideBar />
+                    
                     <UserPage />
                 </Stack>
             </Box>

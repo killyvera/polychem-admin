@@ -13,26 +13,26 @@ export const UsersContextProvider = (props) => {
         usersList().then(data => setUsers(data))
     }, [toggle]);
 
-    const addUser = (phone_number, name, puesto, departamento) => {
-        createUser(phone_number, name, puesto, departamento).then(async ()=>(setToggle(!toggle)))
-            //.then(data => setUsers([...users, data.User]))
+    const addUser = (phone, email, name, perfil, puesto, departamento) => {
+        createUser(phone, email, name, perfil, puesto, departamento).then(async () => (setToggle(!toggle)))
+        //.then(data => setUsers([...users, data.User]))
     }
 
-    const updateUser =(userId,email,name, puesto, departamento)=>{
-        editUser(userId,email,name, puesto, departamento).then(async ()=>(setToggle(!toggle)))
+    const updateUser = (userId, phone, email, name, perfil, puesto, departamento) => {
+        editUser(userId, phone, email, name, perfil, puesto, departamento).then(async () => (setToggle(!toggle)))
     }
 
-    const popUser = (user)=>{
-        deleteUser(user).then(async ()=>(setToggle(!toggle)))
+    const popUser = (user) => {
+        deleteUser(user).then(async () => (setToggle(!toggle)))
         //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
-    const giveMeUser = async (userId)=>{
-       const data = await getUser(userId);
-        return (()=>(setUser(data.UserAttributes)));
+    const giveMeUser = async (userId) => {
+        const data = await getUser(userId);
+        return (() => (setUser(data.UserAttributes)));
         //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
     }
 
-    return(
+    return (
         <UsersContext.Provider value={{
             addUser,
             updateUser,

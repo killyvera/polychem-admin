@@ -31,17 +31,19 @@ export default function BasicModal() {
   const formik = useFormik({
     initialValues: {
       name: '',
+      phone:'',
       email: '',
       puesto: '',
       departamento: ''
     },
     onSubmit: values => {
       const email = values.email
+      const phone = values.phone
       const name = values.name
       const puesto = values.puesto
       const departamento = values.departamento
-      addUser(email, name, puesto, departamento)
-      console.log(email, name, puesto, departamento)
+      addUser(phone, email, name, puesto, departamento)
+      console.log(phone, email, name, puesto, departamento)
       formik.resetForm()
       handleClose()
     },
@@ -57,26 +59,35 @@ export default function BasicModal() {
         <Box sx={style}>
           <h1 style={{ paddingTop: '10px' }} >Agregar Usuario</h1>
           <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
           <form onSubmit={formik.handleSubmit}>
             <Stack>
               <label htmlFor="name">Nombre</label>
               <input
                 id="name"
                 name="name"
-                type="name"
+                type="text"
                 onChange={formik.handleChange}
                 value={formik.values.name}
+              />
+
+              <label htmlFor="phone">Número Móvil</label>
+              <input
+                id="phone"
+                name="phone"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.phone}
               />
 
               <label htmlFor="email">Em@il</label>
@@ -92,7 +103,7 @@ export default function BasicModal() {
               <input
                 id="puesto"
                 name="puesto"
-                type="puesto"
+                type="text"
                 onChange={formik.handleChange}
                 value={formik.values.puesto}
               />
@@ -101,14 +112,14 @@ export default function BasicModal() {
               <input
                 id="departamento"
                 name="departamento"
-                type="departamento"
+                type="text"
                 onChange={formik.handleChange}
                 value={formik.values.departamento}
               />
             </Stack>
             <Stack>
-            <Button style={{ marginTop: '10px' }} variant='contained' type="submit">Submit</Button>
-            <Button style={{ marginTop: '10px' }} onClick={formik.resetForm} variant='outlined'>Reset</Button>
+              <Button style={{ marginTop: '10px' }} variant='contained' type="submit">Submit</Button>
+              <Button style={{ marginTop: '10px' }} onClick={formik.resetForm} variant='outlined'>Reset</Button>
             </Stack>
           </form>
         </Box>

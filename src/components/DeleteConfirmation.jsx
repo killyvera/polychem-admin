@@ -5,6 +5,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
 
 import { UsersContext } from '../contexts/UsersContext'
 
@@ -34,9 +36,9 @@ export default function DeleteConfirmation(user) {
     };
     return (
         <div>
-            <Button variant="outlined" onClick={handleOpen}>
-                Borrar
-            </Button>
+            <IconButton  color="primary" onClick={handleOpen}>
+                <DeleteIcon/>
+            </IconButton>
             <Modal
                 open={open}
                 onClose={handleClose}

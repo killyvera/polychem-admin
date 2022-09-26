@@ -19,7 +19,7 @@ import { minWidth } from '@mui/system';
 export default function RecipeReviewCard(userData) {
 
   return (
-      <Card style={{minHeight:'auto', minWidth:'250px', margin:'10px' }} >
+      <Card style={{minHeight:'auto', minWidth:'265px', margin:'10px' }} >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" />

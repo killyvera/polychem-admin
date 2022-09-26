@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { UsersContext } from '../contexts/UsersContext'
 
@@ -22,22 +23,27 @@ const style = {
     p: 4,
 };
 
-export default function DeleteConfirmation(user) {
-    const [open, setOpen] =useState(false);
-    const [userData, setuserData] = useState({})
-  
+export default function DeleteConfirmation({ userData }) {
+    const { popUser } = useContext(UsersContext)
+    const [open, setOpen] = useState(false);
+    //const [userData, setuserData] = useState({})
+
 
     const handleOpen = () => {
         setOpen(true)
-        console.log(user.name)
-        };
+    };
     const handleClose = () => {
         setOpen(false)
     };
+    const handleDelete = () => {
+        setOpen(false)
+        popUser(userData.user.id)
+    };
+
     return (
         <div>
-            <IconButton  color="primary" onClick={handleOpen}>
-                <DeleteIcon/>
+            <IconButton color="primary" onClick={handleOpen}>
+                <DeleteIcon />
             </IconButton>
             <Modal
                 open={open}
@@ -46,13 +52,28 @@ export default function DeleteConfirmation(user) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                    </Typography>
+                    <Box>
+                        <Typography id="modal-modal-title" variant="h5">
+                            Eliminar Usuario
+                        </Typography>
+                        <IconButton
+                            aria-label="close"
+                            onClick={handleClose}
+                            sx={{
+                                position: 'absolute',
+                                right: 8,
+                                top: 8,
+                                color: (theme) => theme.palette.grey[500],
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Box>
                     <Typography id="modal-modal-description" sx={{ mt: 1 }}>
-                        {''}
+                        {userData.user.name}
                     </Typography>
                     <Stack>
-                        <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='outlined' type="submit">Borrar</Button>
+                        <Button style={{ marginTop: '10px' }} onClick={handleDelete} variant='outlined' type="submit">Borrar</Button>
                         <Button style={{ marginTop: '10px' }} onClick={handleClose} variant='contained' type="submit">Cancelar</Button>
 
                     </Stack>

@@ -13,21 +13,19 @@ import EditForm from '../components/EditForm'
 import DeleteConfirmation from './DeleteConfirmation';
 import { Box } from '@mui/material';
 import UserDetails from '../components/UserDetails'
+import { minWidth } from '@mui/system';
 
 
 export default function RecipeReviewCard(userData) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  console.log(userData.user.name)
 
   return (
-    <Box paddingTop={4}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card style={{minHeight:'auto', minWidth:'250px', margin:'10px' }} >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" />
           }
           title={userData.user.name} 
-          subheader={userData.user.profile? userData.user.profile: 'Sin Perfil Asignado' }
+          subheader={userData.user.perfil? userData.user.perfil: 'Sin Perfil Asignado' }
         />
         <CardContent>
           <Container>
@@ -48,15 +46,14 @@ export default function RecipeReviewCard(userData) {
           <Stack marginTop={3} direction="row" justifyContent={'space-between'} >
             <Stack direction="row" spacing={1} >
 
-            <EditForm />
+            <EditForm userData={userData} />
 
-            <DeleteConfirmation />
+            <DeleteConfirmation userData={userData} />
             </Stack>
 
-            <UserDetails />
+            <UserDetails userData={userData} />
           </Stack>
         </CardContent>
       </Card>
-    </Box>
   );
 }

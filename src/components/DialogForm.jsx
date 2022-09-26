@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import IconButton from '@mui/material/IconButton';
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import CloseIcon from '@mui/icons-material/Close';
 
 import React, { useContext } from 'react'
@@ -31,8 +32,9 @@ export default function BasicModal() {
   const formik = useFormik({
     initialValues: {
       name: '',
-      phone:'',
+      phone: '',
       email: '',
+      perfil: '',
       puesto: '',
       departamento: ''
     },
@@ -40,10 +42,11 @@ export default function BasicModal() {
       const email = values.email
       const phone = values.phone
       const name = values.name
+      const perfil = values.perfil
       const puesto = values.puesto
       const departamento = values.departamento
-      addUser(phone, email, name, puesto, departamento)
-      console.log(phone, email, name, puesto, departamento)
+      addUser(phone, email, name, perfil, puesto, departamento)
+      console.log(phone, email, name, perfil, puesto, departamento)
       formik.resetForm()
       handleClose()
     },
@@ -51,7 +54,9 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button variant='contained' onClick={handleClose}>Crear Usuario</Button>
+      <Button variant='contained' onClick={handleClose}>
+        <PersonAddAlt1Icon />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -97,6 +102,15 @@ export default function BasicModal() {
                 type="email"
                 onChange={formik.handleChange}
                 value={formik.values.email}
+              />
+
+              <label htmlFor="perfil">Perfil</label>
+              <input
+                id="perfil"
+                name="perfil"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.perfil}
               />
 
               <label htmlFor="puesto">Puesto</label>

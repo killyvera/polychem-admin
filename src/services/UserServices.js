@@ -134,7 +134,7 @@ export function usersList() {
 
     const input = {
         UserPoolId: userPoolID,
-        AttributesToGet: ['email', 'name', 'phone_number',]
+        AttributesToGet: ['email', 'name', 'phone_number', 'profile']
     }
     const client = new CognitoIdentityProviderClient(adminCredentials);
     const command = new ListUsersCommand(input)

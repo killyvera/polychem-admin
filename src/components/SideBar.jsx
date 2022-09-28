@@ -2,6 +2,19 @@ import { Box, Drawer, Typography, IconButton } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from "react";
 
+import HomeIcon from '@mui/icons-material/Home';
+import GroupIcon from '@mui/icons-material/Group';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+
+import { Link } from 'react-router-dom'
+
 
 export const SideBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -12,7 +25,7 @@ export const SideBar = () => {
         edge='start'
         color='inherit'
         aria-label='logo'
-        onClick={()=>setIsDrawerOpen(true)}
+        onClick={() => setIsDrawerOpen(true)}
 
       >
         <MenuIcon />
@@ -22,13 +35,44 @@ export const SideBar = () => {
         open={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)} >
 
-        <Box p={2}
+        <Box
           width='250px'
           textAlign='center'
           role='presentation' >
-          <Typography>
-            Side Panel
-          </Typography>
+          <List>
+            <Link style={{ textDecoration: 'blink' }} to='/'>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => setIsDrawerOpen(false)} >
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Home' />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link style={{ textDecoration: 'blink' }} to='/users'>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => setIsDrawerOpen(false)} >
+                  <ListItemIcon>
+                    <GroupIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Usuarios' />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link style={{ textDecoration: 'blink' }} to='/users'>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ListAltIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Formularios' />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          </List>
         </Box>
 
       </Drawer>

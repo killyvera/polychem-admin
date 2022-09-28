@@ -1,25 +1,39 @@
-import { Box, Button, Toolbar, Typography } from '@mui/material'
-import Divider from '@mui/material/Divider';
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import MenuItem from '@mui/material/MenuItem';
-import { Stack } from '@mui/system';
-import React from 'react'
+import { Box, Drawer, Typography, IconButton } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import { useState } from "react";
 
-export default function Sidebar() {
+
+export const SideBar = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   return (
-    <Box bgcolor={'#ffffff'}
-      width={200}
-      height={'100%'}
-      position={'fixed'}
-      sx={{ zIndex: 1 }} >
-        <Stack>
-        <Divider />
-        <Button size="large" startIcon={<HomeIcon />} >Inicio</Button>
-        <Divider />
-          <Button size="large" startIcon={<PeopleAltIcon />}>Usuarios</Button>
-          <Divider />
-        </Stack>
-    </Box>
+    <>
+      <IconButton
+        size='large'
+        edge='start'
+        color='inherit'
+        aria-label='logo'
+        onClick={()=>setIsDrawerOpen(true)}
+
+      >
+        <MenuIcon />
+      </IconButton>
+      <Drawer
+        anchor='left'
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)} >
+
+        <Box p={2}
+          width='250px'
+          textAlign='center'
+          role='presentation' >
+          <Typography>
+            Side Panel
+          </Typography>
+        </Box>
+
+      </Drawer>
+    </>
   )
+
+
 }

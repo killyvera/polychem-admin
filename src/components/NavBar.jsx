@@ -1,7 +1,8 @@
-import { AppBar, Typography, Toolbar, Stack, Button, Box } from "@mui/material";
+import { AppBar, Typography, Toolbar, Stack, Button, Box, makeStyles } from "@mui/material";
 import Image from 'mui-image'
 import React from 'react'
 import Images from '../constants/Images'
+import { SideBar } from "./SideBar";
 
 import { Authenticator } from '@aws-amplify/ui-react'
 
@@ -9,13 +10,15 @@ export function NavBar({ signOut, user }) {
     console.log(user)
     return (
         <Authenticator>
-            <AppBar position="sticky">
+            <AppBar>
                 <Box>
                     <Toolbar sx={{ justifyContent: 'space-between' }} >
                         <Stack
+                            alignItems='center'
                             spacing={2}
-                            direction={'row'} >
-
+                            direction={'row'}
+                        >
+                            <SideBar />
                             <Image
                                 src={Images.logo}
                                 width={'110px'}

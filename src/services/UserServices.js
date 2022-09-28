@@ -15,7 +15,7 @@ const client = new CognitoIdentityProviderClient(adminCredentials);
 export function createUser(phone, email, name, perfil, puesto, departamento) { //CREATE USER COGNITO
     const newUserData = {
         UserPoolId: userPoolID,
-        Username: email,
+        Username: perfil == 'Administrador' && 'administrador'? email : phone,
         DesiredDeliveryMediums: [
             'SMS', 'EMAIL'
         ],

@@ -21,12 +21,11 @@ function App({ signOut, user }) {
 
     return (
         <UsersContextProvider>
-            <Box style={{backgroundColor: '#f5f5f5', height:'100vh'}} >
+            <Box>
                 <NavBar user={user} signOut={signOut} />
-                <Stack direction={'row'} >
-                    <SideBar />
+
+            
                     <UserPage />
-                </Stack>
             </Box>
         </UsersContextProvider>
     );

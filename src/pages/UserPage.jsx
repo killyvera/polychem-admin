@@ -1,17 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
+import React, { useContext } from 'react'
 import { UsersContext } from '../contexts/UsersContext'
-import { Button, Toolbar, Typography } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Stack from '@mui/material/Stack';
+import { Toolbar, Typography, makeStyles, Box, Stack } from '@mui/material';
 import { Container } from '@mui/system';
-
-import UserDetails from '../components/UserDetails'
 import DialogForm from '../components/DialogForm';
-import DeleteConfirmation from '../components/DeleteConfirmation';
-import { getUser } from '../services/UserServices'
 import UserCard from '../components/UserCard'
 import Grid from '@mui/material/Grid';
 
@@ -29,19 +20,23 @@ export default function UserPage() {
     userdata.email = user.Attributes[3] ? user.Attributes[3].Value : '';
     return userdata
   })
-  
-  return (
 
-    <Container style={{ height: '70vh', width: '100%', justifyContent:'center',paddingTop:'3vh' }}>
-      <Toolbar style={{ justifyContent: 'space-between'}} >
-        <Typography variant='h4' >Administrar Usuarios</Typography>
-        <DialogForm />
-      </Toolbar>
-      <Grid container pt={3} >
-      {actualUsers.map((user,index) =>
-        <UserCard user={user} key={index}/>
-      )}
-      </Grid>
-    </Container>
+  return (
+    <Box style={{ paddingTop: '10vh', maxHeight: '300px' }} >
+      <Container>
+        <Stack direction='row' justifyContent="space-between" >
+          <Typography variant='h4' >Administrar Usuarios</Typography>
+          <DialogForm />
+        </Stack>
+        <Grid container style={{ justifyContent: 'center', paddingTop:'20px' }} >
+
+          {actualUsers.map((user, index) =>
+            <Grid item key={index} style={{ minHeight: 'auto', minWidth: '300px', margin: '10px' }} >
+              <UserCard user={user} />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
+    </Box>
   );
 };

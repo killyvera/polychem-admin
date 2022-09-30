@@ -1,11 +1,18 @@
 {
   "auth": {
-    "polychemadminb8d3460c": {
+    "polychemadmin0f57a876": {
       "service": "Cognito",
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
+    }
+  },
+  "storage": {
+    "polychemstorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
     }
   }
 }

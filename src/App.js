@@ -19,7 +19,7 @@ function App({ signOut, user }) {
                 <NavBar user={user} signOut={signOut} />
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/users' element={<UserPage />} />
+                    <Route path='/users' element={<UserPage user={user} signOut={signOut} />} />
                 </Routes>
             </Box>
         </UsersContextProvider>

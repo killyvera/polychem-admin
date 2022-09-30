@@ -1,6 +1,6 @@
 {
-  "authSelections": "userPoolOnly",
-  "resourceName": "polychemadminb8d3460c",
+  "authSelections": "identityPoolAndUserPool",
+  "resourceName": "polychemadmin0f57a876",
   "serviceType": "imported",
   "region": "us-east-1",
   "usernameAttributes": [
@@ -19,6 +19,7 @@
   ],
   "mfaConfiguration": "OPTIONAL",
   "autoVerifiedAttributes": [
+    "email",
     "phone_number"
   ],
   "mfaTypes": [

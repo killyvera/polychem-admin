@@ -63,7 +63,8 @@ export default function UserDetails({ userData }) {
         { email: user ? searchAttr('email', user) : 'Asignar Email' },
         { perfil: user ? searchAttr('profile', user) : 'Asignar Perfil' },
         { puesto: user ? searchAttr('custom:puesto', user) : 'Asignar Puesto' },
-        { departamento: user ? searchAttr('custom:departamento', user) : 'Asignar Departamento' }
+        { departamento: user ? searchAttr('custom:departamento', user) : 'Asignar Departamento' },
+        { picture: user ? searchAttr('picture', user) : '' },
       ]
 
     return (
@@ -92,7 +93,7 @@ export default function UserDetails({ userData }) {
                             <CloseIcon />
                         </IconButton>
                         <Box style={{ display:'flex', justifyContent:'center', marginBottom:'15px' }} >
-                        <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" />
+                        <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" src={userDetails[6].picture} />
                         </Box>
                     </Box>
                                 <Typography> <b>Nombre: </b>{userDetails[0].name}</Typography>

@@ -14,15 +14,28 @@ import DeleteConfirmation from './DeleteConfirmation';
 import { Box } from '@mui/material';
 import UserDetails from '../components/UserDetails'
 import { minWidth } from '@mui/system';
+import { Storage } from 'aws-amplify';
+import { useState, useEffect } from 'react';
 
 
 export default function RecipeReviewCard(userData) {
+  const [avatarLink, setAvatarLink] = useState('')
+
+  useEffect(()=>{
+    getAvatar()
+  },[])
+
+  const getAvatar=async()=>{
+    const id = await userData.user.id
+    const link = await Storage.get(`avatar/${id}.png`)
+    setAvatarLink(link)
+  }
 
   return (
       <Card>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" />
+            <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" src={userData? avatarLink: console.log('no user link')} />
           }
           title={userData.user.name} 
           subheader={userData.user.perfil? userData.user.perfil: 'Sin Perfil Asignado' }

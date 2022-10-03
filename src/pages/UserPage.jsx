@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { UsersContext } from '../contexts/UsersContext'
 import { Toolbar, Typography, makeStyles, Box, Stack } from '@mui/material';
 import { Container } from '@mui/system';
@@ -8,9 +8,7 @@ import Grid from '@mui/material/Grid';
 
 export default function UserPage() {
   const { users, user, setUser } = useContext(UsersContext)
-  //giveMeUser('4cf7cc9e-6cea-4b06-bf8e-7c78729092ff')
 
-  //usersList().then(data => setUsers(data))
   const actualUsers = users.map(function (user) {
     var userdata = {};
     userdata.id = user.Username;

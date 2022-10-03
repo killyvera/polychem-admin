@@ -62,7 +62,7 @@ export const SideBar = () => {
               </ListItem>
             </Link>
 
-            <Link style={{ textDecoration: 'blink' }} to='/users'>
+            <Link style={{ textDecoration: 'blink' }} to='/forms'>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>

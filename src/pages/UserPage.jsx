@@ -5,9 +5,11 @@ import { Container } from '@mui/system';
 import DialogForm from '../components/DialogForm';
 import UserCard from '../components/UserCard'
 import Grid from '@mui/material/Grid';
+import { Storage } from 'aws-amplify';
 
 export default function UserPage() {
-  const { users, user, setUser } = useContext(UsersContext)
+  
+  const { users } = useContext(UsersContext)
 
   const actualUsers = users.map(function (user) {
     var userdata = {};

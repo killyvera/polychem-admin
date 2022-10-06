@@ -12,6 +12,7 @@ import { blue } from '@mui/material/colors';
 
 import { UsersContext } from '../contexts/UsersContext'
 import { getUser } from '../services/UserServices'
+import { Storage } from 'aws-amplify';
 
 const style = {
     position: 'absolute',
@@ -38,6 +39,18 @@ export default function UserDetails({ userData }) {
     const [name, setName] = useState('')
     const [id, setId] = useState('')
     const [user, setUser] = useState({})
+    const [avatarLink, setAvatarLink] = useState('')
+
+    useEffect(()=>{
+      getAvatar()
+    },[])
+  
+    const getAvatar=async()=>{
+      const id = await userData.user.id
+      const link = await Storage.get(`avatar/${id}.png`)
+      setAvatarLink(link)
+    }
+  
 
     useEffect(() => {
         async function fectchData() {
@@ -93,7 +106,7 @@ export default function UserDetails({ userData }) {
                             <CloseIcon />
                         </IconButton>
                         <Box style={{ display:'flex', justifyContent:'center', marginBottom:'15px' }} >
-                        <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" src={userDetails[6].picture} />
+                        <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe" src={avatarLink} />
                         </Box>
                     </Box>
                                 <Typography> <b>Nombre: </b>{userDetails[0].name}</Typography>

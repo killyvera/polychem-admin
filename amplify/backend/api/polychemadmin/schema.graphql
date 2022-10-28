@@ -1,0 +1,93 @@
+type Product @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  description: String
+}
+
+type ProductionFormula @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  FormulaMaterials: [FormulaMaterial] @hasMany(indexName: "byProductionFormula", fields: ["id"])
+}
+
+type FormulaMaterial @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  quantity: Float
+  productionformulaID: ID! @index(name: "byProductionFormula")
+}
+
+type MemberProduction @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  role: String
+  shift: String
+  productionteamID: ID! @index(name: "byProductionTeam")
+  CognitoId: String
+}
+
+type ProductionTeam @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  MemberProductions: [MemberProduction] @hasMany(indexName: "byProductionTeam", fields: ["id"])
+  name: String
+}
+
+type Form @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  planned: Boolean
+  sent: Boolean
+  expiration: Boolean
+  expiration_date: AWSDateTime
+  Production: Production @hasOne
+}
+
+type Package @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  UnitProducts: [UnitProduct] @hasMany(indexName: "byPackage", fields: ["id"])
+  palletID: ID! @index(name: "byPallet")
+  name: String
+}
+
+type MaterialProduction @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  lot: String
+  used: Float
+  notUsed: Float
+  waste: Float
+  quantity: Float
+  productionID: ID! @index(name: "byProduction")
+}
+
+type UnitProduct @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  packageID: ID! @index(name: "byPackage")
+}
+
+type Production @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  expectedPallets: Int
+  expectedProducts: Int
+  expectedPackages: Int
+  ProductionTeam: ProductionTeam @hasOne
+  Pallets: [Pallet] @hasMany(indexName: "byProduction", fields: ["id"])
+  ProductionFormula: ProductionFormula @hasOne
+  MaterialProductions: [MaterialProduction] @hasMany(indexName: "byProduction", fields: ["id"])
+}
+
+type RawMaterial @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  name: String
+  description: String
+}
+
+type Pallet @model @auth(rules: [{allow: private, provider: iam}]) {
+  id: ID!
+  Packages: [Package] @hasMany(indexName: "byPallet", fields: ["id"])
+  name: String
+  productionID: ID! @index(name: "byProduction")
+}
+ 

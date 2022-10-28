@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { DataStore } from '@aws-amplify/datastore';
+import { Form } from '../models';
 
 export function Home() {
-  return (
-    <div style={{marginTop: '100px'}} >Home</div>
-  )
+return(
+  <div>
+    Home
+  </div>
+)
 }

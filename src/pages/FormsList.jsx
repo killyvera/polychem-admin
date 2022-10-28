@@ -1,27 +1,52 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { DataStore } from '@aws-amplify/datastore';
+import { Form } from '../models';
+import { createForm } from '../services/FormServices';
 
-export const FormsList = () => {
-    const form = [
-        {
-            title: 'Formulario 1',
-            questions: 4,
-            time: '12:30-14:30',
-            days: 'Lun Mar Jue',
-            depto: 'Produccion'
-        },
-    ]
+
+//const todelete = await DataStore.query(Post, '1234567');
+//DataStore.delete(todelete);
+export function FormsList() {
+    const [forms, setForms] = useState([])
+    const [formName, setFormName] = useState('')
+
+    const fetchForms = async () => {
+        const forms = await DataStore.query(Form);
+        setForms(forms)
+
+    }
+
+    useEffect(() => {
+        fetchForms()
+        const subscription = DataStore.observe(Form).subscribe(() => fetchForms())
+        return () => subscription.unsubscribe()
+    }, [])
 
     return (
         <div>
-            {form.map((form, index)=>{
-                <div key={index} >
-                    <h5>
-                        {form.title}
-                    </h5>
-                    
-                </div>
-            })}
+            <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
+            <form>
+                <label>Nombre de formulario:
+                    <input
+                        type="text"
+                        value={formName}
+                        onChange={(e) => setFormName(e.target.value)}
+                    />
+                </label>
+            </form>
+            <button onClick={(e) =>createForm(formName)} >
+                    Crear Formulario
+                </button>
+            <div>
+                {forms.map((form, index) => (
+                    <div key={index} >
+                        {form.name}
+                        <p>
+                            {form.expiration_date}
+                        </p>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

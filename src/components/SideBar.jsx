@@ -64,7 +64,7 @@ export const SideBar = () => {
 
             <Link style={{ textDecoration: 'blink' }} to='/forms'>
               <ListItem disablePadding>
-                <ListItemButton>
+              <ListItemButton onClick={() => setIsDrawerOpen(false)} >
                   <ListItemIcon>
                     <ListAltIcon />
                   </ListItemIcon>

@@ -19,7 +19,7 @@ export const UserForm = () => {
             const puesto = values.puesto
             const departamento = values.departamento
             addUser(email, name, puesto, departamento)
-            console.log(email, name, puesto, departamento)
+            //console.log(email, name, puesto, departamento)
             formik.resetForm()
         },
     });

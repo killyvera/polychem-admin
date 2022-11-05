@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { DataStore } from '@aws-amplify/datastore';
 import { Form } from '../models';
 import { createForm } from '../services/FormServices';
+import { ProductFormulaElement } from './../components/ProductFormulaElement';
 
 
 //const todelete = await DataStore.query(Post, '1234567');
@@ -12,6 +13,7 @@ export function FormsList() {
 
     const fetchForms = async () => {
         const forms = await DataStore.query(Form);
+        console.log({ forms })
         setForms(forms)
 
     }
@@ -24,7 +26,7 @@ export function FormsList() {
 
     return (
         <div>
-            <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
+            {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
             <form>
                 <label>Nombre de formulario:
                     <input
@@ -34,9 +36,9 @@ export function FormsList() {
                     />
                 </label>
             </form>
-            <button onClick={(e) =>createForm(formName)} >
-                    Crear Formulario
-                </button>
+            <button onClick={(e) => createForm(formName)} >
+                Crear Formulario
+            </button>
             <div>
                 {forms.map((form, index) => (
                     <div key={index} >
@@ -46,7 +48,8 @@ export function FormsList() {
                         </p>
                     </div>
                 ))}
-            </div>
+            </div> */}
+            <ProductFormulaElement />
         </div>
     )
 }

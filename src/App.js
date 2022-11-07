@@ -6,6 +6,7 @@ import { Home } from "./pages/Home";
 import awsExports from "./aws-exports";
 import { NavBar } from "./components/NavBar";
 import { UsersContextProvider } from "./contexts/UsersContext";
+import { ProductsContextProvider } from "./contexts/ProductContext";
 import FormState from "./contexts/form/formState";
 import { Box, Stack } from "@mui/material";
 import UserPage from "./pages/UserPage";
@@ -17,17 +18,19 @@ function App({ signOut, user }) {
   return (
     <UsersContextProvider>
       <FormState>
-        <Box>
-          <NavBar user={user} signOut={signOut} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/forms" element={<FormsList />} />
-            <Route
-              path="/users"
-              element={<UserPage user={user} signOut={signOut} />}
-            />
-          </Routes>
-        </Box>
+        <ProductsContextProvider>
+          <Box>
+            <NavBar user={user} signOut={signOut} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/forms" element={<FormsList />} />
+              <Route
+                path="/users"
+                element={<UserPage user={user} signOut={signOut} />}
+              />
+            </Routes>
+          </Box>
+        </ProductsContextProvider>
       </FormState>
     </UsersContextProvider>
   );

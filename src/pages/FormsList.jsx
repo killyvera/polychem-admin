@@ -6,6 +6,7 @@ import { ProductFormulaElement } from "./../components/ProductFormulaElement";
 import { ProductForm } from "../components/ProductForm";
 import { CreateForm } from "../components/CreateForm";
 import AddLeaderProduction from "../components/addLeaderProduction";
+import ProductionFrom from "../components/ProductionFrom";
 
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
@@ -53,7 +54,8 @@ export function FormsList(props) {
       {/* <ProductFormulaElement /> */}
       {/* <ProductForm /> */}
       {/* <CreateForm /> */}
-      <AddLeaderProduction />
+      {/* <AddLeaderProduction /> */}
+      <ProductionFrom />
     </div>
   );
 }

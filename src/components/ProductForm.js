@@ -18,7 +18,7 @@ import FlexView from "react-flexview";
 import { Input } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-export const ProductFormulaElement = () => {
+export const ProductForm = () => {
   // const { setProductElementFormValues } = useContext(formContext)
 
   const [avatarPreview, setAvatarPreview] = useState(
@@ -29,7 +29,9 @@ export const ProductFormulaElement = () => {
     initialValues: {
       name: "",
       description: "",
-      quantity: "",
+      productCode: "",
+      unitsPerPackage: "",
+      packagePerPallet: "",
       avatar: "",
     },
     onSubmit: (values) => {
@@ -42,109 +44,6 @@ export const ProductFormulaElement = () => {
     },
   });
   return (
-    // <Box
-    //   sx={{
-    //     "& .MuiTextField-root": { m: 1, width: "25ch" },
-    //   }}
-    //   noValidate
-    //   autoComplete="off"
-    //   style={{
-    //     position: "absolute",
-    //     top: "50%",
-    //     left: "50%",
-    //     transform: "translate(-50%, -50%)",
-    //     width: 400,
-    //     bgcolor: "background.paper",
-    //     borderRadius: "7px",
-    //     boxShadow: 24,
-    //     p: 4,
-    //   }}
-    // >
-    //   <div>
-    //     <form onSubmit={formik.handleSubmit}>
-    //       <Stack>
-    //         <label htmlFor="name">Name</label>
-    //         <input
-    //           id="name"
-    //           name="name"
-    //           type="name"
-    //           onChange={formik.handleChange}
-    //           value={formik.values.name}
-    //         />
-
-    //         <label htmlFor="puesto">Description</label>
-    //         <input
-    //           id="description"
-    //           name="description"
-    //           type="description"
-    //           onChange={formik.handleChange}
-    //           value={formik.values.description}
-    //         />
-
-    //         <label htmlFor="email">Quantity</label>
-    //         <input
-    //           id="quantity"
-    //           name="quantity"
-    //           type="quantity"
-    //           onChange={formik.handleChange}
-    //           value={formik.values.quantity}
-    //         />
-
-    //         <Box
-    //           display="flex"
-    //           textAlign="center"
-    //           justifyContent="center"
-    //           flexDirection="column"
-    //         >
-    //           <Avatar
-    //             size="md"
-    //             src={
-    //               formik.values.avatar !== ""
-    //                 ? formik.values.avatar
-    //                 : avatarPreview
-    //             }
-    //           />
-
-    //           <Button variant="contained" component="label">
-    //             Add Image
-    //             <Input
-    //               name="avatar"
-    //               accept="image/*"
-    //               id="contained-button-file"
-    //               type="file"
-    //               hidden
-    //               onChange={(e) => {
-    //                 const fileReader = new FileReader();
-    //                 fileReader.onload = () => {
-    //                   if (fileReader.readyState === 2) {
-    //                     formik.setFieldValue("avatar", fileReader.result);
-    //                   }
-    //                 };
-    //                 fileReader.readAsDataURL(e.target.files[0]);
-    //               }}
-    //             />
-    //           </Button>
-    //         </Box>
-
-    //         <Button
-    //           style={{ marginTop: "10px" }}
-    //           variant="contained"
-    //           type="submit"
-    //         >
-    //           Submit
-    //         </Button>
-    //         <Button
-    //           style={{ marginTop: "10px" }}
-    //           onClick={formik.resetForm}
-    //           variant="outlined"
-    //         >
-    //           Reset
-    //         </Button>
-    //       </Stack>
-    //     </form>
-    //   </div>
-    // </Box>
-
     <FlexView column hAlignContent="center" marginTop={"10%"}>
       <Card style={{ width: "60%" }}>
         <form onSubmit={formik.handleSubmit}>
@@ -164,7 +63,6 @@ export const ProductFormulaElement = () => {
               />
             </FlexView>
             <FlexView column style={{ margin: "10px" }}>
-              {" "}
               <TextField
                 error={Boolean(
                   formik.touched.description && formik.errors.description
@@ -182,34 +80,76 @@ export const ProductFormulaElement = () => {
                 variant="outlined"
               />
             </FlexView>
+            <FlexView column style={{ margin: "10px" }}>
+              <TextField
+                error={Boolean(
+                  formik.touched.productCode && formik.errors.productCode
+                )}
+                fullWidth
+                helperText={
+                  formik.touched.productCode && formik.errors.productCode
+                }
+                label="Product Code"
+                name="productCode"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                required
+                value={formik.values.productCode}
+                variant="outlined"
+              />
+            </FlexView>
+            <FlexView column style={{ margin: "10px" }}>
+              <TextField
+                error={Boolean(
+                  formik.touched.unitsPerPackage &&
+                    formik.errors.unitsPerPackage
+                )}
+                fullWidth
+                helperText={
+                  formik.touched.unitsPerPackage &&
+                  formik.errors.unitsPerPackage
+                }
+                label="Units Per Package"
+                name="unitsPerPackage"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                required
+                value={formik.values.unitsPerPackage}
+                variant="outlined"
+              />
+            </FlexView>
 
             <FlexView column style={{ margin: "10px" }}>
               {" "}
               <TextField
                 error={Boolean(
-                  formik.touched.quantity && formik.errors.quantity
+                  formik.touched.packagePerPallet &&
+                    formik.errors.packagePerPallet
                 )}
                 fullWidth
-                helperText={formik.touched.quantity && formik.errors.quantity}
-                label="Quantity"
-                name="quantity"
+                helperText={
+                  formik.touched.packagePerPallet &&
+                  formik.errors.packagePerPallet
+                }
+                label="Package Per Pallet"
+                name="packagePerPallet"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
-                type="number"
+                type="text"
                 required
-                value={formik.values.quantity}
+                value={formik.values.packagePerPallet}
                 variant="outlined"
               />
             </FlexView>
             <FlexView column style={{ margin: "10px" }}>
               {/* <Avatar
-                size="md"
-                src={
-                  formik.values.avatar !== ""
-                    ? formik.values.avatar
-                    : avatarPreview
-                }
-              /> */}
+                  size="md"
+                  src={
+                    formik.values.avatar !== ""
+                      ? formik.values.avatar
+                      : avatarPreview
+                  }
+                /> */}
               {/* <AddCircleOutlineIcon fontSize="large" /> */}
               <TextField
                 name="avatar"
@@ -227,6 +167,12 @@ export const ProductFormulaElement = () => {
                   fileReader.readAsDataURL(e.target.files[0]);
                 }}
               />
+            </FlexView>
+            <FlexView column style={{ margin: "10px" }}>
+              <Button variant="outlined" size="small">
+                <AddCircleOutlineIcon />
+                Add Raw Materials
+              </Button>
             </FlexView>
           </CardContent>
           <FlexView hAlignContent="right">

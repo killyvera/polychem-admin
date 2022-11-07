@@ -1,52 +1,52 @@
-import {
-  ModelInit,
-  MutableModel,
-  PersistentModelConstructor,
-} from "@aws-amplify/datastore";
+import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
+
+
+
+
 
 type RawMaterialMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type LotRawMaterialMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type SheduledMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type FormMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type ProductionMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type ProductMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type FormulaElementMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type LotProductionMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type PalletMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type PackageMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type ProductionMemberMetaData = {
-  readOnlyFields: "createdAt" | "updatedAt";
-};
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 export declare class RawMaterial {
   readonly id: string;
@@ -56,12 +56,7 @@ export declare class RawMaterial {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<RawMaterial, RawMaterialMetaData>);
-  static copyOf(
-    source: RawMaterial,
-    mutator: (
-      draft: MutableModel<RawMaterial, RawMaterialMetaData>
-    ) => MutableModel<RawMaterial, RawMaterialMetaData> | void
-  ): RawMaterial;
+  static copyOf(source: RawMaterial, mutator: (draft: MutableModel<RawMaterial, RawMaterialMetaData>) => MutableModel<RawMaterial, RawMaterialMetaData> | void): RawMaterial;
 }
 
 export declare class LotRawMaterial {
@@ -77,12 +72,7 @@ export declare class LotRawMaterial {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<LotRawMaterial, LotRawMaterialMetaData>);
-  static copyOf(
-    source: LotRawMaterial,
-    mutator: (
-      draft: MutableModel<LotRawMaterial, LotRawMaterialMetaData>
-    ) => MutableModel<LotRawMaterial, LotRawMaterialMetaData> | void
-  ): LotRawMaterial;
+  static copyOf(source: LotRawMaterial, mutator: (draft: MutableModel<LotRawMaterial, LotRawMaterialMetaData>) => MutableModel<LotRawMaterial, LotRawMaterialMetaData> | void): LotRawMaterial;
 }
 
 export declare class Sheduled {
@@ -92,12 +82,7 @@ export declare class Sheduled {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Sheduled, SheduledMetaData>);
-  static copyOf(
-    source: Sheduled,
-    mutator: (
-      draft: MutableModel<Sheduled, SheduledMetaData>
-    ) => MutableModel<Sheduled, SheduledMetaData> | void
-  ): Sheduled;
+  static copyOf(source: Sheduled, mutator: (draft: MutableModel<Sheduled, SheduledMetaData>) => MutableModel<Sheduled, SheduledMetaData> | void): Sheduled;
 }
 
 export declare class Form {
@@ -118,12 +103,7 @@ export declare class Form {
   readonly formProductionId?: string | null;
   readonly formProductionLeaderId?: string | null;
   constructor(init: ModelInit<Form, FormMetaData>);
-  static copyOf(
-    source: Form,
-    mutator: (
-      draft: MutableModel<Form, FormMetaData>
-    ) => MutableModel<Form, FormMetaData> | void
-  ): Form;
+  static copyOf(source: Form, mutator: (draft: MutableModel<Form, FormMetaData>) => MutableModel<Form, FormMetaData> | void): Form;
 }
 
 export declare class Production {
@@ -145,12 +125,7 @@ export declare class Production {
   readonly updatedAt?: string | null;
   readonly productionProductId?: string | null;
   constructor(init: ModelInit<Production, ProductionMetaData>);
-  static copyOf(
-    source: Production,
-    mutator: (
-      draft: MutableModel<Production, ProductionMetaData>
-    ) => MutableModel<Production, ProductionMetaData> | void
-  ): Production;
+  static copyOf(source: Production, mutator: (draft: MutableModel<Production, ProductionMetaData>) => MutableModel<Production, ProductionMetaData> | void): Production;
 }
 
 export declare class Product {
@@ -161,12 +136,7 @@ export declare class Product {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Product, ProductMetaData>);
-  static copyOf(
-    source: Product,
-    mutator: (
-      draft: MutableModel<Product, ProductMetaData>
-    ) => MutableModel<Product, ProductMetaData> | void
-  ): Product;
+  static copyOf(source: Product, mutator: (draft: MutableModel<Product, ProductMetaData>) => MutableModel<Product, ProductMetaData> | void): Product;
 }
 
 export declare class FormulaElement {
@@ -178,12 +148,7 @@ export declare class FormulaElement {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<FormulaElement, FormulaElementMetaData>);
-  static copyOf(
-    source: FormulaElement,
-    mutator: (
-      draft: MutableModel<FormulaElement, FormulaElementMetaData>
-    ) => MutableModel<FormulaElement, FormulaElementMetaData> | void
-  ): FormulaElement;
+  static copyOf(source: FormulaElement, mutator: (draft: MutableModel<FormulaElement, FormulaElementMetaData>) => MutableModel<FormulaElement, FormulaElementMetaData> | void): FormulaElement;
 }
 
 export declare class LotProduction {
@@ -196,12 +161,7 @@ export declare class LotProduction {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<LotProduction, LotProductionMetaData>);
-  static copyOf(
-    source: LotProduction,
-    mutator: (
-      draft: MutableModel<LotProduction, LotProductionMetaData>
-    ) => MutableModel<LotProduction, LotProductionMetaData> | void
-  ): LotProduction;
+  static copyOf(source: LotProduction, mutator: (draft: MutableModel<LotProduction, LotProductionMetaData>) => MutableModel<LotProduction, LotProductionMetaData> | void): LotProduction;
 }
 
 export declare class Pallet {
@@ -214,12 +174,7 @@ export declare class Pallet {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Pallet, PalletMetaData>);
-  static copyOf(
-    source: Pallet,
-    mutator: (
-      draft: MutableModel<Pallet, PalletMetaData>
-    ) => MutableModel<Pallet, PalletMetaData> | void
-  ): Pallet;
+  static copyOf(source: Pallet, mutator: (draft: MutableModel<Pallet, PalletMetaData>) => MutableModel<Pallet, PalletMetaData> | void): Pallet;
 }
 
 export declare class Package {
@@ -231,12 +186,7 @@ export declare class Package {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Package, PackageMetaData>);
-  static copyOf(
-    source: Package,
-    mutator: (
-      draft: MutableModel<Package, PackageMetaData>
-    ) => MutableModel<Package, PackageMetaData> | void
-  ): Package;
+  static copyOf(source: Package, mutator: (draft: MutableModel<Package, PackageMetaData>) => MutableModel<Package, PackageMetaData> | void): Package;
 }
 
 export declare class ProductionMember {
@@ -249,10 +199,5 @@ export declare class ProductionMember {
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<ProductionMember, ProductionMemberMetaData>);
-  static copyOf(
-    source: ProductionMember,
-    mutator: (
-      draft: MutableModel<ProductionMember, ProductionMemberMetaData>
-    ) => MutableModel<ProductionMember, ProductionMemberMetaData> | void
-  ): ProductionMember;
+  static copyOf(source: ProductionMember, mutator: (draft: MutableModel<ProductionMember, ProductionMemberMetaData>) => MutableModel<ProductionMember, ProductionMemberMetaData> | void): ProductionMember;
 }

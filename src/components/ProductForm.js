@@ -13,17 +13,18 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FlexView from "react-flexview";
 import { Input } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import formContext from "../contexts/form/formContext";
+import { saveProduct } from "../services/FormServices";
+import { ProductFormulaElement } from "./ProductFormulaElement";
 
 export const ProductForm = () => {
-  // const { setProductElementFormValues } = useContext(formContext)
+  const { productElementForm } = useContext(formContext)
 
-  const [avatarPreview, setAvatarPreview] = useState(
-    "./assets/user-avatar.jpg"
-  );
+  const [isFormulaElementVisible, setIsFormulaElementVisible] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -35,16 +36,30 @@ export const ProductForm = () => {
       avatar: "",
     },
     onSubmit: (values) => {
-      console.log({ values });
-      const name = values.name;
-      const description = values.description;
-      const quantity = values.quantity;
-      const image = values.avatar;
+      const updatedValues = {
+        ...values,
+        formulaElements: productElementForm
+      }
+      console.log({ values, updatedValues });
+      saveProduct(updatedValues)
       formik.resetForm();
     },
   });
+
+  const showFormulaElement = () => {
+    setIsFormulaElementVisible(true);
+  }
+
+
+  const hideFormulaElement = () => {
+    setIsFormulaElementVisible(false);
+  }
+
   return (
     <FlexView column hAlignContent="center" marginTop={"10%"}>
+
+      {isFormulaElementVisible && (< ProductFormulaElement isFormulaElementVisible={isFormulaElementVisible} hideFormulaElement={hideFormulaElement} />)}
+
       <Card style={{ width: "60%" }}>
         <form onSubmit={formik.handleSubmit}>
           <CardContent>
@@ -102,7 +117,7 @@ export const ProductForm = () => {
               <TextField
                 error={Boolean(
                   formik.touched.unitsPerPackage &&
-                    formik.errors.unitsPerPackage
+                  formik.errors.unitsPerPackage
                 )}
                 fullWidth
                 helperText={
@@ -124,7 +139,7 @@ export const ProductForm = () => {
               <TextField
                 error={Boolean(
                   formik.touched.packagePerPallet &&
-                    formik.errors.packagePerPallet
+                  formik.errors.packagePerPallet
                 )}
                 fullWidth
                 helperText={
@@ -169,7 +184,7 @@ export const ProductForm = () => {
               />
             </FlexView>
             <FlexView column style={{ margin: "10px" }}>
-              <Button variant="outlined" size="small">
+              <Button variant="outlined" size="small" onClick={showFormulaElement}>
                 <AddCircleOutlineIcon />
                 Add Raw Materials
               </Button>

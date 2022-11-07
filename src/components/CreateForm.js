@@ -5,6 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import { useState } from "react";
 import FlexView from "react-flexview";
 import FormModal from "./FormModal";
+import { ProductForm } from "./ProductForm";
+import { ProductFormulaElement } from "./ProductFormulaElement";
 
 export const CreateForm = () => {
   // const { setProductElementFormValues } = useContext(formContext)
@@ -33,6 +35,8 @@ export const CreateForm = () => {
         </Card>
       </FlexView>
       {isModalDisplayed && <FormModal isModalDisplayed={isModalDisplayed} />}
+      {/* {isModalDisplayed && <ProductFormulaElement />} */}
+      {/* {isModalDisplayed && <ProductForm />} */}
     </>
   );
 };

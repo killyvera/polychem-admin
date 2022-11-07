@@ -5,10 +5,11 @@ import { createForm } from "../services/FormServices";
 import { ProductFormulaElement } from "./../components/ProductFormulaElement";
 import { ProductForm } from "../components/ProductForm";
 import { CreateForm } from "../components/CreateForm";
+import AddLeaderProduction from "../components/addLeaderProduction";
 
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
-export function FormsList() {
+export function FormsList(props) {
   const [forms, setForms] = useState([]);
   const [formName, setFormName] = useState("");
 
@@ -51,7 +52,8 @@ export function FormsList() {
             </div> */}
       {/* <ProductFormulaElement /> */}
       {/* <ProductForm /> */}
-      <CreateForm />
+      {/* <CreateForm /> */}
+      <AddLeaderProduction />
     </div>
   );
 }

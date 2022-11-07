@@ -133,6 +133,10 @@ export declare class Product {
   readonly name?: string | null;
   readonly description?: string | null;
   readonly FormulaElements?: (FormulaElement | null)[] | null;
+  readonly unitsPerPackage?: number | null;
+  readonly palletsPerPackage?: number | null;
+  readonly code?: string | null;
+  readonly image?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<Product, ProductMetaData>);

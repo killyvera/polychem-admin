@@ -88,6 +88,10 @@ type Product @model @auth(rules: [{allow: private, provider: iam}]) {
   name: String
   description: String
   FormulaElements: [FormulaElement] @hasMany(indexName: "byProduct", fields: ["id"])
+  unitsPerPackage: Int
+  palletsPerPackage: Int
+  code: String
+  image: String
 }
 
 type Form @model @auth(rules: [{allow: private, provider: iam}]) {

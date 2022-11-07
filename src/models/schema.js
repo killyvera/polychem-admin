@@ -689,6 +689,34 @@ export const schema = {
                         "associatedWith": "productID"
                     }
                 },
+                "unitsPerPackage": {
+                    "name": "unitsPerPackage",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "palletsPerPackage": {
+                    "name": "palletsPerPackage",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "code": {
+                    "name": "code",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "image": {
+                    "name": "image",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1213,5 +1241,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "0b0e4e3981535d08eb1de9d7d63dd5bb"
+    "version": "ed827708c8979fe148522bc5e6266511"
 };

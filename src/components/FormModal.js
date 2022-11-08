@@ -16,7 +16,6 @@ import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 
 function FormModal(props) {
-  const [dateRange, setDateRange] = React.useState({});
   const [value, setValue] = React.useState([]);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
@@ -113,16 +112,7 @@ function FormModal(props) {
                     color="primary"
                   />
                 </div>
-                {/* {formik.values.isPlanned === true && (
-                <DateRangePicker
-                  open={formik.values.isPlanned}
-                  toggle={() => !formik.values.isPlanned}
-                  name="plannedDate"
-                  onChange={(range) => setDateRange(range)}
-                  closeOnClickOutside={true}
-                  // closeOnClickOutside={true}
-                />
-              )} */}
+
                 {formik.values.isPlanned && (
                   <LocalizationProvider
                     dateAdapter={AdapterDayjs}

@@ -17,6 +17,7 @@ import { padding, style } from "./Styles";
 
 function FormModal(props) {
   const [value, setValue] = React.useState([]);
+  const [leaderProduction, setLeaderProduction] = useState({});
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const formik = useFormik({
@@ -41,7 +42,6 @@ function FormModal(props) {
       //   handleModalDisplay();
     },
   });
-  console.log("values", value);
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
   };
@@ -214,6 +214,7 @@ function FormModal(props) {
         <AddLeaderProduction
           isModalDisplayed={isAddLeaderProduction}
           handleAddLeader={handleAddLeader}
+          setLeaderProduction={setLeaderProduction}
         />
       )}
       {isCreateProduction && (

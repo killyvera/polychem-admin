@@ -34,15 +34,6 @@ function FormModal(props) {
         .email("Must be a valid email")
         .max(255)
         .required("Email is required"),
-      name: Yup.string().max(255).required("First name is required"),
-      contactNumber: Yup.string()
-        .max(255)
-        .required("Contact Number is required"),
-      whatsAppNumber: Yup.string()
-        .max(255)
-        .required("WhatsApp Number is required"),
-      gender: Yup.string().max(255).required("Gender is required"),
-      relationType: Yup.string().max(255).required("Role is required"),
     }),
     onSubmit: (values) => {
       //   setIsLoading(true);
@@ -50,6 +41,7 @@ function FormModal(props) {
       //   handleModalDisplay();
     },
   });
+  console.log("values", value);
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
   };

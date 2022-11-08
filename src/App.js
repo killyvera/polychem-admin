@@ -11,6 +11,7 @@ import FormState from "./contexts/form/formState";
 import { Box, Stack } from "@mui/material";
 import UserPage from "./pages/UserPage";
 import { FormsList } from "./pages/FormsList";
+import Form from "./components/Form";
 
 Amplify.configure(awsExports);
 
@@ -24,6 +25,7 @@ function App({ signOut, user }) {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/forms" element={<FormsList />} />
+              <Route path="/createForm" element={<Form />} />
               <Route
                 path="/users"
                 element={<UserPage user={user} signOut={signOut} />}

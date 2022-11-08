@@ -1,19 +1,18 @@
+import Switch from "@material-ui/core/Switch";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Divider, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Modal from "@mui/material/Modal";
-import Select from "@mui/material/Select";
+import Typography from "@mui/material/Typography";
+import { LocalizationProvider } from "@mui/x-date-pickers-pro";
+import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { useFormik } from "formik";
+import * as React from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
-import Switch from "@material-ui/core/Switch";
-import Typography from "@mui/material/Typography";
 
-import { DateRangePicker } from "materialui-daterange-picker";
+// import { DateRangePicker } from "materialui-daterange-picker";
 
-import React from "react";
 const style = {
   position: "absolute",
   top: "40%",
@@ -28,6 +27,7 @@ const style = {
   pt: 2,
   px: 4,
   pb: 3,
+  marginTop: "5%",
 };
 const padding = {
   padding: "5px",
@@ -37,6 +37,8 @@ function FormModal(props) {
   const relationList = ["Personal", "Father", "Mother", "Son", "Daugher"];
   const genderList = ["Male", "Female"];
   const [dateRange, setDateRange] = React.useState({});
+  const [value, setValue] = React.useState([]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -45,6 +47,7 @@ function FormModal(props) {
       plannedDate: {},
       hasItBeenUrgent: false,
       haveExpiration: false,
+      expiryDate: new Date(),
     },
     validationSchema: Yup.object({
       email: Yup.string()
@@ -69,11 +72,7 @@ function FormModal(props) {
   });
   console.log(formik.values);
   return (
-    <Modal
-      open={isModalDisplayed}
-      aria-labelledby="parent-modal-title"
-      aria-describedby="parent-modal-description"
-    >
+    <>
       <Box sx={{ ...style }}>
         <h2 id="parent-modal-title">Form</h2>
         <Divider />
@@ -128,15 +127,35 @@ function FormModal(props) {
                     color="primary"
                   />
                 </div>
+                {/* {formik.values.isPlanned === true && (
+                <DateRangePicker
+                  open={formik.values.isPlanned}
+                  toggle={() => !formik.values.isPlanned}
+                  name="plannedDate"
+                  onChange={(range) => setDateRange(range)}
+                  closeOnClickOutside={true}
+                  // closeOnClickOutside={true}
+                />
+              )} */}
                 {formik.values.isPlanned && (
-                  <DateRangePicker
-                    open={formik.values.isPlanned}
-                    toggle={() => !formik.values.isPlanned}
-                    name="plannedDate"
-                    onChange={(range) => setDateRange(range)}
-                    closeOnClickOutside={true}
-                    // closeOnClickOutside={true}
-                  />
+                  <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                    localeText={{ start: "Start", end: "End" }}
+                  >
+                    <DateRangePicker
+                      value={value}
+                      onChange={(newValue) => {
+                        setValue(newValue);
+                      }}
+                      renderInput={(startProps, endProps) => (
+                        <React.Fragment>
+                          <TextField {...startProps} />
+                          <Box sx={{ mx: 2 }}> to </Box>
+                          <TextField {...endProps} />
+                        </React.Fragment>
+                      )}
+                    />
+                  </LocalizationProvider>
                 )}
               </FlexView>
               <FlexView>
@@ -152,36 +171,63 @@ function FormModal(props) {
                     color="primary"
                   />
                 </div>
-
-                {/* <FormControl fullWidth style={padding}>
-                  <InputLabel>Relation Type</InputLabel>
-                  <Select
-                    style={padding}
-                    error={Boolean(
-                      formik.touched.relationType && formik.errors.relationType
-                    )}
-                    fullWidth
-                    helperText={
-                      formik.touched.relationType && formik.errors.relationType
-                    }
-                    label="Relation Type"
-                    margin="normal"
-                    type="text"
-                    name="relationType"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    value={formik.values.relationType}
-                    variant="outlined"
-                  >
-                    {relationList.map((x, index) => (
-                      <MenuItem value={x} key={index}>
-                        {x}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl> */}
+              </FlexView>
+              <FlexView column style={{ margin: "20px" }}>
+                <Button
+                  // onClick={handleModalDisplayed}
+                  variant="outlined"
+                  size="small"
+                >
+                  <AddCircleOutlineIcon />
+                  Add Leader Prodcution
+                </Button>
               </FlexView>
             </div>
+          </FlexView>
+          <FlexView>
+            <div style={{ width: "50%" }}>
+              <Typography id="modal-modal-title" variant="subtitle2">
+                have expiration ?
+              </Typography>
+              <Switch
+                checked={formik.values.haveExpiration}
+                onChange={formik.handleChange}
+                name="haveExpiration"
+                value={formik.values.haveExpiration}
+                color="primary"
+              />
+            </div>
+            <div style={{ width: "50%" }}>
+              {formik.values.haveExpiration && (
+                <TextField
+                  style={padding}
+                  error={Boolean(
+                    formik.touched.expiryDate && formik.errors.expiryDate
+                  )}
+                  fullWidth
+                  helperText={
+                    formik.touched.expiryDate && formik.errors.expiryDate
+                  }
+                  label="Expiry Date"
+                  name="expiryDate"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="date"
+                  value={formik.values.expiryDate}
+                  variant="outlined"
+                />
+              )}
+            </div>
+          </FlexView>
+          <FlexView column style={{ margin: "20px" }}>
+            <Button
+              // onClick={handleModalDisplayed}
+              variant="outlined"
+              size="small"
+            >
+              <AddCircleOutlineIcon />
+              Create Production
+            </Button>
           </FlexView>
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>
@@ -196,7 +242,8 @@ function FormModal(props) {
           </FlexView>
         </form>
       </Box>
-    </Modal>
+      {}
+    </>
   );
 }
 

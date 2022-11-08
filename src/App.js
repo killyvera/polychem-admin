@@ -1,17 +1,17 @@
-import { Route, Routes } from "react-router-dom";
-import { Amplify } from "aws-amplify";
 import { withAuthenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { Home } from "./pages/Home";
+import { Box } from "@mui/material";
+import { Amplify } from "aws-amplify";
+import { Route, Routes } from "react-router-dom";
 import awsExports from "./aws-exports";
+import FormModal from "./components/FormModal";
 import { NavBar } from "./components/NavBar";
-import { UsersContextProvider } from "./contexts/UsersContext";
-import { ProductsContextProvider } from "./contexts/ProductContext";
 import FormState from "./contexts/form/formState";
-import { Box, Stack } from "@mui/material";
-import UserPage from "./pages/UserPage";
+import { ProductsContextProvider } from "./contexts/ProductContext";
+import { UsersContextProvider } from "./contexts/UsersContext";
 import { FormsList } from "./pages/FormsList";
-import Form from "./components/Form";
+import { Home } from "./pages/Home";
+import UserPage from "./pages/UserPage";
 
 Amplify.configure(awsExports);
 
@@ -25,7 +25,7 @@ function App({ signOut, user }) {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/forms" element={<FormsList />} />
-              <Route path="/createForm" element={<Form />} />
+              <Route path="/createForm" element={<FormModal />} />
               <Route
                 path="/users"
                 element={<UserPage user={user} signOut={signOut} />}

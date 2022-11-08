@@ -13,32 +13,9 @@ import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
+import { padding, style } from "./Styles";
 
-// import { DateRangePicker } from "materialui-daterange-picker";
-
-const style = {
-  position: "absolute",
-  top: "40%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  //   height: "60%",
-  bgcolor: "white",
-  //   border: "2px solid #000",
-  //   boxShadow: 24,
-  borderRadius: "5px",
-  pt: 2,
-  px: 4,
-  pb: 3,
-  marginTop: "5%",
-};
-const padding = {
-  padding: "5px",
-};
 function FormModal(props) {
-  const { isModalDisplayed } = props;
-  const relationList = ["Personal", "Father", "Mother", "Son", "Daugher"];
-  const genderList = ["Male", "Female"];
   const [dateRange, setDateRange] = React.useState({});
   const [value, setValue] = React.useState([]);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);

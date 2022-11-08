@@ -27,7 +27,7 @@ const padding = {
   padding: "5px",
 };
 function ProductionFrom(props) {
-  const { isModalDisplayed } = props;
+  const { isModalDisplayed, handleCreateProduction } = props;
   const { products } = useContext(ProductsContext);
   console.log("productsss", products);
   const formik = useFormik({
@@ -50,7 +50,7 @@ function ProductionFrom(props) {
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ ...style }}>
-        <h2 id="parent-modal-title">Get User</h2>
+        <h2 id="parent-modal-title">Production Form</h2>
         <Divider />
         <form onSubmit={formik.handleSubmit}>
           <FlexView>
@@ -161,12 +161,23 @@ function ProductionFrom(props) {
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>
             <Button
+              style={{ margin: "5px" }}
               type="submit"
               value="Submit"
               color="primary"
               variant="contained"
             >
               Add
+            </Button>
+            <Button
+              style={{ margin: "5px" }}
+              type="submit"
+              value="Submit"
+              color="error"
+              variant="contained"
+              onClick={handleCreateProduction}
+            >
+              Cancel
             </Button>
           </FlexView>
         </form>

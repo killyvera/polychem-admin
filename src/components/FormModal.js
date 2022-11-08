@@ -12,6 +12,7 @@ import { useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import AddLeaderProduction from "./addLeaderProduction";
+import ProductionFrom from "./ProductionFrom";
 
 // import { DateRangePicker } from "materialui-daterange-picker";
 
@@ -41,6 +42,7 @@ function FormModal(props) {
   const [dateRange, setDateRange] = React.useState({});
   const [value, setValue] = React.useState([]);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
+  const [isCreateProduction, setIsCreateProduction] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -74,6 +76,9 @@ function FormModal(props) {
   });
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
+  };
+  const handleCreateProduction = () => {
+    setIsCreateProduction((prev) => !prev);
   };
   return (
     <>
@@ -225,7 +230,7 @@ function FormModal(props) {
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
             <Button
-              // onClick={handleModalDisplayed}
+              onClick={handleCreateProduction}
               variant="outlined"
               size="small"
             >
@@ -250,6 +255,12 @@ function FormModal(props) {
         <AddLeaderProduction
           isModalDisplayed={isAddLeaderProduction}
           handleAddLeader={handleAddLeader}
+        />
+      )}
+      {isCreateProduction && (
+        <ProductionFrom
+          isModalDisplayed={isCreateProduction}
+          handleCreateProduction={handleCreateProduction}
         />
       )}
     </>

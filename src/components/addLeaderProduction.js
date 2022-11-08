@@ -28,7 +28,7 @@ const padding = {
   padding: "5px",
 };
 function AddLeaderProduction(props) {
-  const { isModalDisplayed } = props;
+  const { isModalDisplayed, handleAddLeader } = props;
   const { users } = useContext(UsersContext);
 
   const formik = useFormik({
@@ -77,12 +77,23 @@ function AddLeaderProduction(props) {
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>
             <Button
+              style={{ margin: "5px" }}
               type="submit"
               value="Submit"
               color="primary"
               variant="contained"
             >
               Add
+            </Button>
+            <Button
+              style={{ margin: "5px" }}
+              type="submit"
+              value="Submit"
+              color="error"
+              variant="contained"
+              onClick={handleAddLeader}
+            >
+              Cancel
             </Button>
           </FlexView>
         </form>

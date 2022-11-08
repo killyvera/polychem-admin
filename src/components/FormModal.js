@@ -8,8 +8,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { useFormik } from "formik";
 import * as React from "react";
+import { useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
+import AddLeaderProduction from "./addLeaderProduction";
 
 // import { DateRangePicker } from "materialui-daterange-picker";
 
@@ -38,7 +40,7 @@ function FormModal(props) {
   const genderList = ["Male", "Female"];
   const [dateRange, setDateRange] = React.useState({});
   const [value, setValue] = React.useState([]);
-
+  const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -70,7 +72,9 @@ function FormModal(props) {
       //   handleModalDisplay();
     },
   });
-  console.log(formik.values);
+  const handleAddLeader = () => {
+    setIsLeaderProduction((prev) => !prev);
+  };
   return (
     <>
       <Box sx={{ ...style }}>
@@ -174,7 +178,7 @@ function FormModal(props) {
               </FlexView>
               <FlexView column style={{ margin: "20px" }}>
                 <Button
-                  // onClick={handleModalDisplayed}
+                  onClick={handleAddLeader}
                   variant="outlined"
                   size="small"
                 >
@@ -242,7 +246,12 @@ function FormModal(props) {
           </FlexView>
         </form>
       </Box>
-      {}
+      {isAddLeaderProduction && (
+        <AddLeaderProduction
+          isModalDisplayed={isAddLeaderProduction}
+          handleAddLeader={handleAddLeader}
+        />
+      )}
     </>
   );
 }

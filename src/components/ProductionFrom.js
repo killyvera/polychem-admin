@@ -27,9 +27,8 @@ const padding = {
   padding: "5px",
 };
 function ProductionFrom(props) {
-  const { isModalDisplayed, handleCreateProduction } = props;
+  const { isModalDisplayed, handleCreateProduction, setProduction } = props;
   const { products } = useContext(ProductsContext);
-  console.log("productsss", products);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -41,11 +40,15 @@ function ProductionFrom(props) {
     validationSchema: Yup.object({
       user: Yup.string().required("name is required"),
     }),
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      console.log("valuessss", values);
+      setProduction(values);
+      handleCreateProduction();
+    },
   });
   return (
     <Modal
-      open={true}
+      open={isModalDisplayed}
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
@@ -163,7 +166,6 @@ function ProductionFrom(props) {
             <Button
               style={{ margin: "5px" }}
               type="submit"
-              value="Submit"
               color="primary"
               variant="contained"
             >
@@ -171,8 +173,6 @@ function ProductionFrom(props) {
             </Button>
             <Button
               style={{ margin: "5px" }}
-              type="submit"
-              value="Submit"
               color="error"
               variant="contained"
               onClick={handleCreateProduction}

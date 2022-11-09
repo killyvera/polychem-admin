@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DataStore } from "@aws-amplify/datastore";
+import FlexView from "react-flexview";
 import { Form } from "../models";
 import { createForm } from "../services/FormServices";
 import { ProductFormulaElement } from "./../components/ProductFormulaElement";
@@ -7,6 +8,9 @@ import { ProductForm } from "../components/ProductForm";
 import { CreateForm } from "../components/CreateForm";
 import AddLeaderProduction from "../components/addLeaderProduction";
 import ProductionFrom from "../components/ProductionFrom";
+import { CreatedForms } from "../components/CreatedForms";
+import { Divider } from "@mui/material";
+
 
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
@@ -27,7 +31,7 @@ export function FormsList(props) {
     }, []);
 
     return (
-        <div>
+        <FlexView hAlignContent="center" column>
             {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
             <form>
                 <label>Nombre de formulario:
@@ -52,10 +56,14 @@ export function FormsList(props) {
                 ))}
             </div> */}
             {/* <ProductFormulaElement /> */}
-            <ProductForm />
-            {/* <CreateForm /> */}
+            {/* <ProductForm /> */}
+            <CreateForm />
+            <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
+            <FlexView hAlignContent="center" height={250} width={350} column style={{ margin: "10px", backgroundColor: 'red', overflowY: 'scroll' }}>
+                < CreatedForms forms={forms} />
+            </FlexView>
             {/* <AddLeaderProduction /> */}
             {/* <ProductionFrom /> */}
-        </div>
+        </FlexView>
     );
 }

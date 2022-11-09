@@ -6,11 +6,9 @@ import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import Select from "@mui/material/Select";
 import { useFormik } from "formik";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
-import { UsersContext } from "../contexts/UsersContext";
-import { usersList } from "../services/UserServices";
 import { ProductsContext } from "../contexts/ProductContext";
 const style = {
   position: "absolute",
@@ -29,7 +27,7 @@ const padding = {
   padding: "5px",
 };
 function ProductionFrom(props) {
-  const { isModalDisplayed } = props;
+  const { isModalDisplayed, handleCreateProduction } = props;
   const { products } = useContext(ProductsContext);
   console.log("productsss", products);
   const formik = useFormik({
@@ -37,8 +35,8 @@ function ProductionFrom(props) {
       name: "",
       product: "",
       expectedUnits: 0,
-      expectedPackages: "",
-      expectedPallets: "",
+      expectedPackages: 0,
+      expectedPallets: 0,
     },
     validationSchema: Yup.object({
       user: Yup.string().required("name is required"),
@@ -52,7 +50,7 @@ function ProductionFrom(props) {
       aria-describedby="parent-modal-description"
     >
       <Box sx={{ ...style }}>
-        <h2 id="parent-modal-title">Get User</h2>
+        <h2 id="parent-modal-title">Production Form</h2>
         <Divider />
         <form onSubmit={formik.handleSubmit}>
           <FlexView>
@@ -73,118 +71,113 @@ function ProductionFrom(props) {
                   value={formik.values.name}
                   variant="outlined"
                 />
-                <TextField
-                  style={padding}
-                  error={Boolean(
-                    formik.touched.description && formik.errors.description
-                  )}
-                  fullWidth
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
-                  label="Description"
-                  margin="normal"
-                  name="description"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="email"
-                  value={formik.values.description}
-                  variant="outlined"
-                />
-              </FlexView>
-              <FlexView>
-                {" "}
-                <TextField
-                  style={padding}
-                  error={Boolean(formik.touched.name && formik.errors.name)}
-                  fullWidth
-                  helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
-                  type="text"
-                  margin="normal"
-                  name="name"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
-                  variant="outlined"
-                />
-                <TextField
-                  style={padding}
-                  error={Boolean(
-                    formik.touched.description && formik.errors.description
-                  )}
-                  fullWidth
-                  helperText={
-                    formik.touched.description && formik.errors.description
-                  }
-                  label="Description"
-                  margin="normal"
-                  name="description"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="email"
-                  value={formik.values.description}
-                  variant="outlined"
-                />
-              </FlexView>
-              <FlexView>
-                {" "}
-                <TextField
-                  style={padding}
-                  error={Boolean(formik.touched.name && formik.errors.name)}
-                  fullWidth
-                  helperText={formik.touched.name && formik.errors.name}
-                  label="Name"
-                  type="text"
-                  margin="normal"
-                  name="name"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.name}
-                  variant="outlined"
-                />
-              </FlexView>
-
-              <FlexView>
-                {/* <FormControl fullWidth style={padding}>
-                  <InputLabel>Relation Type</InputLabel>
+                <FormControl fullWidth style={{ marginTop: "20px" }}>
+                  <InputLabel>Products</InputLabel>
                   <Select
-                    style={padding}
                     error={Boolean(
-                      formik.touched.relationType && formik.errors.relationType
+                      formik.touched.user && formik.errors.product
                     )}
                     fullWidth
-                    helperText={
-                      formik.touched.relationType && formik.errors.relationType
-                    }
-                    label="Relation Type"
-                    margin="normal"
-                    type="text"
-                    name="relationType"
+                    // helperText={formik.touched.user && formik.errors.user}
+                    label="product"
+                    type="select"
+                    name="product"
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    value={formik.values.relationType}
+                    value={formik.values.product}
                     variant="outlined"
                   >
-                    {relationList.map((x, index) => (
-                      <MenuItem value={x} key={index}>
-                        {x}
+                    {products?.map((x, index) => (
+                      <MenuItem value={x.name} key={index}>
+                        {x.name}
                       </MenuItem>
                     ))}
                   </Select>
-                </FormControl> */}
+                </FormControl>
+              </FlexView>
+              <FlexView>
+                {" "}
+                <TextField
+                  style={padding}
+                  error={Boolean(
+                    formik.touched.expectedUnits && formik.errors.expectedUnits
+                  )}
+                  fullWidth
+                  helperText={
+                    formik.touched.expectedUnits && formik.errors.expectedUnits
+                  }
+                  label="Expected Units"
+                  type="number"
+                  name="expectedUnits"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.expectedUnits}
+                  variant="outlined"
+                />
+                <TextField
+                  style={padding}
+                  error={Boolean(
+                    formik.touched.expectedPackages &&
+                      formik.errors.expectedPackages
+                  )}
+                  fullWidth
+                  helperText={
+                    formik.touched.expectedPackages &&
+                    formik.errors.expectedPackages
+                  }
+                  label="Expected Packages"
+                  type="number"
+                  name="expectedPackages"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.expectedPackages}
+                  variant="outlined"
+                />
+              </FlexView>
+              <FlexView>
+                {" "}
+                <TextField
+                  style={padding}
+                  error={Boolean(
+                    formik.touched.expectedPallets &&
+                      formik.errors.expectedPallets
+                  )}
+                  fullWidth
+                  helperText={
+                    formik.touched.expectedPallets &&
+                    formik.errors.expectedPallets
+                  }
+                  label="Expected Pallets"
+                  type="number"
+                  name="expectedPallets"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.expectedPallets}
+                  variant="outlined"
+                />
               </FlexView>
             </div>
           </FlexView>
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>
             <Button
+              style={{ margin: "5px" }}
               type="submit"
               value="Submit"
               color="primary"
               variant="contained"
             >
               Add
+            </Button>
+            <Button
+              style={{ margin: "5px" }}
+              type="submit"
+              value="Submit"
+              color="error"
+              variant="contained"
+              onClick={handleCreateProduction}
+            >
+              Cancel
             </Button>
           </FlexView>
         </form>

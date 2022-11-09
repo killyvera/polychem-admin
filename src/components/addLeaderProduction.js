@@ -6,39 +6,33 @@ import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import Select from "@mui/material/Select";
 import { useFormik } from "formik";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import { UsersContext } from "../contexts/UsersContext";
-import { usersList } from "../services/UserServices";
-const style = {
-  position: "absolute",
-  top: "40%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  //   height: "60%",
-  bgcolor: "white",
-  borderRadius: "5px",
-  pt: 2,
-  px: 4,
-  pb: 3,
-};
-const padding = {
-  padding: "5px",
-};
+import { padding, style } from "./Styles";
+
 function AddLeaderProduction(props) {
-  const { isModalDisplayed } = props;
+  const { isModalDisplayed, handleAddLeader, setLeaderProduction } = props;
   const { users } = useContext(UsersContext);
 
+  const handleLeaderProduction = (user) => {
+    const leaderProduction = users.filter((x) => x.Attributes[1].Value == user);
+    setLeaderProduction(leaderProduction);
+  };
   const formik = useFormik({
     initialValues: {
-      user: {},
+      user: "",
     },
     validationSchema: Yup.object({
-      user: Yup.object().required("user is required"),
+      user: Yup.string().required("user is required"),
     }),
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      if (values.user) {
+        handleLeaderProduction(values.user);
+        handleAddLeader();
+      }
+    },
   });
   return (
     <Modal
@@ -46,7 +40,7 @@ function AddLeaderProduction(props) {
       aria-labelledby="parent-modal-title"
       aria-describedby="parent-modal-description"
     >
-      <Box sx={{ ...style }}>
+      <Box sx={{ ...style, width: "50%" }}>
         <h2 id="parent-modal-title">Get User</h2>
         <Divider />
         <form onSubmit={formik.handleSubmit}>
@@ -57,7 +51,6 @@ function AddLeaderProduction(props) {
                 style={padding}
                 error={Boolean(formik.touched.user && formik.errors.user)}
                 fullWidth
-                // helperText={formik.touched.user && formik.errors.user}
                 label="Users"
                 type="select"
                 name="user"
@@ -77,12 +70,23 @@ function AddLeaderProduction(props) {
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>
             <Button
+              style={{ margin: "5px" }}
               type="submit"
               value="Submit"
               color="primary"
               variant="contained"
             >
               Add
+            </Button>
+            <Button
+              style={{ margin: "5px" }}
+              type="submit"
+              value="Submit"
+              color="error"
+              variant="contained"
+              onClick={handleAddLeader}
+            >
+              Cancel
             </Button>
           </FlexView>
         </form>

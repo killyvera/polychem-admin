@@ -4,13 +4,16 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { useState } from "react";
 import FlexView from "react-flexview";
+import { Router } from "react-router-dom";
 import FormModal from "./FormModal";
 import { ProductForm } from "./ProductForm";
 import { ProductFormulaElement } from "./ProductFormulaElement";
+import { Link } from "react-router-dom";
 
-export const CreateForm = () => {
+export const CreateForm = (props) => {
   // const { setProductElementFormValues } = useContext(formContext)
   const [isModalDisplayed, setIsModalDisplayed] = useState(false);
+
   const handleModalDisplayed = () => {
     setIsModalDisplayed((prev) => !prev);
   };
@@ -21,14 +24,16 @@ export const CreateForm = () => {
           <form>
             <CardContent>
               <FlexView column style={{ margin: "10px" }}>
-                <Button
-                  onClick={handleModalDisplayed}
-                  variant="outlined"
-                  size="small"
-                >
-                  <AddCircleOutlineIcon />
-                  Create Form
-                </Button>
+                <ul style={{ listStyle: "none" }}>
+                  <li>
+                    <Link to="/createForm">
+                      <Button>
+                        <AddCircleOutlineIcon />
+                        Create Form
+                      </Button>
+                    </Link>
+                  </li>
+                </ul>
               </FlexView>
             </CardContent>
           </form>

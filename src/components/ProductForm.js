@@ -20,6 +20,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import formContext from "../contexts/form/formContext";
 import { saveProduct } from "../services/FormServices";
 import { ProductFormulaElement } from "./ProductFormulaElement";
+import { RawMateriallist } from "./RawMaterialList";
 
 export const ProductForm = () => {
   const { productElementForm } = useContext(formContext)
@@ -188,6 +189,9 @@ export const ProductForm = () => {
                 <AddCircleOutlineIcon />
                 Add Raw Materials
               </Button>
+            </FlexView>
+            <FlexView hAlignContent="center" column style={{ margin: "10px" }}>
+              <RawMateriallist rawMaterials={productElementForm} />
             </FlexView>
           </CardContent>
           <FlexView hAlignContent="right">

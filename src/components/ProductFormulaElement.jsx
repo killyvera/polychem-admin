@@ -70,6 +70,7 @@ export const ProductFormulaElement = ({ isFormulaElementVisible, hideFormulaElem
             name: formik.values.name,
             description: formik.values.description,
             quantity: parseInt(formik.values.quantity),
+            image: formik.values.avatar,
             productID: "4a846d28-e496-406c-b618-63137e377d49"
         }
         setProductElementFormValues(formulaElement)

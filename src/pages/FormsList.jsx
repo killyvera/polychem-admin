@@ -11,24 +11,24 @@ import ProductionFrom from "../components/ProductionFrom";
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
 export function FormsList(props) {
-  const [forms, setForms] = useState([]);
-  const [formName, setFormName] = useState("");
+    const [forms, setForms] = useState([]);
+    const [formName, setFormName] = useState("");
 
-  const fetchForms = async () => {
-    const forms = await DataStore.query(Form);
-    console.log({ forms });
-    setForms(forms);
-  };
+    const fetchForms = async () => {
+        const forms = await DataStore.query(Form);
+        console.log({ forms });
+        setForms(forms);
+    };
 
-  useEffect(() => {
-    fetchForms();
-    const subscription = DataStore.observe(Form).subscribe(() => fetchForms());
-    return () => subscription.unsubscribe();
-  }, []);
+    useEffect(() => {
+        fetchForms();
+        const subscription = DataStore.observe(Form).subscribe(() => fetchForms());
+        return () => subscription.unsubscribe();
+    }, []);
 
-  return (
-    <div>
-      {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
+    return (
+        <div>
+            {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
             <form>
                 <label>Nombre de formulario:
                     <input
@@ -51,11 +51,11 @@ export function FormsList(props) {
                     </div>
                 ))}
             </div> */}
-      {/* <ProductFormulaElement /> */}
-      {/* <ProductForm /> */}
-      <CreateForm />
-      {/* <AddLeaderProduction /> */}
-      {/* <ProductionFrom /> */}
-    </div>
-  );
+            {/* <ProductFormulaElement /> */}
+            <ProductForm />
+            {/* <CreateForm /> */}
+            {/* <AddLeaderProduction /> */}
+            {/* <ProductionFrom /> */}
+        </div>
+    );
 }

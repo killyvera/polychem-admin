@@ -20,24 +20,21 @@ export const CreateForm = (props) => {
   return (
     <>
       <FlexView column hAlignContent="center" marginTop={"10%"}>
-        <Card style={{ width: "60%" }}>
-          <form>
-            <CardContent>
-              <FlexView column style={{ margin: "10px" }}>
-                <ul style={{ listStyle: "none" }}>
-                  <li>
-                    <Link to="/createForm">
-                      <Button>
-                        <AddCircleOutlineIcon />
-                        Create Form
-                      </Button>
-                    </Link>
-                  </li>
-                </ul>
-              </FlexView>
-            </CardContent>
-          </form>
-        </Card>
+        <form>
+
+          <FlexView column>
+            <ul style={{ listStyle: "none" }}>
+              <li >
+                <Link to="/createForm">
+                  <Button>
+                    <AddCircleOutlineIcon />
+                    Create Form
+                  </Button>
+                </Link>
+              </li>
+            </ul>
+          </FlexView>
+        </form>
       </FlexView>
       {isModalDisplayed && <FormModal isModalDisplayed={isModalDisplayed} />}
       {/* {isModalDisplayed && <ProductFormulaElement />} */}

@@ -2,6 +2,10 @@ import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Divider, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
@@ -14,6 +18,7 @@ import * as Yup from "yup";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
+import Images from '../constants/Images';
 
 function FormModal(props) {
   const [value, setValue] = React.useState([]);
@@ -150,6 +155,31 @@ function FormModal(props) {
                   Add Leader Prodcution
                 </Button>
               </FlexView>
+
+              {/* <FlexView column style={{ margin: "20px" }}>
+              <ListItem alignItems="flex-start">
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src={leaderProduction.image ? leaderProduction.image : Images.UserAvatar} />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={leaderProduction.name}
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {leaderProduction.role}
+                                        </Typography>
+
+                                        {leaderProduction.shift}
+                                    </React.Fragment>
+                                }
+                            />
+                        </ListItem>
+              </FlexView> */}
             </div>
           </FlexView>
           <FlexView>

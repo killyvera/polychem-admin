@@ -16,6 +16,8 @@ function AddLeaderProduction(props) {
   const { isModalDisplayed, handleAddLeader, setLeaderProduction } = props;
   const { users } = useContext(UsersContext);
 
+  console.log({ users })
+
   const handleLeaderProduction = (user) => {
     const leaderProduction = users.filter((x) => x.Attributes[1].Value == user);
     setLeaderProduction(leaderProduction);

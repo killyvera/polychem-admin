@@ -58,10 +58,10 @@ export function FormsList(props) {
             {/* <ProductFormulaElement /> */}
             {/* <ProductForm /> */}
             <CreateForm />
-            <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
+            {/* <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
             <FlexView hAlignContent="center" height={250} width={350} column style={{ margin: "10px", backgroundColor: 'red', overflowY: 'scroll' }}>
                 < CreatedForms forms={forms} />
-            </FlexView>
+            </FlexView> */}
             {/* <AddLeaderProduction /> */}
             {/* <ProductionFrom /> */}
         </FlexView>

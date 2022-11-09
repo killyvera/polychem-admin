@@ -39,3 +39,23 @@ export const saveProduct = async ({ name, description, formulaElements }) => {
     );
     console.log({ response })
 }
+
+export const saveForm = async ({ name, description, planned, schedule, sent, expire, expirationDate, active, scheduledID }) => {
+    console.log({ name, description, planned, schedule, sent, expire, expirationDate, active, scheduledID })
+    const response = await DataStore.save(
+        new Form({
+            "name": name,
+            "description": description,
+            "planned": planned,
+            "schedule": schedule,
+            "sent": sent,
+            "expire": expire,
+            "expirationDate": expirationDate,
+            "active": active,
+            "Production": '',
+            "ProductionLeader": '',
+            "sheduledID": scheduledID
+        })
+    );
+    console.log({ response })
+}

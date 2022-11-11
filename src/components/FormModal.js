@@ -48,7 +48,7 @@ function FormModal(props) {
         .required("Email is required"),
     }),
     onSubmit: (values) => {
-      // saveForm(values);
+      submitForm(values);
       //   AddPatient(values);
       //   handleModalDisplay();
     },

@@ -9,7 +9,9 @@ export const AdminFormContextProvider = (props) => {
   const submitForm = (values) => {
     saveForm(values);
   };
-
+  console.log("dateRange", dateRange);
+  console.log("leaderProduction", leaderProduction);
+  console.log("production", production);
   return (
     <AdminFormContext.Provider
       value={{

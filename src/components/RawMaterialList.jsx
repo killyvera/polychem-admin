@@ -41,7 +41,8 @@ export const RawMateriallist = ({ rawMaterials }) => {
                 ))
                     : (
                         <Typography
-                            sx={{ display: 'inline' }}
+                            sx={{ display: 'inline', textAlign: 'center' }}
+                            style={{ marginLeft: 120 }}
                             component="span"
                             variant="body2"
                             color="text.primary"

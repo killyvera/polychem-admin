@@ -24,6 +24,7 @@ import { RawMateriallist } from "./RawMaterialList";
 
 export const ProductForm = () => {
   const { productElementForm } = useContext(formContext)
+  console.log({ productElementForm })
 
   const [isFormulaElementVisible, setIsFormulaElementVisible] = useState(false);
 

@@ -27,7 +27,8 @@ const padding = {
   padding: "5px",
 };
 function ProductionFrom(props) {
-  const { isModalDisplayed, handleCreateProduction, setProduction } = props;
+  const { isModalDisplayed, handleCreateProduction, submitProductionForm } =
+    props;
   const { products } = useContext(ProductsContext);
   const formik = useFormik({
     initialValues: {
@@ -38,14 +39,21 @@ function ProductionFrom(props) {
       expectedPallets: 0,
     },
     validationSchema: Yup.object({
-      user: Yup.string().required("name is required"),
+      name: Yup.string().required("name is required"),
+      product: Yup.string().required("name is required"),
+      expectedUnits: Yup.number().required("Expected Units are required"),
+      expectedPackages: Yup.number().required(
+        "Expected Packages  are required"
+      ),
+      expectedPallets: Yup.number().required("Expected Pallets are required"),
     }),
     onSubmit: (values) => {
       console.log("valuessss", values);
-      setProduction(values);
+      submitProductionForm(values);
       handleCreateProduction();
     },
   });
+  console.log(formik.values);
   return (
     <Modal
       open={isModalDisplayed}
@@ -162,10 +170,11 @@ function ProductionFrom(props) {
             </div>
           </FlexView>
           <Divider />
-          <FlexView hAlignContent="right" marginTop={"4%"}>
+          <FlexView hAlignContent="right">
             <Button
               style={{ margin: "5px" }}
               type="submit"
+              value="submit"
               color="primary"
               variant="contained"
             >
@@ -175,7 +184,7 @@ function ProductionFrom(props) {
               style={{ margin: "5px" }}
               color="error"
               variant="contained"
-              onClick={handleCreateProduction}
+              // onClick={handleCreateProduction}
             >
               Cancel
             </Button>

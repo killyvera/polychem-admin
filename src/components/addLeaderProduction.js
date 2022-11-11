@@ -14,12 +14,12 @@ import { padding, style } from "./Styles";
 
 function AddLeaderProduction(props) {
   const { isModalDisplayed, handleAddLeader, setLeaderProduction } = props;
-  const { users } = useContext(UsersContext);
+  const { users, giveMeUser } = useContext(UsersContext);
 
-  console.log({ users })
+  console.log({ users });
 
-  const handleLeaderProduction = (user) => {
-    const leaderProduction = users.filter((x) => x.Attributes[1].Value == user);
+  const handleLeaderProduction = async (user) => {
+    const leaderProduction = users.find((x) => x.Attributes[1].Value == user);
     setLeaderProduction(leaderProduction);
   };
   const formik = useFormik({

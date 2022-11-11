@@ -2,10 +2,10 @@ import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Divider, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
@@ -18,7 +18,7 @@ import * as Yup from "yup";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
-import Images from '../constants/Images';
+import Images from "../constants/Images";
 
 function FormModal(props) {
   const [value, setValue] = React.useState([]);
@@ -26,12 +26,14 @@ function FormModal(props) {
   const [production, setProduction] = useState({});
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
+  const submitProductionForm = (values) => {
+    setProduction(values);
+  };
   const formik = useFormik({
     initialValues: {
       name: "",
       description: "",
       isPlanned: false,
-      plannedDate: {},
       hasItBeenUrgent: false,
       haveExpiration: false,
       expiryDate: new Date(),
@@ -43,11 +45,12 @@ function FormModal(props) {
         .required("Email is required"),
     }),
     onSubmit: (values) => {
-      //   setIsLoading(true);
+      // saveForm(values);
       //   AddPatient(values);
       //   handleModalDisplay();
     },
   });
+  console.log("production", production);
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
   };
@@ -253,7 +256,7 @@ function FormModal(props) {
         <ProductionFrom
           isModalDisplayed={isCreateProduction}
           handleCreateProduction={handleCreateProduction}
-          setProduction={setProduction}
+          submitProductionForm={submitProductionForm}
         />
       )}
     </>

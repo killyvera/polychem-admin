@@ -6,11 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import Modal from "@mui/material/Modal";
 import Select from "@mui/material/Select";
 import { useFormik } from "formik";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import { ProductsContext } from "../contexts/ProductContext";
 import formContext from "../contexts/form/formContext";
+import { useEffect } from "react";
 
 const style = {
   position: "absolute",
@@ -33,30 +34,38 @@ function ProductionFrom(props) {
   const { products } = useContext(ProductsContext);
   const { setProduction } = useContext(formContext);
 
+  const [expectedPackages, setExpectedPackages] = useState(0);
+  const [expectedPallets, setExpectedPallets] = useState(0);
+
+  console.log("products", products);
+
   const formik = useFormik({
     initialValues: {
       name: "",
       product: "",
       expectedUnits: 0,
-      expectedPackages: 0,
-      expectedPallets: 0,
+      // expectedPackages: expectedUnits / unitperpackage,
+      // expectedPallets: expectedUnits / palletsPerPackage,
     },
     validationSchema: Yup.object({
       name: Yup.string().required("name is required"),
       product: Yup.string().required("name is required"),
       expectedUnits: Yup.number().required("Expected Units are required"),
-      expectedPackages: Yup.number().required(
-        "Expected Packages  are required"
-      ),
-      expectedPallets: Yup.number().required("Expected Pallets are required"),
     }),
     onSubmit: (values) => {
-      console.log("valuessss", values);
-      setProduction(values);
+      const data = { ...values, expectedPackages, expectedPallets };
+      setProduction(data);
       handleCreateProduction();
     },
   });
-  console.log(formik.values);
+  useEffect(() => {
+    const { expectedUnits, product } = formik.values;
+    if (expectedUnits && product) {
+      const actualproduct = products.find((x) => x.name === product);
+      setExpectedPackages(expectedUnits / actualproduct?.unitsPerPackage);
+      setExpectedPallets(expectedUnits / actualproduct?.palletsPerPackage);
+    }
+  }, [formik.values.product]);
   return (
     <Modal
       open={isModalDisplayed}
@@ -85,7 +94,27 @@ function ProductionFrom(props) {
                   value={formik.values.name}
                   variant="outlined"
                 />
-                <FormControl fullWidth style={{ marginTop: "20px" }}>
+                <TextField
+                  style={{ padding: "5px", marginTop: "15px" }}
+                  error={Boolean(
+                    formik.touched.expectedUnits && formik.errors.expectedUnits
+                  )}
+                  fullWidth
+                  helperText={
+                    formik.touched.expectedUnits && formik.errors.expectedUnits
+                  }
+                  label="Expected Units"
+                  type="number"
+                  name="expectedUnits"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.expectedUnits}
+                  variant="outlined"
+                />
+              </FlexView>
+              <FlexView>
+                {" "}
+                <FormControl fullWidth style={{ marginTop: "5px" }}>
                   <InputLabel>Products</InputLabel>
                   <Select
                     error={Boolean(
@@ -108,43 +137,13 @@ function ProductionFrom(props) {
                     ))}
                   </Select>
                 </FormControl>
-              </FlexView>
-              <FlexView>
-                {" "}
                 <TextField
                   style={padding}
-                  error={Boolean(
-                    formik.touched.expectedUnits && formik.errors.expectedUnits
-                  )}
+                  disabled={true}
                   fullWidth
-                  helperText={
-                    formik.touched.expectedUnits && formik.errors.expectedUnits
-                  }
-                  label="Expected Units"
-                  type="number"
-                  name="expectedUnits"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.expectedUnits}
-                  variant="outlined"
-                />
-                <TextField
-                  style={padding}
-                  error={Boolean(
-                    formik.touched.expectedPackages &&
-                      formik.errors.expectedPackages
-                  )}
-                  fullWidth
-                  helperText={
-                    formik.touched.expectedPackages &&
-                    formik.errors.expectedPackages
-                  }
                   label="Expected Packages"
                   type="number"
-                  name="expectedPackages"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.expectedPackages}
+                  value={expectedPackages}
                   variant="outlined"
                 />
               </FlexView>
@@ -152,21 +151,11 @@ function ProductionFrom(props) {
                 {" "}
                 <TextField
                   style={padding}
-                  error={Boolean(
-                    formik.touched.expectedPallets &&
-                      formik.errors.expectedPallets
-                  )}
+                  disabled={true}
                   fullWidth
-                  helperText={
-                    formik.touched.expectedPallets &&
-                    formik.errors.expectedPallets
-                  }
                   label="Expected Pallets"
                   type="number"
-                  name="expectedPallets"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  value={formik.values.expectedPallets}
+                  value={expectedPallets}
                   variant="outlined"
                 />
               </FlexView>

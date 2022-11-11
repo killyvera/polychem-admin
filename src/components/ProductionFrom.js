@@ -37,8 +37,6 @@ function ProductionFrom(props) {
   const [expectedPackages, setExpectedPackages] = useState(0);
   const [expectedPallets, setExpectedPallets] = useState(0);
 
-  console.log("products", products);
-
   const formik = useFormik({
     initialValues: {
       name: "",

@@ -12,7 +12,6 @@ import { CreatedForms } from "../components/CreatedForms";
 import { Divider } from "@mui/material";
 import { CreatePalletFormModal } from './../components/CreatePalletFormModal';
 
-
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
 export function FormsList(props) {
@@ -21,7 +20,6 @@ export function FormsList(props) {
 
     const fetchForms = async () => {
         const forms = await DataStore.query(Form);
-        console.log({ forms });
         setForms(forms);
     };
 

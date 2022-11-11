@@ -1,6 +1,14 @@
 import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Divider, ListItem, ListItemText, TextField } from "@mui/material";
+import {
+  Button,
+  Divider,
+  TextField,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
@@ -16,16 +24,15 @@ import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 import { v4 as uuidv4 } from "uuid";
+import Images from "../constants/Images";
 
 function FormModal(props) {
-  const { production, dateRange, setDateRange, leaderProduction, submitForm } =
-    useContext(formContext);
+  const { production, leaderProduction, submitForm } = useContext(formContext);
 
   console.log({ production })
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,19 +41,26 @@ function FormModal(props) {
       hasItBeenUrgent: false,
       haveExpiration: false,
       expiryDate: new Date(),
+      plannedDate: new Date(),
     },
     validationSchema: Yup.object({
       name: Yup.string().max(255).required("Name is required"),
       description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
-      const { name, description, isPlanned, expiryDate, haveExpiration } =
-        values;
+      const {
+        name,
+        description,
+        isPlanned,
+        expiryDate,
+        haveExpiration,
+        plannedDate,
+      } = values;
       const formData = {
         name: name,
         description: description,
         planned: isPlanned,
-        schedule: "",
+        schedule: plannedDate,
         sent: true,
         expire: haveExpiration,
         expirationDate: expiryDate,
@@ -121,24 +135,41 @@ function FormModal(props) {
                 </div>
 
                 {formik.values.isPlanned && (
-                  <LocalizationProvider
-                    dateAdapter={AdapterDayjs}
-                    localeText={{ start: "Start", end: "End" }}
-                  >
-                    <DateRangePicker
-                      value={dateRange}
-                      onChange={(newValue) => {
-                        setDateRange(newValue);
-                      }}
-                      renderInput={(startProps, endProps) => (
-                        <React.Fragment>
-                          <TextField {...startProps} />
-                          <Box sx={{ mx: 2 }}> to </Box>
-                          <TextField {...endProps} />
-                        </React.Fragment>
-                      )}
-                    />
-                  </LocalizationProvider>
+                  // <LocalizationProvider
+                  //   dateAdapter={AdapterDayjs}
+                  //   localeText={{ start: "Start", end: "End" }}
+                  // >
+                  //   <DateRangePicker
+                  //     value={dateRange}
+                  //     onChange={(newValue) => {
+                  //       setDateRange(newValue);
+                  //     }}
+                  //     renderInput={(startProps, endProps) => (
+                  //       <React.Fragment>
+                  //         <TextField {...startProps} />
+                  //         <Box sx={{ mx: 2 }}> to </Box>
+                  //         <TextField {...endProps} />
+                  //       </React.Fragment>
+                  //     )}
+                  //   />
+                  // </LocalizationProvider>
+                  <TextField
+                    style={padding}
+                    error={Boolean(
+                      formik.touched.expiryDate && formik.errors.plannedDate
+                    )}
+                    fullWidth
+                    helperText={
+                      formik.touched.expiryDate && formik.errors.plannedDate
+                    }
+                    label="Planned Date"
+                    name="plannedDate"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="date"
+                    value={formik.values.plannedDate}
+                    variant="outlined"
+                  />
                 )}
               </FlexView>
               <FlexView>
@@ -166,30 +197,42 @@ function FormModal(props) {
                 </Button>
               </FlexView>
 
-              {/* <FlexView column style={{ margin: "20px" }}>
-              <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src={leaderProduction.image ? leaderProduction.image : Images.UserAvatar} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={leaderProduction.name}
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            {leaderProduction.role}
-                                        </Typography>
-
-                                        {leaderProduction.shift}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-              </FlexView> */}
+              <FlexView column style={{ margin: "20px" }}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    {leaderProduction && (
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={
+                          leaderProduction.image
+                            ? leaderProduction.image
+                            : Images.UserAvatar
+                        }
+                      />
+                    )}
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={leaderProduction?.Attributes[1]?.Value}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: "inline" }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {/* {leaderProduction && (
+                            <div>Role: {leaderProduction.role}</div>
+                          )} */}
+                        </Typography>
+                        {/* {leaderProduction && (
+                          <div>shift: {leaderProduction.shift}</div>
+                        )} */}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              </FlexView>
             </div>
           </FlexView>
           <FlexView>

@@ -17,15 +17,8 @@ import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 
 function FormModal(props) {
-  const {
-    dateRange,
-    setDateRange,
-    leaderProduction,
-    setLeaderProduction,
-    production,
-    setProduction,
-    submitForm,
-  } = useContext(AdminFormContext);
+  const { dateRange, setDateRange, setProduction, submitForm } =
+    useContext(AdminFormContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);

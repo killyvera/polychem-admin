@@ -31,7 +31,6 @@ function FormModal(props) {
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -199,17 +198,19 @@ function FormModal(props) {
               <FlexView column style={{ margin: "20px" }}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={
-                        leaderProduction.image
-                          ? leaderProduction.image
-                          : Images.UserAvatar
-                      }
-                    />
+                    {leaderProduction && (
+                      <Avatar
+                        alt="Remy Sharp"
+                        src={
+                          leaderProduction.image
+                            ? leaderProduction.image
+                            : Images.UserAvatar
+                        }
+                      />
+                    )}
                   </ListItemAvatar>
                   <ListItemText
-                    primary={leaderProduction.name}
+                    primary={leaderProduction?.Attributes[1]?.Value}
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -218,10 +219,13 @@ function FormModal(props) {
                           variant="body2"
                           color="text.primary"
                         >
-                          {leaderProduction.role}
+                          {/* {leaderProduction && (
+                            <div>Role: {leaderProduction.role}</div>
+                          )} */}
                         </Typography>
-
-                        {leaderProduction.shift}
+                        {/* {leaderProduction && (
+                          <div>shift: {leaderProduction.shift}</div>
+                        )} */}
                       </React.Fragment>
                     }
                   />

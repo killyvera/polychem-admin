@@ -11,19 +11,20 @@ import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import { AdminFormContext } from "../contexts/AdminFormContext";
 import { UsersContext } from "../contexts/UsersContext";
+import formContext from "../contexts/form/formContext";
 
 import { padding, style } from "./Styles";
 
 function AddLeaderProduction(props) {
   const { isModalDisplayed, handleAddLeader } = props;
   const { users, giveMeUser } = useContext(UsersContext);
-  const { setLeaderProduction } = useContext(AdminFormContext);
+  const { setleaderProduction } = useContext(formContext);
 
   console.log({ users });
 
   const handleLeaderProduction = async (user) => {
     const leaderProduction = users.find((x) => x.Attributes[1].Value == user);
-    setLeaderProduction(leaderProduction);
+    setleaderProduction(leaderProduction);
   };
   const formik = useFormik({
     initialValues: {

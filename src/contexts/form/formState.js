@@ -44,7 +44,7 @@ const initialState = {
     name: "",
     product: "",
   },
-  dateRange: "",
+  dateRange: [],
 };
 
 export default function FormState(props) {

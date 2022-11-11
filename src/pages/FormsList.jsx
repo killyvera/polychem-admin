@@ -11,28 +11,26 @@ import ProductionFrom from "../components/ProductionFrom";
 import { CreatedForms } from "../components/CreatedForms";
 import { Divider } from "@mui/material";
 
-
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
 export function FormsList(props) {
-    const [forms, setForms] = useState([]);
-    const [formName, setFormName] = useState("");
+  const [forms, setForms] = useState([]);
+  const [formName, setFormName] = useState("");
 
-    const fetchForms = async () => {
-        const forms = await DataStore.query(Form);
-        console.log({ forms });
-        setForms(forms);
-    };
+  const fetchForms = async () => {
+    const forms = await DataStore.query(Form);
+    setForms(forms);
+  };
 
-    useEffect(() => {
-        fetchForms();
-        const subscription = DataStore.observe(Form).subscribe(() => fetchForms());
-        return () => subscription.unsubscribe();
-    }, []);
+  useEffect(() => {
+    fetchForms();
+    const subscription = DataStore.observe(Form).subscribe(() => fetchForms());
+    return () => subscription.unsubscribe();
+  }, []);
 
-    return (
-        <FlexView hAlignContent="center" column>
-            {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
+  return (
+    <FlexView hAlignContent="center" column>
+      {/* <div style={{ marginTop: '100px' }} >Formularios Produccion</div>
             <form>
                 <label>Nombre de formulario:
                     <input
@@ -55,15 +53,15 @@ export function FormsList(props) {
                     </div>
                 ))}
             </div> */}
-            {/* <ProductFormulaElement /> */}
-            {/* <ProductForm /> */}
-            <CreateForm />
-            {/* <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
+      {/* <ProductFormulaElement /> */}
+      {/* <ProductForm /> */}
+      <CreateForm />
+      {/* <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
             <FlexView hAlignContent="center" height={250} width={350} column style={{ margin: "10px", backgroundColor: 'red', overflowY: 'scroll' }}>
                 < CreatedForms forms={forms} />
             </FlexView> */}
-            {/* <AddLeaderProduction /> */}
-            {/* <ProductionFrom /> */}
-        </FlexView>
-    );
+      {/* <AddLeaderProduction /> */}
+      {/* <ProductionFrom /> */}
+    </FlexView>
+  );
 }

@@ -23,8 +23,7 @@ import { ProductFormulaElement } from "./ProductFormulaElement";
 import { RawMateriallist } from "./RawMaterialList";
 
 export const ProductForm = () => {
-  const { productElementForm } = useContext(formContext)
-  console.log({ productElementForm })
+  const { productElementForm } = useContext(formContext);
 
   const [isFormulaElementVisible, setIsFormulaElementVisible] = useState(false);
 
@@ -40,27 +39,29 @@ export const ProductForm = () => {
     onSubmit: (values) => {
       const updatedValues = {
         ...values,
-        formulaElements: productElementForm
-      }
-      console.log({ values, updatedValues });
-      saveProduct(updatedValues)
+        formulaElements: productElementForm,
+      };
+      saveProduct(updatedValues);
       formik.resetForm();
     },
   });
 
   const showFormulaElement = () => {
     setIsFormulaElementVisible(true);
-  }
-
+  };
 
   const hideFormulaElement = () => {
     setIsFormulaElementVisible(false);
-  }
+  };
 
   return (
-    <FlexView column hAlignContent="center" >
-
-      {isFormulaElementVisible && (< ProductFormulaElement isFormulaElementVisible={isFormulaElementVisible} hideFormulaElement={hideFormulaElement} />)}
+    <FlexView column hAlignContent="center">
+      {isFormulaElementVisible && (
+        <ProductFormulaElement
+          isFormulaElementVisible={isFormulaElementVisible}
+          hideFormulaElement={hideFormulaElement}
+        />
+      )}
 
       <Card style={{ width: "60%" }}>
         <form onSubmit={formik.handleSubmit}>
@@ -119,7 +120,7 @@ export const ProductForm = () => {
               <TextField
                 error={Boolean(
                   formik.touched.unitsPerPackage &&
-                  formik.errors.unitsPerPackage
+                    formik.errors.unitsPerPackage
                 )}
                 fullWidth
                 helperText={
@@ -141,7 +142,7 @@ export const ProductForm = () => {
               <TextField
                 error={Boolean(
                   formik.touched.packagePerPallet &&
-                  formik.errors.packagePerPallet
+                    formik.errors.packagePerPallet
                 )}
                 fullWidth
                 helperText={
@@ -186,7 +187,11 @@ export const ProductForm = () => {
               />
             </FlexView>
             <FlexView column style={{ margin: "10px" }}>
-              <Button variant="outlined" size="small" onClick={showFormulaElement}>
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={showFormulaElement}
+              >
                 <AddCircleOutlineIcon />
                 Add Raw Materials
               </Button>

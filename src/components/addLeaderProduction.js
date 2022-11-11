@@ -19,8 +19,6 @@ function AddLeaderProduction(props) {
   const { users, giveMeUser } = useContext(UsersContext);
   const { setleaderProduction } = useContext(formContext);
 
-  console.log({ users });
-
   const handleLeaderProduction = async (user) => {
     const leaderProduction = users.find((x) => x.Attributes[1].Value == user);
     setleaderProduction(leaderProduction);

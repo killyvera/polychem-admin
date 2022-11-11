@@ -1,6 +1,14 @@
 import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Divider, TextField } from "@mui/material";
+import {
+  Button,
+  Divider,
+  TextField,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
@@ -16,6 +24,7 @@ import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 import { v4 as uuidv4 } from "uuid";
+import Images from "../constants/Images";
 
 function FormModal(props) {
   const { production, leaderProduction, submitForm } = useContext(formContext);
@@ -187,30 +196,37 @@ function FormModal(props) {
                 </Button>
               </FlexView>
 
-              {/* <FlexView column style={{ margin: "20px" }}>
-              <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src={leaderProduction.image ? leaderProduction.image : Images.UserAvatar} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={leaderProduction.name}
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            sx={{ display: 'inline' }}
-                                            component="span"
-                                            variant="body2"
-                                            color="text.primary"
-                                        >
-                                            {leaderProduction.role}
-                                        </Typography>
+              <FlexView column style={{ margin: "20px" }}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src={
+                        leaderProduction.image
+                          ? leaderProduction.image
+                          : Images.UserAvatar
+                      }
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={leaderProduction.name}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: "inline" }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {leaderProduction.role}
+                        </Typography>
 
-                                        {leaderProduction.shift}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-              </FlexView> */}
+                        {leaderProduction.shift}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              </FlexView>
             </div>
           </FlexView>
           <FlexView>

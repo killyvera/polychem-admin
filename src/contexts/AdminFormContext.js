@@ -4,7 +4,8 @@ export const AdminFormContext = createContext();
 
 export const AdminFormContextProvider = (props) => {
   const [dateRange, setDateRange] = React.useState([]);
-
+  const [leaderProduction, setLeaderProduction] = useState({});
+  const [production, setProduction] = useState({});
   const submitForm = (values) => {
     saveForm(values);
   };
@@ -13,6 +14,10 @@ export const AdminFormContextProvider = (props) => {
     <AdminFormContext.Provider
       value={{
         dateRange,
+        leaderProduction,
+        production,
+        setProduction,
+        setLeaderProduction,
         setDateRange,
         submitForm,
       }}

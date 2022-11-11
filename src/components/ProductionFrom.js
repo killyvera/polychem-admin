@@ -10,6 +10,8 @@ import { useContext } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import { ProductsContext } from "../contexts/ProductContext";
+import { AdminFormContext } from "../contexts/AdminFormContext";
+
 const style = {
   position: "absolute",
   top: "40%",
@@ -27,9 +29,10 @@ const padding = {
   padding: "5px",
 };
 function ProductionFrom(props) {
-  const { isModalDisplayed, handleCreateProduction, submitProductionForm } =
-    props;
+  const { isModalDisplayed, handleCreateProduction } = props;
   const { products } = useContext(ProductsContext);
+  const { setProduction } = useContext(AdminFormContext);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -49,7 +52,7 @@ function ProductionFrom(props) {
     }),
     onSubmit: (values) => {
       console.log("valuessss", values);
-      submitProductionForm(values);
+      setProduction(values);
       handleCreateProduction();
     },
   });

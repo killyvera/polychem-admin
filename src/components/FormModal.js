@@ -2,32 +2,31 @@ import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { Button, Divider, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
 import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { useFormik } from "formik";
 import * as React from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
+import { AdminFormContext } from "../contexts/AdminFormContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
-import Images from "../constants/Images";
-import { useContext } from "react";
-import { AdminFormContext } from "../contexts/AdminFormContext";
 
 function FormModal(props) {
-  const { dateRange, submitForm } = useContext(AdminFormContext);
+  const {
+    dateRange,
+    setDateRange,
+    leaderProduction,
+    setLeaderProduction,
+    production,
+    setProduction,
+    submitForm,
+  } = useContext(AdminFormContext);
 
-  const [value, setValue] = React.useState([]);
-  const [leaderProduction, setLeaderProduction] = useState({});
-  const [production, setProduction] = useState({});
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const submitProductionForm = (values) => {
@@ -54,14 +53,12 @@ function FormModal(props) {
       //   handleModalDisplay();
     },
   });
-  console.log("production", production);
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
   };
   const handleCreateProduction = () => {
     setIsCreateProduction((prev) => !prev);
   };
-  console.log("leaderProduction", leaderProduction);
   return (
     <>
       <Box sx={{ ...style }}>
@@ -125,9 +122,9 @@ function FormModal(props) {
                     localeText={{ start: "Start", end: "End" }}
                   >
                     <DateRangePicker
-                      value={value}
+                      value={dateRange}
                       onChange={(newValue) => {
-                        setValue(newValue);
+                        setDateRange(newValue);
                       }}
                       renderInput={(startProps, endProps) => (
                         <React.Fragment>
@@ -253,7 +250,6 @@ function FormModal(props) {
         <AddLeaderProduction
           isModalDisplayed={isAddLeaderProduction}
           handleAddLeader={handleAddLeader}
-          setLeaderProduction={setLeaderProduction}
         />
       )}
       {isCreateProduction && (

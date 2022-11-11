@@ -85,11 +85,10 @@ function FormModal(props) {
                     formik.touched.description && formik.errors.description
                   }
                   label="Description"
-                  margin="normal"
                   name="description"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  type="email"
+                  type="text"
                   value={formik.values.description}
                   variant="outlined"
                 />

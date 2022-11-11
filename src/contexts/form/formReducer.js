@@ -3,6 +3,7 @@ import {
   SET_PRODUCT_FORM,
   SET_PRODUCTION_FORM,
   SET_LEADER_PRODUCTION,
+  SET_DATE_RANGE,
 } from "../../constants/types";
 
 export default function reducer(state, action) {
@@ -20,8 +21,12 @@ export default function reducer(state, action) {
 
     case SET_PRODUCTION_FORM:
       return { ...state, production: action.payload };
+
     case SET_LEADER_PRODUCTION:
-      return { ...state, production: action.payload };
+      return { ...state, leaderProduction: action.payload };
+
+    case SET_DATE_RANGE:
+      return { ...state, dateRange: action.payload };
 
     default:
       return state;

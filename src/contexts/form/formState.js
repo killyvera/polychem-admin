@@ -4,6 +4,7 @@ import {
   SET_PRODUCT_FORM,
   SET_PRODUCTION_FORM,
   SET_LEADER_PRODUCTION,
+  SET_DATE_RANGE,
 } from "../../constants/types";
 import {
   saveProduct,
@@ -43,6 +44,7 @@ const initialState = {
     name: "",
     product: "",
   },
+  dateRange: "",
 };
 
 export default function FormState(props) {
@@ -67,6 +69,13 @@ export default function FormState(props) {
     });
   }, []);
 
+  const setDateRange = useCallback(async (values) => {
+    dispatch({
+      type: SET_DATE_RANGE,
+      payload: values,
+    });
+  }, []);
+
   const setleaderProduction = useCallback(async (values) => {
     dispatch({
       type: SET_LEADER_PRODUCTION,
@@ -87,7 +96,11 @@ export default function FormState(props) {
     <FormContext.Provider
       value={{
         productElementForm: state.productElementForm,
+        leaderProduction: state.leaderProduction,
+        production: state.production,
+        dateRange: state.dateRange,
         setProductElementFormValues,
+        setDateRange,
         setProductFormValues,
         submitForm,
         setProduction,

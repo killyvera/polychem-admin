@@ -11,27 +11,19 @@ import * as React from "react";
 import { useContext, useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
-import { AdminFormContext } from "../contexts/AdminFormContext";
+import formContext from "../contexts/form/formContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 import { v4 as uuidv4 } from "uuid";
 
 function FormModal(props) {
-  const {
-    dateRange,
-    production,
-    leaderProduction,
-    setDateRange,
-    setProduction,
-    submitForm,
-  } = useContext(AdminFormContext);
+  const { production, dateRange, setDateRange, leaderProduction, submitForm } =
+    useContext(formContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
-  const submitProductionForm = (values) => {
-    setProduction(values);
-  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -266,7 +258,6 @@ function FormModal(props) {
         <ProductionFrom
           isModalDisplayed={isCreateProduction}
           handleCreateProduction={handleCreateProduction}
-          submitProductionForm={submitProductionForm}
         />
       )}
     </>

@@ -42,13 +42,12 @@ function FormModal(props) {
       expiryDate: new Date(),
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Must be a valid email")
-        .max(255)
-        .required("Email is required"),
+      name: Yup.string().max(255).required("Name is required"),
+      description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
       submitForm(values);
+      console.log("values in form", values);
       //   AddPatient(values);
       //   handleModalDisplay();
     },

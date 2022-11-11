@@ -46,14 +46,15 @@ function FormModal(props) {
       description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
-      const { name, description, isPlanned, expiryDate } = values;
+      const { name, description, isPlanned, expiryDate, haveExpiration } =
+        values;
       const formData = {
         name: name,
         description: description,
         planned: isPlanned,
         schedule: "",
         sent: true,
-        expire: false,
+        expire: haveExpiration,
         expirationDate: expiryDate,
         active: true,
         Production: production,

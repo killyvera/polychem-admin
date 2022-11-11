@@ -1,6 +1,6 @@
 import Switch from "@material-ui/core/Switch";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { Button, Divider, TextField } from "@mui/material";
+import { Button, Divider, ListItem, ListItemText, TextField } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { LocalizationProvider } from "@mui/x-date-pickers-pro";
@@ -20,6 +20,8 @@ import { v4 as uuidv4 } from "uuid";
 function FormModal(props) {
   const { production, dateRange, setDateRange, leaderProduction, submitForm } =
     useContext(formContext);
+
+  console.log({ production })
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
@@ -234,6 +236,31 @@ function FormModal(props) {
               <AddCircleOutlineIcon />
               Create Production
             </Button>
+          </FlexView>
+          <FlexView column style={{ margin: "20px" }}>
+            {/* {
+              production.map(item => (
+                <ListItem alignItems="flex-start">
+                  <ListItemText
+                    primary={leaderProduction.name}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: 'inline' }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {leaderProduction.role}
+                        </Typography>
+
+                        {leaderProduction.shift}
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+              ))
+            } */}
           </FlexView>
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>

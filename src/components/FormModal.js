@@ -53,7 +53,7 @@ function FormModal(props) {
         planned: isPlanned,
         schedule: "",
         sent: true,
-        expire: true,
+        expire: false,
         expirationDate: expiryDate,
         active: true,
         Production: production,

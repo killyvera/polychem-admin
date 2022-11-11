@@ -44,8 +44,6 @@ function ProductionFrom(props) {
       name: "",
       product: "",
       expectedUnits: 0,
-      // expectedPackages: expectedUnits / unitperpackage,
-      // expectedPallets: expectedUnits / palletsPerPackage,
     },
     validationSchema: Yup.object({
       name: Yup.string().required("name is required"),

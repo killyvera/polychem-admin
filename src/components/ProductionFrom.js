@@ -174,7 +174,7 @@ function ProductionFrom(props) {
               style={{ margin: "5px" }}
               color="error"
               variant="contained"
-              // onClick={handleCreateProduction}
+              onClick={handleCreateProduction}
             >
               Cancel
             </Button>

@@ -9,6 +9,7 @@ import { NavBar } from "./components/NavBar";
 import FormState from "./contexts/form/formState";
 import { ProductsContextProvider } from "./contexts/ProductContext";
 import { UsersContextProvider } from "./contexts/UsersContext";
+import { AdminFormContextProvider } from "./contexts/AdminFormContext";
 import { FormsList } from "./pages/FormsList";
 import { Home } from "./pages/Home";
 import UserPage from "./pages/UserPage";
@@ -20,18 +21,20 @@ function App({ signOut, user }) {
     <UsersContextProvider>
       <FormState>
         <ProductsContextProvider>
-          <Box>
-            <NavBar user={user} signOut={signOut} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/forms" element={<FormsList />} />
-              <Route path="/createForm" element={<FormModal />} />
-              <Route
-                path="/users"
-                element={<UserPage user={user} signOut={signOut} />}
-              />
-            </Routes>
-          </Box>
+          <AdminFormContextProvider>
+            <Box>
+              <NavBar user={user} signOut={signOut} />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/forms" element={<FormsList />} />
+                <Route path="/createForm" element={<FormModal />} />
+                <Route
+                  path="/users"
+                  element={<UserPage user={user} signOut={signOut} />}
+                />
+              </Routes>
+            </Box>
+          </AdminFormContextProvider>
         </ProductsContextProvider>
       </FormState>
     </UsersContextProvider>

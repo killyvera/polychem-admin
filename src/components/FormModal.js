@@ -19,8 +19,12 @@ import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
 import Images from "../constants/Images";
+import { useContext } from "react";
+import { AdminFormContext } from "../contexts/AdminFormContext";
 
 function FormModal(props) {
+  const { dateRange, submitForm } = useContext(AdminFormContext);
+
   const [value, setValue] = React.useState([]);
   const [leaderProduction, setLeaderProduction] = useState({});
   const [production, setProduction] = useState({});

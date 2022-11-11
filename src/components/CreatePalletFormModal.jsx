@@ -145,6 +145,15 @@ export const CreatePalletFormModal = ({ isFormulaElementVisible }) => {
                                 >
                                     Reset
                                 </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    color="error"
+                                    style={{ margin: "5px" }}
+                                // onClick={formik.resetForm}
+                                >
+                                    Cancel
+                                </Button>
                             </FlexView>
                         </form>
                     </Card>

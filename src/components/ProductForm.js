@@ -24,6 +24,7 @@ import { RawMateriallist } from "./RawMaterialList";
 
 export const ProductForm = () => {
   const { productElementForm } = useContext(formContext)
+  console.log({ productElementForm })
 
   const [isFormulaElementVisible, setIsFormulaElementVisible] = useState(false);
 
@@ -57,7 +58,7 @@ export const ProductForm = () => {
   }
 
   return (
-    <FlexView column hAlignContent="center" marginTop={"10%"}>
+    <FlexView column hAlignContent="center" >
 
       {isFormulaElementVisible && (< ProductFormulaElement isFormulaElementVisible={isFormulaElementVisible} hideFormulaElement={hideFormulaElement} />)}
 

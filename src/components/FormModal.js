@@ -15,10 +15,17 @@ import { AdminFormContext } from "../contexts/AdminFormContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
+import { v4 as uuidv4 } from "uuid";
 
 function FormModal(props) {
-  const { dateRange, setDateRange, setProduction, submitForm } =
-    useContext(AdminFormContext);
+  const {
+    dateRange,
+    production,
+    leaderProduction,
+    setDateRange,
+    setProduction,
+    submitForm,
+  } = useContext(AdminFormContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
@@ -39,10 +46,22 @@ function FormModal(props) {
       description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
-      submitForm(values);
-      console.log("values in form", values);
-      //   AddPatient(values);
-      //   handleModalDisplay();
+      const { name, description, isPlanned, expiryDate } = values;
+      const formData = {
+        name: name,
+        description: description,
+        planned: isPlanned,
+        schedule: "",
+        sent: true,
+        expire: true,
+        expirationDate: expiryDate,
+        active: true,
+        Production: production,
+        ProductionLeader: leaderProduction,
+        sheduledID: uuidv4(),
+      };
+      submitForm(formData);
+      console.log("values in form", formData);
     },
   });
   const handleAddLeader = () => {
@@ -68,7 +87,6 @@ function FormModal(props) {
                   helperText={formik.touched.name && formik.errors.name}
                   label="Name"
                   type="text"
-                  margin="normal"
                   name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}

@@ -20,7 +20,7 @@ export default function reducer(state, action) {
       return { ...state, productForm: action.payload };
 
     case SET_PRODUCTION_FORM:
-      return { ...state, production: action.payload };
+      return { ...state, production: [...state.production, action.payload] };
 
     case SET_LEADER_PRODUCTION:
       return { ...state, leaderProduction: action.payload };

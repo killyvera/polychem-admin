@@ -281,8 +281,8 @@ function FormModal(props) {
             </Button>
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
-            {/* {
-              production.map(item => (
+            {
+              production.length > 0 && production.map(item => (
                 <ListItem alignItems="flex-start">
                   <ListItemText
                     primary={item.name}
@@ -293,17 +293,23 @@ function FormModal(props) {
                           component="span"
                           variant="body2"
                           color="text.primary"
+                          style={{ whiteSpace: "pre-line" }}
                         >
-                          {item.product}
+                          {
+                            `                
+                             ${item.product}
+                             ${item.expectedUnits}
+                           
+                              `
+                          }
                         </Typography>
 
-                        {item.expectedUnits}
                       </React.Fragment>
                     }
                   />
                 </ListItem>
               ))
-            } */}
+            }
           </FlexView>
           <Divider />
           <FlexView hAlignContent="right" marginTop={"4%"}>

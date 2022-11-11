@@ -285,7 +285,7 @@ function FormModal(props) {
               production.map(item => (
                 <ListItem alignItems="flex-start">
                   <ListItemText
-                    primary={leaderProduction.name}
+                    primary={item.name}
                     secondary={
                       <React.Fragment>
                         <Typography
@@ -294,10 +294,10 @@ function FormModal(props) {
                           variant="body2"
                           color="text.primary"
                         >
-                          {leaderProduction.role}
+                          {item.product}
                         </Typography>
 
-                        {leaderProduction.shift}
+                        {item.expectedUnits}
                       </React.Fragment>
                     }
                   />

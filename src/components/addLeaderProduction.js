@@ -9,9 +9,8 @@ import { useFormik } from "formik";
 import { useContext } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
-import { AdminFormContext } from "../contexts/AdminFormContext";
-import { UsersContext } from "../contexts/UsersContext";
 import formContext from "../contexts/form/formContext";
+import { UsersContext } from "../contexts/UsersContext";
 
 import { padding, style } from "./Styles";
 

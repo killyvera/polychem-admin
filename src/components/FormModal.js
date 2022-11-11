@@ -18,8 +18,7 @@ import { padding, style } from "./Styles";
 import { v4 as uuidv4 } from "uuid";
 
 function FormModal(props) {
-  const { production, dateRange, setDateRange, leaderProduction, submitForm } =
-    useContext(formContext);
+  const { production, leaderProduction, submitForm } = useContext(formContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
@@ -32,19 +31,26 @@ function FormModal(props) {
       hasItBeenUrgent: false,
       haveExpiration: false,
       expiryDate: new Date(),
+      plannedDate: new Date(),
     },
     validationSchema: Yup.object({
       name: Yup.string().max(255).required("Name is required"),
       description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
-      const { name, description, isPlanned, expiryDate, haveExpiration } =
-        values;
+      const {
+        name,
+        description,
+        isPlanned,
+        expiryDate,
+        haveExpiration,
+        plannedDate,
+      } = values;
       const formData = {
         name: name,
         description: description,
         planned: isPlanned,
-        schedule: "",
+        schedule: plannedDate,
         sent: true,
         expire: haveExpiration,
         expirationDate: expiryDate,
@@ -119,24 +125,41 @@ function FormModal(props) {
                 </div>
 
                 {formik.values.isPlanned && (
-                  <LocalizationProvider
-                    dateAdapter={AdapterDayjs}
-                    localeText={{ start: "Start", end: "End" }}
-                  >
-                    <DateRangePicker
-                      value={dateRange}
-                      onChange={(newValue) => {
-                        setDateRange(newValue);
-                      }}
-                      renderInput={(startProps, endProps) => (
-                        <React.Fragment>
-                          <TextField {...startProps} />
-                          <Box sx={{ mx: 2 }}> to </Box>
-                          <TextField {...endProps} />
-                        </React.Fragment>
-                      )}
-                    />
-                  </LocalizationProvider>
+                  // <LocalizationProvider
+                  //   dateAdapter={AdapterDayjs}
+                  //   localeText={{ start: "Start", end: "End" }}
+                  // >
+                  //   <DateRangePicker
+                  //     value={dateRange}
+                  //     onChange={(newValue) => {
+                  //       setDateRange(newValue);
+                  //     }}
+                  //     renderInput={(startProps, endProps) => (
+                  //       <React.Fragment>
+                  //         <TextField {...startProps} />
+                  //         <Box sx={{ mx: 2 }}> to </Box>
+                  //         <TextField {...endProps} />
+                  //       </React.Fragment>
+                  //     )}
+                  //   />
+                  // </LocalizationProvider>
+                  <TextField
+                    style={padding}
+                    error={Boolean(
+                      formik.touched.expiryDate && formik.errors.plannedDate
+                    )}
+                    fullWidth
+                    helperText={
+                      formik.touched.expiryDate && formik.errors.plannedDate
+                    }
+                    label="Planned Date"
+                    name="plannedDate"
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                    type="date"
+                    value={formik.values.plannedDate}
+                    variant="outlined"
+                  />
                 )}
               </FlexView>
               <FlexView>

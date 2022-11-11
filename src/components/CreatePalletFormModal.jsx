@@ -124,7 +124,7 @@ export const CreatePalletFormModal = ({ isFormulaElementVisible }) => {
                                     variant="outlined"
                                     size="small"
                                     style={{ margin: "5px" }}
-                                    onClick={saveFormulaElement}
+                                // onClick={saveFormulaElement}
                                 >
                                     Create Package
                                 </Button>
@@ -132,7 +132,7 @@ export const CreatePalletFormModal = ({ isFormulaElementVisible }) => {
                                     variant="outlined"
                                     size="small"
                                     style={{ margin: "5px" }}
-                                    onClick={handleAddFormulaElement}
+                                // onClick={handleAddFormulaElement}
                                 >
                                     Add
                                 </Button>

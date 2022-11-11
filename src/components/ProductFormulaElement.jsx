@@ -198,6 +198,15 @@ export const ProductFormulaElement = ({ isFormulaElementVisible, hideFormulaElem
                                 >
                                     Reset
                                 </Button>
+                                <Button
+                                    variant="outlined"
+                                    size="small"
+                                    color="error"
+                                    style={{ margin: "5px" }}
+                                    onClick={() => hideFormulaElement()}
+                                >
+                                    Cancel
+                                </Button>
                             </FlexView>
                         </form>
                     </Card>

@@ -57,7 +57,7 @@ export const ProductForm = () => {
   }
 
   return (
-    <FlexView column hAlignContent="center" marginTop={"10%"}>
+    <FlexView column hAlignContent="center" >
 
       {isFormulaElementVisible && (< ProductFormulaElement isFormulaElementVisible={isFormulaElementVisible} hideFormulaElement={hideFormulaElement} />)}
 

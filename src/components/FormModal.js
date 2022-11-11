@@ -11,20 +11,19 @@ import * as React from "react";
 import { useContext, useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
-import { AdminFormContext } from "../contexts/AdminFormContext";
+import formContext from "../contexts/form/formContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { padding, style } from "./Styles";
+import { v4 as uuidv4 } from "uuid";
 
 function FormModal(props) {
-  const { dateRange, setDateRange, setProduction, submitForm } =
-    useContext(AdminFormContext);
+  const { production, dateRange, setDateRange, leaderProduction, submitForm } =
+    useContext(formContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
-  const submitProductionForm = (values) => {
-    setProduction(values);
-  };
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -39,10 +38,23 @@ function FormModal(props) {
       description: Yup.string().max(255).required("Description is required"),
     }),
     onSubmit: (values) => {
-      submitForm(values);
-      console.log("values in form", values);
-      //   AddPatient(values);
-      //   handleModalDisplay();
+      const { name, description, isPlanned, expiryDate, haveExpiration } =
+        values;
+      const formData = {
+        name: name,
+        description: description,
+        planned: isPlanned,
+        schedule: "",
+        sent: true,
+        expire: haveExpiration,
+        expirationDate: expiryDate,
+        active: true,
+        Production: production,
+        ProductionLeader: leaderProduction,
+        sheduledID: uuidv4(),
+      };
+      submitForm(formData);
+      console.log("values in form", formData);
     },
   });
   const handleAddLeader = () => {
@@ -68,7 +80,6 @@ function FormModal(props) {
                   helperText={formik.touched.name && formik.errors.name}
                   label="Name"
                   type="text"
-                  margin="normal"
                   name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
@@ -247,7 +258,6 @@ function FormModal(props) {
         <ProductionFrom
           isModalDisplayed={isCreateProduction}
           handleCreateProduction={handleCreateProduction}
-          submitProductionForm={submitProductionForm}
         />
       )}
     </>

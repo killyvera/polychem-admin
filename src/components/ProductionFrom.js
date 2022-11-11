@@ -10,7 +10,7 @@ import { useContext } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import { ProductsContext } from "../contexts/ProductContext";
-import { AdminFormContext } from "../contexts/AdminFormContext";
+import formContext from "../contexts/form/formContext";
 
 const style = {
   position: "absolute",
@@ -31,7 +31,7 @@ const padding = {
 function ProductionFrom(props) {
   const { isModalDisplayed, handleCreateProduction } = props;
   const { products } = useContext(ProductsContext);
-  const { setProduction } = useContext(AdminFormContext);
+  const { setProduction } = useContext(formContext);
 
   const formik = useFormik({
     initialValues: {

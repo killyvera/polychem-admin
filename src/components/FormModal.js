@@ -27,9 +27,10 @@ import { v4 as uuidv4 } from "uuid";
 import Images from "../constants/Images";
 
 function FormModal(props) {
-  const { production, leaderProduction, submitForm } = useContext(formContext);
+  const { production, leaderProduction, submitForm, submitProductionForm } =
+    useContext(formContext);
 
-  console.log({ production })
+  console.log({ production });
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
@@ -70,7 +71,8 @@ function FormModal(props) {
         sheduledID: uuidv4(),
       };
       submitForm(formData);
-      console.log("values in form", formData);
+      // submitProductionForm(production)
+      console.log("production", production);
     },
   });
   const handleAddLeader = () => {
@@ -282,33 +284,36 @@ function FormModal(props) {
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
             {
-              production.length > 0 && production.map(item => (
+              production && (
+                // production.map((item) => (
                 <ListItem alignItems="flex-start">
                   <ListItemText
-                    primary={item.name}
+                    primary={production.name}
                     secondary={
                       <React.Fragment>
                         <Typography
-                          sx={{ display: 'inline' }}
+                          sx={{ display: "inline" }}
                           component="span"
                           variant="body2"
                           color="text.primary"
                           style={{ whiteSpace: "pre-line" }}
                         >
-                          {
-                            `                
-                             ${item.product}
-                             ${item.expectedUnits}
+                          {`                
+                             ${production.product ? production.product : ""}
+                             ${
+                               production.expectedUnits
+                                 ? production.expectedUnits
+                                 : ""
+                             }
                            
-                              `
-                          }
+                              `}
                         </Typography>
-
                       </React.Fragment>
                     }
                   />
                 </ListItem>
-              ))
+              )
+              // ))
             }
           </FlexView>
           <Divider />

@@ -1,5 +1,5 @@
 import { DataStore } from "@aws-amplify/datastore";
-import { Form, FormulaElement, Product } from "../models";
+import { Form, FormulaElement, Product, Production } from "../models";
 
 export const getForms = async () => {
   const forms = await DataStore.query(Form);
@@ -39,6 +39,20 @@ export const saveProduct = async ({ name, description, formulaElements }) => {
     })
   );
   console.log({ response });
+};
+
+export const saveProduction = async ({
+  name,
+  expectedUnits,
+  expectedPackages,
+  expectedPallets,
+}) => {
+  new Production({
+    name: name,
+    expectedUnits: expectedUnits,
+    expectedPackages: expectedPackages,
+    expectedPallets: expectedPallets,
+  });
 };
 
 export const saveForm = async ({

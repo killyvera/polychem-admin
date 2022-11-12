@@ -71,8 +71,8 @@ function FormModal(props) {
         sheduledID: uuidv4(),
       };
       submitForm(formData);
-      // submitProductionForm(production)
-      console.log("production", production);
+      submitProductionForm(production);
+      console.log("form", formData);
     },
   });
   const handleAddLeader = () => {

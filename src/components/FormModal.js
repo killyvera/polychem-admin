@@ -30,8 +30,6 @@ function FormModal(props) {
   const { production, leaderProduction, submitForm, submitProductionForm } =
     useContext(formContext);
 
-  console.log({ production });
-
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const formik = useFormik({
@@ -73,6 +71,7 @@ function FormModal(props) {
       submitForm(formData);
       submitProductionForm(production);
       console.log("form", formData);
+      console.log("production", production);
     },
   });
   const handleAddLeader = () => {
@@ -83,7 +82,7 @@ function FormModal(props) {
   };
   return (
     <>
-      <Box sx={{ ...style }}>
+      <Box sx={{ ...style, top: "50%" }}>
         <h2 id="parent-modal-title">Form</h2>
         <Divider />
         <form onSubmit={formik.handleSubmit}>
@@ -284,7 +283,7 @@ function FormModal(props) {
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
             {
-              production && (
+              production ? (
                 // production.map((item) => (
                 <ListItem alignItems="flex-start">
                   <ListItemText
@@ -296,7 +295,7 @@ function FormModal(props) {
                           component="span"
                           variant="body2"
                           color="text.primary"
-                          style={{ whiteSpace: "pre-line" }}
+                          // style={{ whiteSpace: "pre-line" }}
                         >
                           {`                
                              ${production.product ? production.product : ""}
@@ -312,12 +311,14 @@ function FormModal(props) {
                     }
                   />
                 </ListItem>
+              ) : (
+                <></>
               )
               // ))
             }
           </FlexView>
           <Divider />
-          <FlexView hAlignContent="right" marginTop={"4%"}>
+          <FlexView hAlignContent="right">
             <Button
               type="submit"
               value="Submit"

@@ -47,12 +47,15 @@ export const saveProduction = async ({
   expectedPackages,
   expectedPallets,
 }) => {
-  new Production({
-    name: name,
-    expectedUnits: expectedUnits,
-    expectedPackages: expectedPackages,
-    expectedPallets: expectedPallets,
-  });
+  const response = await DataStore.save(
+    new Production({
+      name: name,
+      expectedUnits: expectedUnits,
+      expectedPackages: expectedPackages,
+      expectedPallets: expectedPallets,
+    })
+  );
+  console.log({ response });
 };
 
 export const saveForm = async ({

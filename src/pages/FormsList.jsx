@@ -10,7 +10,7 @@ import AddLeaderProduction from "../components/addLeaderProduction";
 import ProductionFrom from "../components/ProductionFrom";
 import { CreatedForms } from "../components/CreatedForms";
 import { Divider } from "@mui/material";
-import { CreatePalletFormModal } from './../components/CreatePalletFormModal';
+
 
 //const todelete = await DataStore.query(Post, '1234567');
 //DataStore.delete(todelete);
@@ -57,7 +57,6 @@ export function FormsList(props) {
             {/* <ProductFormulaElement /> */}
             {/* <ProductForm /> */}
             <CreateForm />
-            {/* <CreatePalletFormModal isFormulaElementVisible={true} /> */}
             {/* <Divider style={{ margin: 30, border: 20, borderColor: 'red' }} />
             <FlexView hAlignContent="center" height={250} width={350} column style={{ margin: "10px", backgroundColor: 'red', overflowY: 'scroll' }}>
                 < CreatedForms forms={forms} />

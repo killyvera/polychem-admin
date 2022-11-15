@@ -193,7 +193,7 @@ export const ProductForm = () => {
                 onClick={showFormulaElement}
               >
                 <AddCircleOutlineIcon />
-                Add Raw Materials
+                Add Formula Element
               </Button>
             </FlexView>
             <FlexView hAlignContent="center" column style={{ margin: "10px" }}>

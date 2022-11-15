@@ -12,6 +12,10 @@ import { UsersContextProvider } from "./contexts/UsersContext";
 import { FormsList } from "./pages/FormsList";
 import { Home } from "./pages/Home";
 import UserPage from "./pages/UserPage";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 Amplify.configure(awsExports);
 

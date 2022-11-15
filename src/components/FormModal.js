@@ -70,6 +70,7 @@ function FormModal(props) {
       };
       submitForm(formData);
       submitProductionForm(production);
+
       console.log("form", formData);
       console.log("production", production);
     },

@@ -1,4 +1,6 @@
+import { padding, style } from "./Styles";
 import Switch from "@material-ui/core/Switch";
+import { useNavigate } from "react-router-dom";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Button,
@@ -22,16 +24,19 @@ import * as Yup from "yup";
 import formContext from "../contexts/form/formContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
-import { padding, style } from "./Styles";
 import { v4 as uuidv4 } from "uuid";
 import Images from "../constants/Images";
-
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 function FormModal(props) {
   const { production, leaderProduction, submitForm, submitProductionForm } =
     useContext(formContext);
 
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -70,7 +75,7 @@ function FormModal(props) {
       };
       submitForm(formData);
       submitProductionForm(production);
-
+      navigate("/forms");
       console.log("form", formData);
       console.log("production", production);
     },

@@ -38,6 +38,7 @@ function FormModal(props) {
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const navigate = useNavigate();
   const isLeaderSelected = leaderProduction.Attributes.length > 0;
+  const isProductionEntered = Object.keys(production).length > 0;
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -224,12 +225,7 @@ function FormModal(props) {
                     secondary={
                       <>
                         <FlexView className="my-class-name" height={60}>
-                          <FlexView
-                          // style={{ backgroundColor: "#D1236D" }}
-                          // height="50%"
-                          // marginTop="auto"
-                          // basis={200}
-                          >
+                          <FlexView>
                             <React.Fragment>
                               <Typography
                                 sx={{ display: "inline" }}
@@ -253,7 +249,12 @@ function FormModal(props) {
                           >
                             {" "}
                             {isLeaderSelected ? (
-                              <Button variant="outlined">Edit</Button>
+                              <Button
+                                variant="outlined"
+                                onClick={handleAddLeader}
+                              >
+                                Edit
+                              </Button>
                             ) : (
                               ""
                             )}
@@ -313,21 +314,23 @@ function FormModal(props) {
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
             {
-              production ? (
+              isProductionEntered ? (
                 // production.map((item) => (
                 <ListItem alignItems="flex-start">
                   <ListItemText
                     primary={production.name}
                     secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                          // style={{ whiteSpace: "pre-line" }}
-                        >
-                          {`                
+                      <FlexView className="my-class-name">
+                        <FlexView marginTop="auto">
+                          <React.Fragment>
+                            <Typography
+                              sx={{ display: "inline" }}
+                              component="span"
+                              variant="body2"
+                              color="text.primary"
+                              // style={{ whiteSpace: "pre-line" }}
+                            >
+                              {`                
                              ${production.product ? production.product : ""}
                              ${
                                production.expectedUnits
@@ -336,8 +339,18 @@ function FormModal(props) {
                              }
                            
                               `}
-                        </Typography>
-                      </React.Fragment>
+                            </Typography>
+                          </React.Fragment>
+                        </FlexView>
+                        <FlexView marginLeft="auto">
+                          {" "}
+                          {isProductionEntered ? (
+                            <Button variant="contained">Edit</Button>
+                          ) : (
+                            ""
+                          )}
+                        </FlexView>
+                      </FlexView>
                     }
                   />
                 </ListItem>

@@ -37,6 +37,7 @@ function FormModal(props) {
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const navigate = useNavigate();
+  const isLeaderSelected = leaderProduction.Attributes.length > 0;
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -207,7 +208,7 @@ function FormModal(props) {
               <FlexView column style={{ margin: "20px" }}>
                 <ListItem alignItems="flex-start">
                   <ListItemAvatar>
-                    {leaderProduction && (
+                    {isLeaderSelected && (
                       <Avatar
                         alt="Remy Sharp"
                         src={
@@ -221,21 +222,44 @@ function FormModal(props) {
                   <ListItemText
                     primary={leaderProduction?.Attributes[1]?.Value}
                     secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {/* {leaderProduction && (
+                      <>
+                        <FlexView className="my-class-name" height={60}>
+                          <FlexView
+                          // style={{ backgroundColor: "#D1236D" }}
+                          // height="50%"
+                          // marginTop="auto"
+                          // basis={200}
+                          >
+                            <React.Fragment>
+                              <Typography
+                                sx={{ display: "inline" }}
+                                component="span"
+                                variant="body2"
+                                color="text.primary"
+                              >
+                                {/* {leaderProduction && (
                             <div>Role: {leaderProduction.role}</div>
                           )} */}
-                        </Typography>
-                        {/* {leaderProduction && (
+                              </Typography>
+                              {/* {leaderProduction && (
                           <div>shift: {leaderProduction.shift}</div>
                         )} */}
-                      </React.Fragment>
+                            </React.Fragment>{" "}
+                          </FlexView>
+                          <FlexView
+                            marginLeft="auto"
+                            vAlignContent="top"
+                            hAlignContent="center"
+                          >
+                            {" "}
+                            {isLeaderSelected ? (
+                              <Button variant="outlined">Edit</Button>
+                            ) : (
+                              ""
+                            )}
+                          </FlexView>
+                        </FlexView>
+                      </>
                     }
                   />
                 </ListItem>

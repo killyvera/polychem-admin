@@ -26,6 +26,9 @@
           "unauthRoleArn": "arn:aws:iam::500490101011:role/Cognito_polychemUnauth_Role",
           "unauthRoleName": "Cognito_polychemUnauth_Role"
         }
+      },
+      "storage": {
+        "polychemstorage": {}
       }
     }
   }

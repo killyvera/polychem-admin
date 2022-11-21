@@ -37,6 +37,11 @@ function FormModal(props) {
   const { giveMeUser, user } = useContext(UsersContext);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    picture: "",
+  });
   const navigate = useNavigate();
   const isLeaderSelected = leaderProduction ? true : false;
   const isProductionEntered = Object.keys(production).length > 0;
@@ -47,8 +52,24 @@ function FormModal(props) {
 
   const getUserDetails = async () => {
     const user = await giveMeUser(leaderProduction);
-    console.log("user ", user);
+    let name,
+      email,
+      picture = "";
+
+    user?.UserAttributes.find((a) => {
+      if (a.Name == "name") {
+        name = a.Value;
+      }
+      if (a.Name == "email") {
+        email = a.Value;
+      }
+      if (a.Name == "picture") {
+        picture = a.Value;
+      }
+    });
+    setUserDetails({ name, email, picture });
   };
+  console.log("userDetails", userDetails);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -223,16 +244,15 @@ function FormModal(props) {
                       <Avatar
                         alt="Remy Sharp"
                         src={
-                          leaderProduction.image
-                            ? leaderProduction.image
+                          userDetails?.picture
+                            ? userDetails?.picture
                             : Images.UserAvatar
                         }
                       />
                     )}
                   </ListItemAvatar>
                   <ListItemText
-                    // primary={leaderProduction?.Attributes[1]?.Value}
-                    primary={""}
+                    primary={userDetails?.name}
                     secondary={
                       <>
                         <FlexView className="my-class-name" height={60}>
@@ -245,15 +265,13 @@ function FormModal(props) {
                                 color="text.primary"
                               >
                                 {/* {leaderProduction && (
-                            <div>Role: {leaderProduction.role}</div>
-                          )} */}
-                              </Typography>
-                              {/* {leaderProduction && (
-                          <div>shift: {leaderProduction.shift}</div>
+                          <div>Role: {leaderProduction.role}</div>
                         )} */}
+                              </Typography>
+                              {userDetails?.email}
                             </React.Fragment>{" "}
                           </FlexView>
-                          <FlexView
+                          {/* <FlexView
                             marginLeft="auto"
                             vAlignContent="top"
                             hAlignContent="center"
@@ -269,7 +287,7 @@ function FormModal(props) {
                             ) : (
                               ""
                             )}
-                          </FlexView>
+                          </FlexView> */}
                         </FlexView>
                       </>
                     }

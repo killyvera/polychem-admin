@@ -21,7 +21,7 @@ function AddLeaderProduction(props) {
 
   const handleLeaderProduction = async (user) => {
     const leaderProduction = users.find((x) => x.Attributes[1].Value == user);
-    setleaderProduction(leaderProduction);
+    setleaderProduction(leaderProduction?.Username);
   };
   const formik = useFormik({
     initialValues: {

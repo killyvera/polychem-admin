@@ -22,6 +22,7 @@ import { useContext, useState } from "react";
 import FlexView from "react-flexview/lib";
 import * as Yup from "yup";
 import formContext from "../contexts/form/formContext";
+import { UsersContext } from "../contexts/UsersContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { v4 as uuidv4 } from "uuid";
@@ -33,12 +34,22 @@ import "@fontsource/roboto/700.css";
 function FormModal(props) {
   const { production, leaderProduction, submitForm, submitProductionForm } =
     useContext(formContext);
-
+  const { giveMeUser, user } = useContext(UsersContext);
+  console.log("leaderProduction", leaderProduction);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const navigate = useNavigate();
-  const isLeaderSelected = leaderProduction.Attributes.length > 0;
+  const isLeaderSelected = leaderProduction ? true : false;
   const isProductionEntered = Object.keys(production).length > 0;
+
+  React.useEffect(() => {
+    getUserDetails();
+  }, [leaderProduction]);
+
+  const getUserDetails = async () => {
+    giveMeUser(leaderProduction?.Username);
+  };
+  console.log("giveMeUser user", user);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -221,7 +232,8 @@ function FormModal(props) {
                     )}
                   </ListItemAvatar>
                   <ListItemText
-                    primary={leaderProduction?.Attributes[1]?.Value}
+                    // primary={leaderProduction?.Attributes[1]?.Value}
+                    primary={""}
                     secondary={
                       <>
                         <FlexView className="my-class-name" height={60}>

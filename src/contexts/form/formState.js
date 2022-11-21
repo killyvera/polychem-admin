@@ -22,14 +22,7 @@ const initialState = {
     description: "",
     formulaElements: [],
   },
-  leaderProduction: {
-    Attributes: [],
-    Enabled: false,
-    UserCreateDate: new Date(),
-    UserLastModifiedDate: new Date(),
-    UserStatus: "",
-    Username: "",
-  },
+  leaderProduction: "",
   production: {},
 };
 

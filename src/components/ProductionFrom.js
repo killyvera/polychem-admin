@@ -54,16 +54,19 @@ function ProductionFrom(props) {
       handleCreateProduction();
     },
   });
+  console.log("expectedPallets", expectedPallets);
+  console.log("expectedPackages", expectedPackages);
   useEffect(() => {
     const { expectedUnits, product } = formik.values;
     if (expectedUnits && product) {
       const actualproduct = products.find((x) => x.name === product);
-
+      console.log("Actual Product", actualproduct);
+      console.log("expectedUnits", expectedUnits);
       setExpectedPackages(
         parseInt(expectedUnits / actualproduct?.unitsPerPackage)
       );
       setExpectedPallets(
-        parseInt(expectedUnits / actualproduct?.palletsPerPackage)
+        parseInt(expectedUnits / actualproduct?.packagesPerPallets)
       );
     }
   }, [formik.values.product]);

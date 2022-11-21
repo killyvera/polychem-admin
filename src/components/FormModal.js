@@ -26,6 +26,7 @@ import { UsersContext } from "../contexts/UsersContext";
 import AddLeaderProduction from "./addLeaderProduction";
 import ProductionFrom from "./ProductionFrom";
 import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
 import Images from "../constants/Images";
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -100,10 +101,10 @@ function FormModal(props) {
         schedule: plannedDate,
         sent: true,
         expire: haveExpiration,
-        expirationDate: expiryDate,
+        expirationDate: dayjs(expiryDate).format("YYYY-MM-DD"),
         active: true,
         Production: production,
-        ProductionLeader: leaderProduction,
+        leaderProduction: leaderProduction,
         sheduledID: uuidv4(),
       };
       submitForm(formData);

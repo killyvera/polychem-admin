@@ -45,8 +45,7 @@ export const UsersContextProvider = (props) => {
   };
   const giveMeUser = async (userId) => {
     const data = await getUser(userId);
-    console.log("give Me User in context ", data);
-    setUser(data.UserAttributes);
+    setUser(data?.UserAttributes);
     return data;
     //.then(() => setUsers(users.filter((user)=> user !== user.Username)) )
   };

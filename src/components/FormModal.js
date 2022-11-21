@@ -35,7 +35,6 @@ function FormModal(props) {
   const { production, leaderProduction, submitForm, submitProductionForm } =
     useContext(formContext);
   const { giveMeUser, user } = useContext(UsersContext);
-  console.log("leaderProduction", leaderProduction);
   const [isAddLeaderProduction, setIsLeaderProduction] = useState(false);
   const [isCreateProduction, setIsCreateProduction] = useState(false);
   const navigate = useNavigate();
@@ -47,9 +46,9 @@ function FormModal(props) {
   }, [leaderProduction]);
 
   const getUserDetails = async () => {
-    giveMeUser(leaderProduction?.Username);
+    const user = await giveMeUser(leaderProduction);
+    console.log("user ", user);
   };
-  console.log("giveMeUser user", user);
   const formik = useFormik({
     initialValues: {
       name: "",

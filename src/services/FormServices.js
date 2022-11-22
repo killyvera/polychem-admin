@@ -58,18 +58,22 @@ export const saveProduction = async ({
   console.log({ response });
 };
 
-export const saveForm = async ({
-  name,
-  description,
-  planned,
-  schedule,
-  sent,
-  expire,
-  expirationDate,
-  active,
-  scheduledID,
-}) => {
-  console.log({
+// export const saveForm = async ({
+//   name,
+//   description,
+//   planned,
+//   schedule,
+//   sent,
+//   expire,
+//   expirationDate,
+//   active,
+//   scheduledID,
+//   leadProduction,
+//   production,
+// }) => {
+export const saveForm = async (values) => {
+  console.log("before form submit in service", values);
+  const {
     name,
     description,
     planned,
@@ -78,8 +82,10 @@ export const saveForm = async ({
     expire,
     expirationDate,
     active,
+    production,
+    leadProduction,
     scheduledID,
-  });
+  } = values;
   const response = await DataStore.save(
     new Form({
       name: name,
@@ -90,8 +96,9 @@ export const saveForm = async ({
       expire: expire,
       expirationDate: expirationDate,
       active: active,
-      Production: "",
-      ProductionLeader: "",
+      Production: production,
+      // ProductionLeader: leadProduction,
+      leadProduction: leadProduction,
       sheduledID: scheduledID,
     })
   );

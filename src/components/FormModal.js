@@ -70,7 +70,7 @@ function FormModal(props) {
     });
     setUserDetails({ name, email, picture });
   };
-  console.log("userDetails", userDetails);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -103,7 +103,7 @@ function FormModal(props) {
         expire: haveExpiration,
         expirationDate: dayjs(expiryDate).format("YYYY-MM-DD"),
         active: true,
-        Production: production,
+        production: production,
         leadProduction: leaderProduction,
         sheduledID: uuidv4(),
       };
@@ -111,7 +111,7 @@ function FormModal(props) {
       submitProductionForm(production);
       navigate("/forms");
       console.log("form", formData);
-      console.log("production", production);
+      // console.log("production", production);
     },
   });
   const handleAddLeader = () => {

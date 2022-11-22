@@ -104,7 +104,7 @@ function FormModal(props) {
         expirationDate: dayjs(expiryDate).format("YYYY-MM-DD"),
         active: true,
         Production: production,
-        leaderProduction: leaderProduction,
+        leadProduction: leaderProduction,
         sheduledID: uuidv4(),
       };
       submitForm(formData);

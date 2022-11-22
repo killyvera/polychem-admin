@@ -86,6 +86,12 @@ export const saveForm = async (values) => {
     leadProduction,
     scheduledID,
   } = values;
+  const prod = new Production({
+    name: production.name,
+    expectedUnits: production.expectedUnits,
+    expectedPackages: production.expectedPackages,
+    expectedPallets: production.expectedPallets,
+  });
   const response = await DataStore.save(
     new Form({
       name: name,
@@ -96,8 +102,7 @@ export const saveForm = async (values) => {
       expire: expire,
       expirationDate: expirationDate,
       active: active,
-      Production: production,
-      // ProductionLeader: leadProduction,
+      Production: prod,
       leadProduction: leadProduction,
       sheduledID: scheduledID,
     })

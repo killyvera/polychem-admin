@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { DataStore } from "@aws-amplify/datastore";
-import { Form } from "../models";
-import { AddProduct } from "../components/ProductSelect";
-import { ProductForm } from "../components/ProductForm";
+import { Button } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
+  const navigate = useNavigate();
+
   return (
-    <div>
+    <div style={{ marginTop: "60px" }}>
       Home
+      <Button
+        onClick={() => {
+          navigate("/formulaElement");
+        }}
+      >
+        Add Formula Element
+      </Button>
       {/* <AddProduct />
       <ProductForm /> */}
     </div>

@@ -16,6 +16,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import FormulaElement from "./pages/FormulaElement";
 
 Amplify.configure(awsExports);
 
@@ -29,6 +30,7 @@ function App({ signOut, user }) {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/forms" element={<FormsList />} />
+              <Route path="/formulaElement" element={<FormulaElement />} />
               <Route path="/createForm" element={<FormModal />} />
               <Route
                 path="/users"

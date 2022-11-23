@@ -375,7 +375,14 @@ function FormModal(props) {
                         <FlexView marginLeft="auto">
                           {" "}
                           {isProductionEntered ? (
-                            <Button variant="contained">Edit</Button>
+                            <Button
+                              variant="contained"
+                              onClick={() => {
+                                handleCreateProduction();
+                              }}
+                            >
+                              Edit
+                            </Button>
                           ) : (
                             ""
                           )}

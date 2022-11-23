@@ -119,6 +119,7 @@ function FormModal(props) {
       submitForm(formData);
       submitProductionForm(production);
       setProduction({});
+      setUserDetails({});
       navigate("/forms");
       console.log("form", formData);
       // console.log("production", production);

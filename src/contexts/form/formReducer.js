@@ -4,6 +4,7 @@ import {
   SET_PRODUCTION_FORM,
   SET_LEADER_PRODUCTION,
   SET_DATE_RANGE,
+  SET_ISPRODUCTION_EDITABLE,
 } from "../../constants/types";
 
 export default function reducer(state, action) {
@@ -27,6 +28,9 @@ export default function reducer(state, action) {
 
     case SET_DATE_RANGE:
       return { ...state, dateRange: action.payload };
+
+    case SET_ISPRODUCTION_EDITABLE:
+      return { ...state, isProductionEditable: action.payload };
 
     default:
       return state;

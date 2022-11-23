@@ -40,6 +40,8 @@ function FormModal(props) {
     submitForm,
     submitProductionForm,
     setProduction,
+    setIsProductionEditable,
+    isProductionEditable,
   } = useContext(formContext);
   const { giveMeUser, user } = useContext(UsersContext);
 
@@ -125,8 +127,11 @@ function FormModal(props) {
   const handleAddLeader = () => {
     setIsLeaderProduction((prev) => !prev);
   };
-  const handleCreateProduction = () => {
+  const handleCreateProduction = (productionEditable) => {
     setIsCreateProduction((prev) => !prev);
+
+    if (productionEditable) setIsProductionEditable(true);
+    else setIsProductionEditable(false);
   };
   return (
     <>
@@ -342,7 +347,9 @@ function FormModal(props) {
           </FlexView>
           <FlexView column style={{ margin: "20px" }}>
             <Button
-              onClick={handleCreateProduction}
+              onClick={() => {
+                handleCreateProduction(false);
+              }}
               variant="outlined"
               size="small"
             >
@@ -386,7 +393,7 @@ function FormModal(props) {
                             <Button
                               variant="contained"
                               onClick={() => {
-                                handleCreateProduction();
+                                handleCreateProduction(true);
                               }}
                             >
                               Edit

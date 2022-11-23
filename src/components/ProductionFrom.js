@@ -32,16 +32,20 @@ const padding = {
 function ProductionFrom(props) {
   const { isModalDisplayed, handleCreateProduction } = props;
   const { products } = useContext(ProductsContext);
-  const { setProduction } = useContext(formContext);
+  const { setProduction, isProductionEditable, production } =
+    useContext(formContext);
 
   const [expectedPackages, setExpectedPackages] = useState(0);
-  const [expectedPallets, setExpectedPallets] = useState(0);
-
+  const [expectedPallets, setExpectedPallets] = useState();
+  console.log("isProductionEditable", isProductionEditable);
+  const calculateExpectedPackages = () => {};
+  console.log("production", production);
   const formik = useFormik({
     initialValues: {
-      name: "",
-      product: "",
-      expectedUnits: 0,
+      name: isProductionEditable == true ? production?.name : "",
+      product: isProductionEditable == true ? production?.product : "",
+      expectedUnits:
+        isProductionEditable == true ? production?.expectedUnits : 0,
     },
     validationSchema: Yup.object({
       name: Yup.string().required("name is required"),

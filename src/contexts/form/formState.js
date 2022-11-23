@@ -5,6 +5,7 @@ import {
   SET_PRODUCTION_FORM,
   SET_LEADER_PRODUCTION,
   SET_DATE_RANGE,
+  SET_ISPRODUCTION_EDITABLE,
 } from "../../constants/types";
 import {
   saveProduct,
@@ -24,6 +25,7 @@ const initialState = {
   },
   leaderProduction: "",
   production: {},
+  isProductionEditable: false,
 };
 
 export default function FormState(props) {
@@ -48,6 +50,13 @@ export default function FormState(props) {
   const setProduction = useCallback(async (values) => {
     dispatch({
       type: SET_PRODUCTION_FORM,
+      payload: values,
+    });
+  }, []);
+
+  const setIsProductionEditable = useCallback(async (values) => {
+    dispatch({
+      type: SET_ISPRODUCTION_EDITABLE,
       payload: values,
     });
   }, []);
@@ -79,6 +88,7 @@ export default function FormState(props) {
       value={{
         productElementForm: state.productElementForm,
         leaderProduction: state.leaderProduction,
+        isProductionEditable: state.isProductionEditable,
         production: state.production,
         dateRange: state.dateRange,
         setProductElementFormValues,
@@ -88,6 +98,7 @@ export default function FormState(props) {
         setProduction,
         setleaderProduction,
         submitProductionForm,
+        setIsProductionEditable,
       }}
     >
       {props.children}

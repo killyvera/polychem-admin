@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Products() {
+function Forms() {
   return (
     <div>
-      <h1>Products</h1>
+      <h1>Forms</h1>
     </div>
   );
 }
+
+export default Forms;

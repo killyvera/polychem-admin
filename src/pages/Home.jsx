@@ -9,7 +9,7 @@ export function Home() {
       Home
       <Button
         onClick={() => {
-          navigate("/formulaElement");
+          navigate("/formula-elements");
         }}
       >
         Add Formula Element

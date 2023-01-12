@@ -28,18 +28,21 @@ export default function FormulaElementUpdateForm(props) {
     name: undefined,
     description: undefined,
     quantity: undefined,
+    image: undefined,
   };
   const [name, setName] = React.useState(initialValues.name);
   const [description, setDescription] = React.useState(
     initialValues.description
   );
   const [quantity, setQuantity] = React.useState(initialValues.quantity);
+  const [image, setImage] = React.useState(initialValues.image);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = { ...initialValues, ...formulaElementRecord };
     setName(cleanValues.name);
     setDescription(cleanValues.description);
     setQuantity(cleanValues.quantity);
+    setImage(cleanValues.image);
     setErrors({});
   };
   const [formulaElementRecord, setFormulaElementRecord] =
@@ -58,6 +61,7 @@ export default function FormulaElementUpdateForm(props) {
     name: [],
     description: [],
     quantity: [],
+    image: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -80,6 +84,7 @@ export default function FormulaElementUpdateForm(props) {
           name,
           description,
           quantity,
+          image,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -134,6 +139,7 @@ export default function FormulaElementUpdateForm(props) {
               name: value,
               description,
               quantity,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -160,6 +166,7 @@ export default function FormulaElementUpdateForm(props) {
               name,
               description: value,
               quantity,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.description ?? value;
@@ -186,6 +193,7 @@ export default function FormulaElementUpdateForm(props) {
               name,
               description,
               quantity: value,
+              image,
             };
             const result = onChange(modelFields);
             value = result?.quantity ?? value;
@@ -199,6 +207,33 @@ export default function FormulaElementUpdateForm(props) {
         errorMessage={errors.quantity?.errorMessage}
         hasError={errors.quantity?.hasError}
         {...getOverrideProps(overrides, "quantity")}
+      ></TextField>
+      <TextField
+        label="Image"
+        isRequired={false}
+        isReadOnly={false}
+        defaultValue={image}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              description,
+              quantity,
+              image: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.image ?? value;
+          }
+          if (errors.image?.hasError) {
+            runValidationTasks("image", value);
+          }
+          setImage(value);
+        }}
+        onBlur={() => runValidationTasks("image", image)}
+        errorMessage={errors.image?.errorMessage}
+        hasError={errors.image?.hasError}
+        {...getOverrideProps(overrides, "image")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -1,6 +1,6 @@
 import { useEffect, createContext, useState } from "react";
 import { DataStore } from "@aws-amplify/datastore";
-import { Product } from "../models";
+import { Product, FormulaElement } from "../models";
 import {
   usersList,
   deleteUser,
@@ -14,7 +14,9 @@ const initialDetails = () => ({
   updateUser: () => {},
   addUser: () => {},
   products: [],
-  updateProducts: [],
+  updateProducts: () => {},
+  formulaElements: [],
+  updateFormulaElements: () => {},
 });
 
 export const AppContext = createContext(initialDetails());
@@ -22,6 +24,7 @@ export const AppContext = createContext(initialDetails());
 export const AppContextProvider = (props) => {
   const [users, updateUsers] = useState([]);
   const [products, updateProducts] = useState([]);
+  const [formulaElements, updateFormulaElements] = useState([]);
 
   const addUser = (phone, email, name, perfil, puesto, departamento) => {
     createUser(phone, email, name, perfil, puesto, departamento)
@@ -91,13 +94,31 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  const getFormulaElements = async () => {
+    try {
+      const subscription = DataStore.observeQuery(FormulaElement).subscribe(
+        (snapshot) => {
+          const { items } = snapshot;
+          updateFormulaElements(items);
+        }
+      );
+      return subscription;
+    } catch (error) {
+      console.log("Products Error: ", error);
+    }
+  };
+
   useEffect(() => {
     getUsers();
-    const subscription = getProducts();
+    const productsSubscription = getProducts();
+    const formulaElementsSubscription = getFormulaElements();
 
     return () => {
-      if (subscription) {
-        subscription.unsubscribe();
+      if (productsSubscription) {
+        productsSubscription.unsubscribe();
+      }
+      if (formulaElementsSubscription) {
+        formulaElementsSubscription.unsubscribe();
       }
     };
   }, []);
@@ -111,6 +132,8 @@ export const AppContextProvider = (props) => {
         addUser,
         products,
         updateProducts,
+        formulaElements,
+        updateFormulaElements,
       }}
     >
       {props.children}

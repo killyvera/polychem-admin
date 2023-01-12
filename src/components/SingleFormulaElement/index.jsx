@@ -86,7 +86,7 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
             {formulaElementData.description}
           </Typography>
           <Box marginTop={2}>
-            <Info label="Quantity" text={formulaElementData.quantity} />
+            <Info label="Quantity" text={`${formulaElementData.quantity} kg`} />
             <Info label="Product Name" text={productData?.name || ""} />
           </Box>
         </Box>

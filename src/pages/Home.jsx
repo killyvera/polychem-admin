@@ -23,7 +23,7 @@ export default function Home() {
           navigate("/products");
         }}
       >
-        Add Product and Formula Elements
+        Add Product
       </Button>
     </BoxContainer>
   );

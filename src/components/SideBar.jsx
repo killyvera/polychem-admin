@@ -10,12 +10,12 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-// import CategoryIcon from "@mui/icons-material/Category";
+import CategoryIcon from "@mui/icons-material/Category";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 
 export const SideBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  
+
   return (
     <>
       <IconButton
@@ -78,7 +78,7 @@ export const SideBar = () => {
               </ListItem>
             </Link>
 
-            {/* <Link style={{ textDecoration: "blink" }} to="/formula-elements">
+            <Link style={{ textDecoration: "blink" }} to="/formula-elements">
               <ListItem disablePadding>
                 <ListItemButton onClick={() => setIsDrawerOpen(false)}>
                   <ListItemIcon>
@@ -87,7 +87,7 @@ export const SideBar = () => {
                   <ListItemText primary="Formula Elements" />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
           </List>
         </Box>
       </Drawer>

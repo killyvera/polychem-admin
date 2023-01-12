@@ -10,7 +10,7 @@ import { AppContextProvider } from "./contexts/AppContext";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Forms from "./pages/Forms";
-// import FormulaElements from "./pages/FormulaElements";
+import FormulaElements from "./pages/FormulaElements";
 import Products from "./pages/Products";
 
 import awsExports from "./aws-exports";
@@ -27,7 +27,7 @@ function App({ signOut, user }) {
           <Route path="/users" element={<Users />} />
           <Route path="/forms" element={<Forms />} />
           <Route path="/products" element={<Products />} />
-          {/* <Route path="/formula-elements" element={<FormulaElements />} /> */}
+          <Route path="/formula-elements" element={<FormulaElements />} />
         </Routes>
       </Box>
     </AppContextProvider>

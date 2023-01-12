@@ -143,6 +143,8 @@ export default function AddProductModal(props) {
       toggleModalStatus(false);
     } catch (error) {
       console.log("Product Save Error: ", error);
+      setIsLoading(false);
+      toggleModalStatus(false);
     }
   };
 

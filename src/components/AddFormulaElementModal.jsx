@@ -154,6 +154,8 @@ export default function AddFormulaElementModal(props) {
       toggleModalStatus(false);
     } catch (error) {
       console.log("Formula Element Save Error: ", error);
+      setIsLoading(false);
+      toggleModalStatus(false);
     }
   };
 

@@ -17,13 +17,11 @@ export declare type FormulaElementUpdateFormInputValues = {
     name?: string;
     description?: string;
     quantity?: string;
-    image?: string;
 };
 export declare type FormulaElementUpdateFormValidationValues = {
     name?: ValidationFunction<string>;
     description?: ValidationFunction<string>;
     quantity?: ValidationFunction<string>;
-    image?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type FormulaElementUpdateFormOverridesProps = {
@@ -31,7 +29,6 @@ export declare type FormulaElementUpdateFormOverridesProps = {
     name?: FormProps<TextFieldProps>;
     description?: FormProps<TextFieldProps>;
     quantity?: FormProps<TextFieldProps>;
-    image?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type FormulaElementUpdateFormProps = React.PropsWithChildren<{
     overrides?: FormulaElementUpdateFormOverridesProps | undefined | null;

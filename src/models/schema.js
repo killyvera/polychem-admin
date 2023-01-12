@@ -456,13 +456,6 @@ export const schema = {
                         "associatedWith": "formulaelementID"
                     }
                 },
-                "image": {
-                    "name": "image",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1251,5 +1244,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.2",
-    "version": "a4583eae1c5b799b4f8c831aa518f0e5"
+    "version": "84d692c44833fafc784ebaf78af06ce3"
 };

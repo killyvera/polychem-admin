@@ -1,4 +1,6 @@
 import { useEffect, createContext, useState } from "react";
+import { DataStore } from "@aws-amplify/datastore";
+import { Product } from "../models";
 import {
   usersList,
   deleteUser,
@@ -11,12 +13,15 @@ const initialDetails = () => ({
   popUser: () => {},
   updateUser: () => {},
   addUser: () => {},
+  products: [],
+  updateProducts: [],
 });
 
 export const AppContext = createContext(initialDetails());
 
 export const AppContextProvider = (props) => {
   const [users, updateUsers] = useState([]);
+  const [products, updateProducts] = useState([]);
 
   const addUser = (phone, email, name, perfil, puesto, departamento) => {
     createUser(phone, email, name, perfil, puesto, departamento)
@@ -72,8 +77,29 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  const getProducts = async () => {
+    try {
+      const subscription = DataStore.observeQuery(Product).subscribe(
+        (snapshot) => {
+          const { items } = snapshot;
+          updateProducts(items);
+        }
+      );
+      return subscription;
+    } catch (error) {
+      console.log("Products Error: ", error);
+    }
+  };
+
   useEffect(() => {
     getUsers();
+    const subscription = getProducts();
+
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, []);
 
   return (
@@ -83,6 +109,8 @@ export const AppContextProvider = (props) => {
         popUser,
         updateUser,
         addUser,
+        products,
+        updateProducts,
       }}
     >
       {props.children}

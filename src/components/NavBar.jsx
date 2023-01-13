@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  Typography,
-  Toolbar,
-  Stack,
-  Button,
-  Box,
-  makeStyles,
-} from "@mui/material";
+import { AppBar, Typography, Toolbar, Stack, Button, Box } from "@mui/material";
 import Image from "mui-image";
 import React from "react";
 import Images from "../constants/Images";

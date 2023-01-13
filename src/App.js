@@ -1,46 +1,36 @@
 import { withAuthenticator } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
 import { Box } from "@mui/material";
 import { Amplify } from "aws-amplify";
 import { Route, Routes } from "react-router-dom";
-import awsExports from "./aws-exports";
-import FormModal from "./components/FormModal";
+
 import { NavBar } from "./components/NavBar";
-import FormState from "./contexts/form/formState";
-import { ProductsContextProvider } from "./contexts/ProductContext";
-import { UsersContextProvider } from "./contexts/UsersContext";
-import { FormsList } from "./pages/FormsList";
-import { Home } from "./pages/Home";
-import UserPage from "./pages/UserPage";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import FormulaElement from "./pages/FormulaElement";
+import { AppContextProvider } from "./contexts/AppContext";
+
+// Pages
+import Home from "./pages/Home";
+import Users from "./pages/Users";
+import Forms from "./pages/Forms";
+import FormulaElements from "./pages/FormulaElements";
+import Products from "./pages/Products";
+
+import awsExports from "./aws-exports";
 
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {
   return (
-    <UsersContextProvider>
-      <FormState>
-        <ProductsContextProvider>
-          <Box>
-            <NavBar user={user} signOut={signOut} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/forms" element={<FormsList />} />
-              <Route path="/formulaElement" element={<FormulaElement />} />
-              <Route path="/createForm" element={<FormModal />} />
-              <Route
-                path="/users"
-                element={<UserPage user={user} signOut={signOut} />}
-              />
-            </Routes>
-          </Box>
-        </ProductsContextProvider>
-      </FormState>
-    </UsersContextProvider>
+    <AppContextProvider>
+      <NavBar user={user} signOut={signOut} />
+      <Box sx={{ padding: "5rem 1.75rem" }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/forms" element={<Forms />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/formula-elements" element={<FormulaElements />} />
+        </Routes>
+      </Box>
+    </AppContextProvider>
   );
 }
 export default withAuthenticator(App);

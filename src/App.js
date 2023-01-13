@@ -15,6 +15,8 @@ import Products from "./pages/Products";
 
 import awsExports from "./aws-exports";
 
+import "@aws-amplify/ui-react/styles.css";
+
 Amplify.configure(awsExports);
 
 function App({ signOut, user }) {

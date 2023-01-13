@@ -132,13 +132,6 @@ export default function AddProductModal(props) {
       await Storage.put(`product/${productId}.png`, productData.productImage, {
         contentType: "image/png",
       });
-      const productImageLink = await Storage.get(`product/${productId}.png`);
-      const original = await DataStore.query(Product, productId);
-      await DataStore.save(
-        Product.copyOf(original, (updated) => {
-          updated.image = productImageLink;
-        })
-      );
       setIsLoading(false);
       toggleModalStatus(false);
     } catch (error) {

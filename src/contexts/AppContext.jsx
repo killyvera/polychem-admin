@@ -1,6 +1,6 @@
 import { useEffect, createContext, useState } from "react";
 import { DataStore } from "@aws-amplify/datastore";
-import { Product, FormulaElement } from "../models";
+import { Product, FormulaElement, Form } from "../models";
 import {
   usersList,
   deleteUser,
@@ -17,12 +17,15 @@ const initialDetails = () => ({
   updateProducts: () => {},
   formulaElements: [],
   updateFormulaElements: () => {},
+  formsList: [],
+  updateFormsList: () => {},
 });
 
 export const AppContext = createContext(initialDetails());
 
 export const AppContextProvider = (props) => {
   const [users, updateUsers] = useState([]);
+  const [formsList, updateFormsList] = useState([]);
   const [products, updateProducts] = useState([]);
   const [formulaElements, updateFormulaElements] = useState([]);
 
@@ -80,6 +83,20 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  const getFormsList = async () => {
+    try {
+      const subscription = DataStore.observeQuery(Form).subscribe(
+        (snapshot) => {
+          const { items } = snapshot;
+          updateFormsList(items);
+        }
+      );
+      return subscription;
+    } catch (error) {
+      console.log("Forms Error: ", error);
+    }
+  };
+
   const getProducts = async () => {
     try {
       const subscription = DataStore.observeQuery(Product).subscribe(
@@ -112,6 +129,7 @@ export const AppContextProvider = (props) => {
     getUsers();
     const productsSubscription = getProducts();
     const formulaElementsSubscription = getFormulaElements();
+    const formsListSubscription = getFormsList();
 
     return () => {
       if (productsSubscription) {
@@ -119,6 +137,9 @@ export const AppContextProvider = (props) => {
       }
       if (formulaElementsSubscription) {
         formulaElementsSubscription.unsubscribe();
+      }
+      if (formsListSubscription) {
+        formsListSubscription.unsubscribe();
       }
     };
   }, []);
@@ -134,6 +155,8 @@ export const AppContextProvider = (props) => {
         updateProducts,
         formulaElements,
         updateFormulaElements,
+        formsList,
+        updateFormsList,
       }}
     >
       {props.children}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { DataStore } from "@aws-amplify/datastore";
+import { Storage } from "aws-amplify";
 import Images from "../../constants/Images";
 import { Product } from "../../models";
 
@@ -51,6 +52,7 @@ const Info = ({ label, text }) => {
 
 const SingleProduct = ({ productData, toggleModalStatus }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [productImg, updateProductImg] = useState(null);
 
   const handleDeleteProduct = async () => {
     try {
@@ -63,11 +65,26 @@ const SingleProduct = ({ productData, toggleModalStatus }) => {
     }
   };
 
+  const getProductAvatar = useCallback(async () => {
+    try {
+      const productImageLink = await Storage.get(
+        `product/${productData.id}.png`
+      );
+      updateProductImg(productImageLink);
+    } catch (error) {
+      console.log("ERROR FORM DETAIL: ", error);
+    }
+  }, [productData]);
+
+  useEffect(() => {
+    getProductAvatar();
+  }, [getProductAvatar]);
+
   return (
     <Item>
       <Avatar
         alt="Product"
-        src={productData?.image || Images.ProductPlaceholder}
+        src={productImg || Images.ProductPlaceholder}
         sx={{ width: 56, height: 56 }}
       />
       <ItemContent>

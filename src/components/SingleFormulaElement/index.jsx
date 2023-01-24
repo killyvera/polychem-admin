@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { DataStore } from "@aws-amplify/datastore";
+import { Storage } from "aws-amplify";
 import Images from "../../constants/Images";
 import { FormulaElement } from "../../models";
 import { AppContext } from "../../contexts/AppContext";
@@ -52,6 +53,7 @@ const Info = ({ label, text }) => {
 
 const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [formulaElementImg, updateFormulaElementImg] = useState(null);
 
   const { products } = useContext(AppContext);
 
@@ -70,11 +72,26 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
     (product) => product.id === formulaElementData.productID
   );
 
+  const getFormulaElementAvatar = useCallback(async () => {
+    try {
+      const productImageLink = await Storage.get(
+        `formula-element/${formulaElementData.id}.png`
+      );
+      updateFormulaElementImg(productImageLink);
+    } catch (error) {
+      console.log("ERROR FORM DETAIL: ", error);
+    }
+  }, [formulaElementData]);
+
+  useEffect(() => {
+    getFormulaElementAvatar();
+  }, [getFormulaElementAvatar]);
+
   return (
     <Item>
       <Avatar
         alt="FormulaElement"
-        src={formulaElementData?.image || Images.ProductPlaceholder}
+        src={formulaElementImg || Images.ProductPlaceholder}
         sx={{ width: 56, height: 56 }}
       />
       <ItemContent>

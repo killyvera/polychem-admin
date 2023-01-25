@@ -12,6 +12,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CategoryIcon from "@mui/icons-material/Category";
 import WidgetsIcon from "@mui/icons-material/Widgets";
+import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 
 export const SideBar = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -63,6 +64,17 @@ export const SideBar = () => {
                     <ListAltIcon />
                   </ListItemIcon>
                   <ListItemText primary="Formularios" />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+
+            <Link style={{ textDecoration: "blink" }} to="/productions">
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => setIsDrawerOpen(false)}>
+                  <ListItemIcon>
+                    <PrecisionManufacturingIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Productions" />
                 </ListItemButton>
               </ListItem>
             </Link>

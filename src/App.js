@@ -12,6 +12,7 @@ import Users from "./pages/Users";
 import Forms from "./pages/Forms";
 import FormulaElements from "./pages/FormulaElements";
 import Products from "./pages/Products";
+import Productions from "./pages/Productions";
 
 import awsExports from "./aws-exports";
 
@@ -28,6 +29,7 @@ function App({ signOut, user }) {
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<Users />} />
           <Route path="/forms" element={<Forms />} />
+          <Route path="/productions" element={<Productions />} />
           <Route path="/products" element={<Products />} />
           <Route path="/formula-elements" element={<FormulaElements />} />
         </Routes>

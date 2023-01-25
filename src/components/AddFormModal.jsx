@@ -48,13 +48,14 @@ const initialFormData = (data) => ({
   expirationDate: data?.expirationDate || "",
   active: data?.active,
   sheduledID: data?.sheduledID || "",
+  formProductionId: data?.formProductionId || "",
   leadProduction: data?.leadProduction || "",
 });
 
 export default function AddFormModal(props) {
   const { modalStatus, toggleModalStatus } = props;
 
-  const { users } = useContext(AppContext);
+  const { users, productionsList } = useContext(AppContext);
 
   const [formData, updateFormData] = useState(initialFormData());
   const [isLoading, setIsLoading] = useState(false);
@@ -86,6 +87,7 @@ export default function AddFormModal(props) {
             updated.expirationDate = formData.expirationDate;
             updated.active = formData.active;
             updated.sheduledID = formData.sheduledID;
+            updated.formProductionId = formData.formProductionId;
             updated.leadProduction = formData.leadProduction;
           })
         );
@@ -101,6 +103,7 @@ export default function AddFormModal(props) {
             expirationDate: formData.expirationDate,
             active: formData.active,
             sheduledID: formData.sheduledID,
+            formProductionId: formData.formProductionId,
             leadProduction: formData.leadProduction,
           })
         );
@@ -248,6 +251,21 @@ export default function AddFormModal(props) {
               labelPlacement="start"
             />
           </Box>
+          <FormControl fullWidth variant="filled" style={{ marginTop: "1rem" }}>
+            <InputLabel htmlFor="formProductionId">Production Form</InputLabel>
+            <Select
+              id="form-production-id"
+              name="formProductionId"
+              value={formData.formProductionId}
+              onChange={handleInputChange}
+            >
+              {productionsList.map((production, i) => (
+                <MenuItem key={`production_${i}`} value={production.id}>
+                  {production.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <FormControl fullWidth variant="filled" style={{ marginTop: "1rem" }}>
             <InputLabel htmlFor="leadProduction">Lead Production</InputLabel>
             <Select

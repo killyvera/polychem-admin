@@ -53,7 +53,7 @@ const booleanToText = (b) => (b ? "Yes" : "No");
 const SingleForm = ({ formData, toggleModalStatus }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { users } = useContext(AppContext);
+  const { users, productionsList } = useContext(AppContext);
 
   const handleDeleteForm = async () => {
     try {
@@ -65,6 +65,10 @@ const SingleForm = ({ formData, toggleModalStatus }) => {
       setIsLoading(false);
     }
   };
+
+  const production = productionsList.find(
+    (production) => production.id === formData.formProductionId
+  );
 
   const productionLead = users.find(
     (user) => user.id === formData.leadProduction
@@ -105,8 +109,8 @@ const SingleForm = ({ formData, toggleModalStatus }) => {
                 text={new Date(formData.updatedAt).toLocaleDateString()}
               />
             )}
-            {formData.formProductionId && (
-              <Info label="Production ID" text={formData.formProductionId} />
+            {production && (
+              <Info label="Production Name" text={production.name} />
             )}
           </Box>
           {productionLead && (

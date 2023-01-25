@@ -6,11 +6,11 @@ import Divider from "@mui/material/Divider";
 import { AppContext } from "../contexts/AppContext";
 
 // Components
-import SingleForm from "../components/SingleForm";
-import AddFormModal from "../components/AddFormModal";
+import SingleProduction from "../components/SingleProduction";
+import AddProductionModal from "../components/AddProductionModal";
 
-function Forms() {
-  const { formsList } = useContext(AppContext);
+function Productions() {
+  const { productionsList } = useContext(AppContext);
 
   const [modalStatus, setOpen] = useState({ isOpen: false, data: null });
 
@@ -21,25 +21,25 @@ function Forms() {
   return (
     <Box sx={{ width: "100%" }}>
       <Typography variant="h4" component="h1" fontWeight="bold">
-        Forms
+        Productions
       </Typography>
       <Divider />
       <Box display="flex" justifyContent="flex-end" marginTop={2}>
         <Button variant="contained" onClick={() => toggleModalStatus(true)}>
-          Add New Form
+          Add New Production
         </Button>
       </Box>
       <Box marginTop={2}>
-        {formsList.map((form, i) => (
-          <SingleForm
-            key={`single_form_${i}`}
-            formData={form}
+        {productionsList.map((production, i) => (
+          <SingleProduction
+            key={`single_production_${i}`}
+            productionData={production}
             toggleModalStatus={toggleModalStatus}
           />
         ))}
       </Box>
       {modalStatus.isOpen && (
-        <AddFormModal
+        <AddProductionModal
           modalStatus={modalStatus}
           toggleModalStatus={toggleModalStatus}
         />
@@ -48,4 +48,4 @@ function Forms() {
   );
 }
 
-export default Forms;
+export default Productions;

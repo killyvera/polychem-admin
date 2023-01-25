@@ -141,15 +141,6 @@ export default function AddFormulaElementModal(props) {
           contentType: "image/png",
         }
       );
-      const formulaElementImageLink = await Storage.get(
-        `formula-element/${formulaElementId}.png`
-      );
-      const original = await DataStore.query(FormulaElement, formulaElementId);
-      await DataStore.save(
-        FormulaElement.copyOf(original, (updated) => {
-          updated.image = formulaElementImageLink;
-        })
-      );
       setIsLoading(false);
       toggleModalStatus(false);
     } catch (error) {

@@ -1,14 +1,11 @@
-import React, { useState, useContext, useCallback, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { DataStore } from "@aws-amplify/datastore";
-import { Storage } from "aws-amplify";
-import Images from "../../constants/Images";
-import { FormulaElement } from "../../models";
+import { Form } from "../../models";
 import { AppContext } from "../../contexts/AppContext";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -51,66 +48,77 @@ const Info = ({ label, text }) => {
   );
 };
 
-const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
+const booleanToText = (b) => (b ? "Yes" : "No");
+
+const SingleForm = ({ formData, toggleModalStatus }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formulaElementImg, updateFormulaElementImg] = useState(null);
 
-  const { products } = useContext(AppContext);
+  const { users } = useContext(AppContext);
 
-  const handleDeleteFormulaElement = async () => {
+  const handleDeleteForm = async () => {
     try {
       setIsLoading(true);
-      await DataStore.delete(FormulaElement, formulaElementData.id);
+      await DataStore.delete(Form, formData.id);
       setIsLoading(false);
     } catch (error) {
-      console.log("FormulaElement Delete Error: ", error);
+      console.log("Form Delete Error: ", error);
       setIsLoading(false);
     }
   };
 
-  const productData = products.find(
-    (product) => product.id === formulaElementData.productID
+  const productionLead = users.find(
+    (user) => user.id === formData.leadProduction
   );
-
-  const getFormulaElementAvatar = useCallback(async () => {
-    try {
-      const productImageLink = await Storage.get(
-        `formula-element/${formulaElementData.id}.png`
-      );
-      updateFormulaElementImg(productImageLink);
-    } catch (error) {
-      console.log("ERROR FORM DETAIL: ", error);
-    }
-  }, [formulaElementData]);
-
-  useEffect(() => {
-    getFormulaElementAvatar();
-  }, [getFormulaElementAvatar]);
 
   return (
     <Item>
-      <Avatar
-        alt="FormulaElement"
-        src={formulaElementImg || Images.ProductPlaceholder}
-        sx={{ width: 56, height: 56 }}
-      />
       <ItemContent>
         <Box flex={1}>
           <Typography component="h6" color="black" fontWeight="bold">
-            {formulaElementData.name}
+            {formData.name}
           </Typography>
           <Typography component="h6" color="black">
-            {formulaElementData.description}
+            {formData.description}
           </Typography>
-          <Box marginTop={2}>
-            <Info label="Quantity" text={`${formulaElementData.quantity} kg`} />
-            <Info label="Product Name" text={productData?.name || ""} />
+          <Box marginTop={2} display="flex" gap={3} alignItems="center">
+            <Info label="Planned" text={booleanToText(formData.planned)} />
+            <Info
+              label="Schedule Date"
+              text={new Date(formData.schedule).toLocaleDateString()}
+            />
           </Box>
+          <Box display="flex" gap={3} alignItems="center">
+            <Info label="Expired" text={booleanToText(formData.expire)} />
+            <Info
+              label="Expiration Date"
+              text={new Date(formData.expirationDate).toLocaleDateString()}
+            />
+          </Box>
+          <Box marginTop={2} display="flex" gap={3} alignItems="center">
+            <Info label="Sent" text={booleanToText(formData.sent)} />
+            <Info label="Active" text={booleanToText(formData.active)} />
+          </Box>
+          <Box marginTop={2}>
+            {formData.updatedAt && (
+              <Info
+                label="Last Updated At"
+                text={new Date(formData.updatedAt).toLocaleDateString()}
+              />
+            )}
+            {formData.formProductionId && (
+              <Info label="Production ID" text={formData.formProductionId} />
+            )}
+          </Box>
+          {productionLead && (
+            <Box marginTop={2} display="flex" gap={3} alignItems="center">
+              <Info label="Lead Production" text={productionLead.name} />
+            </Box>
+          )}
         </Box>
         <BtnContainer>
           <Button
             variant="contained"
-            onClick={() => toggleModalStatus(true, formulaElementData)}
+            onClick={() => toggleModalStatus(true, formData)}
             disabled={isLoading}
           >
             Edit
@@ -118,7 +126,7 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
           <Button
             variant="contained"
             sx={{ backgroundColor: "#f13737", marginLeft: "1rem" }}
-            onClick={handleDeleteFormulaElement}
+            onClick={handleDeleteForm}
             disabled={isLoading}
           >
             Delete
@@ -129,4 +137,4 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
   );
 };
 
-export default SingleFormulaElement;
+export default SingleForm;

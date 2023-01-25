@@ -1,6 +1,6 @@
 import { useEffect, createContext, useState } from "react";
 import { DataStore } from "@aws-amplify/datastore";
-import { Product, FormulaElement } from "../models";
+import { Product, FormulaElement, Form, Production } from "../models";
 import {
   usersList,
   deleteUser,
@@ -17,14 +17,20 @@ const initialDetails = () => ({
   updateProducts: () => {},
   formulaElements: [],
   updateFormulaElements: () => {},
+  formsList: [],
+  updateFormsList: () => {},
+  productionsList: [],
+  updateProductionsList: () => {},
 });
 
 export const AppContext = createContext(initialDetails());
 
 export const AppContextProvider = (props) => {
   const [users, updateUsers] = useState([]);
+  const [formsList, updateFormsList] = useState([]);
   const [products, updateProducts] = useState([]);
   const [formulaElements, updateFormulaElements] = useState([]);
+  const [productionsList, updateProductionsList] = useState([]);
 
   const addUser = (phone, email, name, perfil, puesto, departamento) => {
     createUser(phone, email, name, perfil, puesto, departamento)
@@ -80,6 +86,34 @@ export const AppContextProvider = (props) => {
     }
   };
 
+  const getProductionsList = async () => {
+    try {
+      const subscription = DataStore.observeQuery(Production).subscribe(
+        (snapshot) => {
+          const { items } = snapshot;
+          updateProductionsList(items);
+        }
+      );
+      return subscription;
+    } catch (error) {
+      console.log("Productions Error: ", error);
+    }
+  };
+
+  const getFormsList = async () => {
+    try {
+      const subscription = DataStore.observeQuery(Form).subscribe(
+        (snapshot) => {
+          const { items } = snapshot;
+          updateFormsList(items);
+        }
+      );
+      return subscription;
+    } catch (error) {
+      console.log("Forms Error: ", error);
+    }
+  };
+
   const getProducts = async () => {
     try {
       const subscription = DataStore.observeQuery(Product).subscribe(
@@ -112,6 +146,8 @@ export const AppContextProvider = (props) => {
     getUsers();
     const productsSubscription = getProducts();
     const formulaElementsSubscription = getFormulaElements();
+    const formsListSubscription = getFormsList();
+    const productionsListSubscription = getProductionsList();
 
     return () => {
       if (productsSubscription) {
@@ -119,6 +155,12 @@ export const AppContextProvider = (props) => {
       }
       if (formulaElementsSubscription) {
         formulaElementsSubscription.unsubscribe();
+      }
+      if (formsListSubscription) {
+        formsListSubscription.unsubscribe();
+      }
+      if (productionsListSubscription) {
+        productionsListSubscription.unsubscribe();
       }
     };
   }, []);
@@ -134,6 +176,10 @@ export const AppContextProvider = (props) => {
         updateProducts,
         formulaElements,
         updateFormulaElements,
+        formsList,
+        updateFormsList,
+        productionsList,
+        updateProductionsList,
       }}
     >
       {props.children}

@@ -1,15 +1,12 @@
-import React, { useState, useContext, useCallback, useEffect } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import { DataStore } from "@aws-amplify/datastore";
-import { Storage } from "aws-amplify";
-import Images from "../../constants/Images";
-import { FormulaElement } from "../../models";
-import { AppContext } from "../../contexts/AppContext";
+import { Production } from "../../models";
+import { numberToCommas } from "../../utils";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -51,66 +48,60 @@ const Info = ({ label, text }) => {
   );
 };
 
-const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
+const SingleProduction = ({ productionData, toggleModalStatus }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [formulaElementImg, updateFormulaElementImg] = useState(null);
 
-  const { products } = useContext(AppContext);
-
-  const handleDeleteFormulaElement = async () => {
+  const handleDeleteProduction = async () => {
     try {
       setIsLoading(true);
-      await DataStore.delete(FormulaElement, formulaElementData.id);
+      await DataStore.delete(Production, productionData.id);
       setIsLoading(false);
     } catch (error) {
-      console.log("FormulaElement Delete Error: ", error);
+      console.log("Production Delete Error: ", error);
       setIsLoading(false);
     }
   };
 
-  const productData = products.find(
-    (product) => product.id === formulaElementData.productID
-  );
-
-  const getFormulaElementAvatar = useCallback(async () => {
-    try {
-      const productImageLink = await Storage.get(
-        `formula-element/${formulaElementData.id}.png`
-      );
-      updateFormulaElementImg(productImageLink);
-    } catch (error) {
-      console.log("ERROR FORM DETAIL: ", error);
-    }
-  }, [formulaElementData]);
-
-  useEffect(() => {
-    getFormulaElementAvatar();
-  }, [getFormulaElementAvatar]);
-
   return (
     <Item>
-      <Avatar
-        alt="FormulaElement"
-        src={formulaElementImg || Images.ProductPlaceholder}
-        sx={{ width: 56, height: 56 }}
-      />
       <ItemContent>
         <Box flex={1}>
           <Typography component="h6" color="black" fontWeight="bold">
-            {formulaElementData.name}
+            {productionData.name}
           </Typography>
-          <Typography component="h6" color="black">
-            {formulaElementData.description}
-          </Typography>
-          <Box marginTop={2}>
-            <Info label="Quantity" text={`${formulaElementData.quantity} kg`} />
-            <Info label="Product Name" text={productData?.name || ""} />
+          <Box marginTop={2} display="flex" gap={3} alignItems="center">
+            <Info
+              label="Expected Units"
+              text={numberToCommas(productionData?.expectedUnits || 0)}
+            />
+            <Info
+              label="Expected Packages"
+              text={numberToCommas(productionData?.expectedPackages || 0)}
+            />
           </Box>
+          <Box display="flex" gap={3} alignItems="center">
+            <Info
+              label="Expected Pallets"
+              text={numberToCommas(productionData?.expectedPallets || 0)}
+            />
+            <Info
+              label="Extra Units"
+              text={numberToCommas(productionData?.extraUnits || 0)}
+            />
+          </Box>
+          <Box marginTop={2} display="flex" gap={3} alignItems="center">
+            <Info label="Product Name" text={productionData?.Product?.name} />
+          </Box>
+          {productionData?.notes && (
+            <Box marginTop={2} display="flex" gap={3} alignItems="center">
+              <Info label="Notes" text={productionData?.notes} />
+            </Box>
+          )}
         </Box>
         <BtnContainer>
           <Button
             variant="contained"
-            onClick={() => toggleModalStatus(true, formulaElementData)}
+            onClick={() => toggleModalStatus(true, productionData)}
             disabled={isLoading}
           >
             Edit
@@ -118,7 +109,7 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
           <Button
             variant="contained"
             sx={{ backgroundColor: "#f13737", marginLeft: "1rem" }}
-            onClick={handleDeleteFormulaElement}
+            onClick={handleDeleteProduction}
             disabled={isLoading}
           >
             Delete
@@ -129,4 +120,4 @@ const SingleFormulaElement = ({ formulaElementData, toggleModalStatus }) => {
   );
 };
 
-export default SingleFormulaElement;
+export default SingleProduction;

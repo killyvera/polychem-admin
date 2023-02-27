@@ -45,6 +45,7 @@ const initialFormData = (data) => ({
   schedule: data?.schedule || "",
   sent: data?.sent,
   expire: data?.expire,
+  planned: data?.planned,
   expirationDate: data?.expirationDate || "",
   active: data?.active,
   sheduledID: data?.sheduledID || "",
@@ -81,10 +82,14 @@ export default function AddFormModal(props) {
             updated.name = formData.formName;
             updated.description = formData.description;
             updated.quantity = formData.quantity;
-            updated.schedule = formData.schedule;
+            if (formData.planned && formData.schedule) {
+              updated.schedule = formData.schedule;
+            }
             updated.sent = formData.sent;
             updated.expire = formData.expire;
-            updated.expirationDate = formData.expirationDate;
+            if (formData.expire && formData.expirationDate) {
+              updated.expirationDate = formData.expirationDate;
+            }
             updated.active = formData.active;
             updated.sheduledID = formData.sheduledID;
             updated.formProductionId = formData.formProductionId;
@@ -92,21 +97,24 @@ export default function AddFormModal(props) {
           })
         );
       } else {
-        await DataStore.save(
-          new Form({
-            name: formData.formName,
-            description: formData.description,
-            quantity: formData.quantity,
-            schedule: formData.schedule,
-            sent: formData.sent,
-            expire: formData.expire,
-            expirationDate: formData.expirationDate,
-            active: formData.active,
-            sheduledID: formData.sheduledID,
-            formProductionId: formData.formProductionId,
-            leadProduction: formData.leadProduction,
-          })
-        );
+        const newForm = {
+          name: formData.formName,
+          description: formData.description,
+          quantity: formData.quantity,
+          sent: formData.sent,
+          expire: formData.expire,
+          active: formData.active,
+          sheduledID: formData.sheduledID,
+          formProductionId: formData.formProductionId,
+          leadProduction: formData.leadProduction,
+        };
+        if (formData.planned && formData.schedule) {
+          newForm.schedule = formData.schedule;
+        }
+        if (formData.expire && formData.expirationDate) {
+          newForm.expirationDate = formData.expirationDate;
+        }
+        await DataStore.save(new Form(newForm));
       }
       setIsLoading(false);
       toggleModalStatus(false);
